@@ -6,7 +6,7 @@ def read_concentrado():
     # create a dictionany to hold dataframes
     df = {}
     for year in years:
-        df[year] = pd.read_excel('concentrado_base_CMAT.xlsx', sheet_name=f'20{year}')
+        df[year] = pd.read_excel('data/onedrive/concentrado_base_CMAT.xlsx', sheet_name=f'20{year}')
         df[year]['Year'] = 2000 + year
 
     frames = [df[y] for y in years if y in df]
