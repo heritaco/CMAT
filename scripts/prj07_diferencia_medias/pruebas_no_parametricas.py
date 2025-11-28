@@ -10,7 +10,7 @@ from scipy import stats
 
 
 
-def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Calificación', PATH=None, MATERIA=None):
+def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Salón', PATH=None, MATERIA=None):
     n1, n2 = len(group1), len(group2)
 
     # 1) Mann–Whitney U (Wilcoxon rank-sum)
@@ -155,6 +155,8 @@ def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Ca
     plt.title(f'Comparación robusta de Distribuciones de Calificaciones por {estudiante_o_calificacion}')
     plt.xlabel('Calificación Estandarizada (KDE, Z-score)')
     plt.ylabel('Densidad de Calificaciones')
+    if estudiante_o_calificacion == 'Estudiante':
+        plt.ylabel('Densidad de la Media de Calificaciones')
     plt.legend(loc='upper left')
     plt.xlim(-4, 2)
     if MATERIA is not None:

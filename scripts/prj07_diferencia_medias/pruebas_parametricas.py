@@ -63,6 +63,9 @@ def pruebas_parametricas(group1, group2, split, estudiante_o_calificacion='Saló
     plt.title(f'Comparación de Distribuciones de Calificaciones por {estudiante_o_calificacion}')
     plt.xlabel('Calificación Estandarizada (KDE, Z-score)')
     plt.ylabel('Densidad de Calificaciones')
+    if estudiante_o_calificacion == 'Estudiante':
+        plt.ylabel('Densidad de la Media de Calificaciones')
+    
     plt.vlines(x=group1.mean(), ymin=0, ymax=1.2, colors='blue', linestyles='-', label=f'Media de más de {split} {keyword}: {group1.mean():.2f}', alpha=0.7)
     plt.vlines(x=group2.mean(), ymin=0, ymax=1.2, colors='orange', linestyles='-', label=f'Media de menos de {split} {keyword}: {group2.mean():.2f}', alpha=0.7)
     plt.legend(loc='upper left')

@@ -50,14 +50,15 @@ def salon(ultramerge, split, PATH, MATERIA=None):
 def estudiante_ultramerge_means(ultramerge_means, split, PATH):
     # SCATTERPLOT, x=VISITAS, y=IMPKDE_Z
     # remove the border of each point with sns.scatterplot
-    sns.scatterplot(data=ultramerge_means[ultramerge_means['VISITAS'] > split], x='VISITAS', y='MEAN_IMPKDE_Z', alpha=0.5, label=f'Más de {split} visitas', edgecolor=None)
-    sns.scatterplot(data=ultramerge_means[ultramerge_means['VISITAS'] <= split], x='VISITAS', y='MEAN_IMPKDE_Z', alpha=0.5, label=f'{split} o menos visitas', edgecolor=None)
+    keyword = 'visitas' if split != 1 else 'visita'
+    sns.scatterplot(data=ultramerge_means[ultramerge_means['VISITAS'] > split], x='VISITAS', y='MEAN_IMPKDE_Z', alpha=0.5, label=f'Más de {split} {keyword}', edgecolor=None)
+    sns.scatterplot(data=ultramerge_means[ultramerge_means['VISITAS'] <= split], x='VISITAS', y='MEAN_IMPKDE_Z', alpha=0.5, label=f'Menos de {split} {keyword}', edgecolor=None)
 
 
     plt.title('Relación entre Número de visitas y Calificación por Estudiante')
     plt.xlabel('Número de Visitas')
-    plt.ylabel('Calificación Estandarizada (KDE, Z-score)')
-    plt.legend()
+    plt.ylabel('Media de Calificaciones Estandarizadas (KDE, Z-score)')
+    plt.legend(loc='lower right')
 
     plt.savefig(PATH + '08_00.pdf', bbox_inches='tight')
 
