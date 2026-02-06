@@ -1,10 +1,13 @@
 import numpy as np
 import pandas as pd
 
+
 def clean_materias_df(materias: pd.DataFrame) -> pd.DataFrame:
     # IF CLAVEPROFESOR is nan and 'CLAVEALUMNO', 'CLAVEVARIANTEMATERIA', 'CALIFICACION' are the same, drop that row
-    materias.sort_values(by=['CLAVEALUMNO', 'CLAVEVARIANTEMATERIA', 'CALIFICACION', 'CLAVEPROFESOR'], inplace=True)
-    materias.drop_duplicates(subset=['CLAVEALUMNO', 'CLAVEVARIANTEMATERIA', 'CALIFICACION'], keep='first', inplace=True, ignore_index=True)
+    materias.sort_values(by=['CLAVEALUMNO', 'CLAVEVARIANTEMATERIA',
+                         'CALIFICACION', 'CLAVEPROFESOR'], inplace=True)
+    materias.drop_duplicates(subset=['CLAVEALUMNO', 'CLAVEVARIANTEMATERIA',
+                             'CALIFICACION'], keep='first', inplace=True, ignore_index=True)
 
     # drop NUMORDEN column
     materias.drop(columns=['NUMORDEN'], inplace=True)
@@ -15,10 +18,12 @@ def clean_materias_df(materias: pd.DataFrame) -> pd.DataFrame:
     materias['CLAVEPROFESOR'] = materias['CLAVEPROFESOR'].astype(int)
     return materias
 
+
 def _silverman_bandwidth(x):
     x = np.asarray(x, dtype=float)
     n = len(x)
-    if n < 2: return 0.1
+    if n < 2:
+        return 0.1
     sd = np.std(x, ddof=1)
     q75, q25 = np.percentile(x, [75, 25])
     iqr = q75 - q25
@@ -26,11 +31,13 @@ def _silverman_bandwidth(x):
     h = 0.9 * s * n**(-1/5)
     return max(h, 1e-3)
 
+
 def _sample_kde_truncated(x_obs, size, low=0.0, high=7.5, rng=None):
     rng = np.random.default_rng() if rng is None else rng
     x_obs = np.asarray(x_obs, dtype=float)
     h = _silverman_bandwidth(x_obs)
-    out = np.empty(size, dtype=float); k = 0
+    out = np.empty(size, dtype=float)
+    k = 0
     while k < size:
         batch = size - k
         idx = rng.integers(0, len(x_obs), size=batch)
@@ -43,15 +50,18 @@ def _sample_kde_truncated(x_obs, size, low=0.0, high=7.5, rng=None):
             k += take
     return out
 
+
 def _sample_empirical(x_obs, size, rng=None):
     rng = np.random.default_rng() if rng is None else rng
     x_obs = np.asarray(x_obs, dtype=float)
     return rng.choice(x_obs, size=size, replace=True)
 
+
 def impute_nans_from_pre75_kde_df(
     df, value_col='CALIFICACION', out_col='IMPKDE',
     low=0.0, high=7.4, min_kde_n=20, seed=42,
-    fallback='uniform',           # 'constant' | 'global' | 'parametric' | 'leave' | 'uniform'
+    # 'constant' | 'global' | 'parametric' | 'leave' | 'uniform'
+    fallback='uniform',
     constant_value=6.5,
     prefer_empirical_if_small=True,
     global_source=None,
@@ -70,21 +80,26 @@ def impute_nans_from_pre75_kde_df(
     obs_pre = num[~num.isna() & (num <= high)]
 
     def _borrow_pool():
-        src = pd.to_numeric(global_source, errors='coerce') if global_source is not None else num
+        src = pd.to_numeric(
+            global_source, errors='coerce') if global_source is not None else num
         return src[(~src.isna()) & (src <= high)]
 
     if len(obs_pre) >= min_kde_n:
-        draws = _sample_kde_truncated(obs_pre.values, need, low=low, high=high, rng=rng)
+        draws = _sample_kde_truncated(
+            obs_pre.values, need, low=low, high=high, rng=rng)
     elif 0 < len(obs_pre) < min_kde_n:
-        draws = np.clip(_sample_empirical(obs_pre.values, need, rng=rng), low, high)
+        draws = np.clip(_sample_empirical(
+            obs_pre.values, need, rng=rng), low, high)
     else:
         # No mass in [low, high]; choose fallback
         if fallback == 'global':
             pool = _borrow_pool()
             if len(pool) >= min_kde_n:
-                draws = _sample_kde_truncated(pool.values, need, low=low, high=high, rng=rng)
+                draws = _sample_kde_truncated(
+                    pool.values, need, low=low, high=high, rng=rng)
             elif len(pool) > 0:
-                draws = np.clip(_sample_empirical(pool.values, need, rng=rng), low, high)
+                draws = np.clip(_sample_empirical(
+                    pool.values, need, rng=rng), low, high)
             else:
                 draws = np.full(need, min(constant_value, high))
         elif fallback == 'parametric':
@@ -119,7 +134,6 @@ def impute_nans_from_pre75_kde_df(
     np.clip(vals, low, high, out=vals)
     df.loc[nan_mask, out_col] = vals
     return df
-
 
 
 def get_salones_with_imputations(materias):
@@ -185,19 +199,20 @@ def get_salones_with_imputations(materias):
 
 def limpieza_datos():
 
-    materias = pd.read_excel('data/onedrive/Archivos2024/Materias estudiantes-profesores 2019-2025 P y O.xlsx')
+    materias = pd.read_excel(
+        'data/onedrive/Archivos2024/Materias estudiantes-profesores 2019-2025 P y O.xlsx')
     materias_copy = materias.copy()
 
     materias = clean_materias_df(materias)
-    
+
     asesorias = pd.read_excel('data/onedrive/Archivos2024/Asesorias2024.xlsx')
 
     # count how many times each id appears in 'id' column
     asesoria_counts = asesorias['id'].value_counts()
 
     # if id in materias['CLAVEALUMNO'] but not in asesoria_counts, assign 0 in materias_counts
-    asesoria_counts = asesoria_counts.reindex(materias['CLAVEALUMNO'].unique(), fill_value=0)
-
+    asesoria_counts = asesoria_counts.reindex(
+        materias['CLAVEALUMNO'].unique(), fill_value=0)
 
     # if the id of asesorias_counts is in materias['CLAVEALUMNO'], map the count to a new column 'VISITAS' in materias
     materias['VISITAS'] = materias['CLAVEALUMNO'].map(asesoria_counts)
@@ -208,13 +223,18 @@ def limpieza_datos():
     salones = get_salones_with_imputations(materias)
 
     ultramerge = pd.concat(salones.values(), ignore_index=True)
-    ultramerge['CALIFICACION'] = pd.to_numeric(ultramerge['CALIFICACION'], errors='coerce')
+    ultramerge['CALIFICACION'] = pd.to_numeric(
+        ultramerge['CALIFICACION'], errors='coerce')
 
     # get the mean of each CLAVEALUMNO in ultramerge
-    ultramerge_means = ultramerge.groupby('CLAVEALUMNO')['IMPKDE_Z'].mean().reset_index()
-    ultramerge_means.rename(columns={'IMPKDE_Z': 'MEAN_IMPKDE_Z'}, inplace=True)
-    ultramerge_means = ultramerge_means.merge(materias[['CLAVEALUMNO', 'VISITAS']].drop_duplicates(), on='CLAVEALUMNO', how='left')
-    ultramerge['CALIFICACION'] = pd.to_numeric(ultramerge['CALIFICACION'], errors='coerce')
+    ultramerge_means = ultramerge.groupby(
+        'CLAVEALUMNO')['IMPKDE_Z'].mean().reset_index()
+    ultramerge_means.rename(
+        columns={'IMPKDE_Z': 'MEAN_IMPKDE_Z'}, inplace=True)
+    ultramerge_means = ultramerge_means.merge(
+        materias[['CLAVEALUMNO', 'VISITAS']].drop_duplicates(), on='CLAVEALUMNO', how='left')
+    ultramerge['CALIFICACION'] = pd.to_numeric(
+        ultramerge['CALIFICACION'], errors='coerce')
     # ultramerge_means.sort_values(by='MEAN_IMPKDE_Z', ascending=False).head(10)
 
     return ultramerge, ultramerge_means

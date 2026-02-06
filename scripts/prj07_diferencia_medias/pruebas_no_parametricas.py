@@ -1,26 +1,23 @@
 import numpy as np
-
 import matplotlib.pyplot as plt
-
 import seaborn as sns
-
 from scipy import stats
-
-
-
 
 
 def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Salón', PATH=None, MATERIA=None):
     n1, n2 = len(group1), len(group2)
 
     # 1) Mann–Whitney U (Wilcoxon rank-sum)
-    U, p_mw = stats.mannwhitneyu(group1, group2, alternative='two-sided', method='auto')
+    U, p_mw = stats.mannwhitneyu(
+        group1, group2, alternative='two-sided', method='auto')
     U_star = max(U, n1*n2 - U)                       # for CL
-    CL = U_star / (n1*n2)                            # common-language effect size
+    # common-language effect size
+    CL = U_star / (n1*n2)
     r_rb = 2*CL - 1                                  # rank-biserial correlation
 
     # 2) Brunner–Munzel
-    bm_stat, p_bm = stats.brunnermunzel(group1, group2, alternative='two-sided')
+    bm_stat, p_bm = stats.brunnermunzel(
+        group1, group2, alternative='two-sided')
 
     # 3) Robust median shift with bootstrap CI
     def bootstrap_diff_median(x, y, B=10000, seed=0):
@@ -41,13 +38,14 @@ def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Sa
         return np.median(x) - np.median(y)
 
     perm = stats.permutation_test((group1, group2), stat_median,
-                                n_resamples=5000, alternative='two-sided',
-                                random_state=42)
+                                  n_resamples=5000, alternative='two-sided',
+                                  random_state=42)
     p_perm_med = perm.pvalue
 
     # 5) Cliff's delta (approx if very large)
     def cliffs_delta(x, y, max_pairs=5_000_000, seed=0):
-        x = np.asarray(x); y = np.asarray(y)
+        x = np.asarray(x)
+        y = np.asarray(y)
         n1, n2 = len(x), len(y)
         rng = np.random.default_rng(seed)
         if n1*n2 > max_pairs:
@@ -86,11 +84,12 @@ def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Sa
         lower, upper = np.quantile(boot_stats, [alpha/2, 1 - alpha/2])
         return (lower, upper), boot_stats
 
-    U, p_mw = stats.mannwhitneyu(group1, group2, alternative='two-sided', method='auto')
+    U, p_mw = stats.mannwhitneyu(
+        group1, group2, alternative='two-sided', method='auto')
     U_star = max(U, n1*n2 - U)                       # for CL
-    CL = U_star / (n1*n2)                            # common-language effect size
+    # common-language effect size
+    CL = U_star / (n1*n2)
     r_rb = 2*CL - 1                                  # rank-biserial correlation
-
 
     def stat_CL(x, y):
         n1, n2 = len(x), len(y)
@@ -100,26 +99,30 @@ def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Sa
         return CL
 
     # Bootstrap CI for CL
-    ci_CL, _ = bootstrap_ci_two_sample(group1, group2, stat_CL, B=4000, seed=123)
+    ci_CL, _ = bootstrap_ci_two_sample(
+        group1, group2, stat_CL, B=4000, seed=123)
 
     # From CL we derive r_rb, so we can bootstrap it directly as well:
     def stat_r_rb(x, y):
         cl = stat_CL(x, y)
         return 2*cl - 1
 
-    ci_r_rb, _ = bootstrap_ci_two_sample(group1, group2, stat_r_rb, B=4000, seed=123)
+    ci_r_rb, _ = bootstrap_ci_two_sample(
+        group1, group2, stat_r_rb, B=4000, seed=123)
 
     def stat_delta(x, y):
         return cliffs_delta(x, y)
 
-    ci_delta, _ = bootstrap_ci_two_sample(group1, group2, stat_delta, B=400, seed=456)
+    ci_delta, _ = bootstrap_ci_two_sample(
+        group1, group2, stat_delta, B=400, seed=456)
 
     dmed, ci_med, _ = bootstrap_diff_median(group1, group2, B=800, seed=42)
 
     def stat_median_diff(x, y):
         return np.median(x) - np.median(y)
 
-    ci_med2, diffs = bootstrap_ci_two_sample(group1, group2, stat_median_diff, B=800, seed=42)
+    ci_med2, diffs = bootstrap_ci_two_sample(
+        group1, group2, stat_median_diff, B=800, seed=42)
     dmed2 = stat_median_diff(group1, group2)
 
     m1, m2 = np.median(group1), np.median(group2)
@@ -147,12 +150,17 @@ def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Sa
         keyword = 'visita'
     else:
         keyword = 'visitas'
-    sns.kdeplot(group1, cut=0, bw_adjust=0.5, fill=True, alpha=0.3, label=f'Más de {split} {keyword} ({perc1:.2f}%)')
-    sns.kdeplot(group2, cut=0, bw_adjust=0.5, fill=True, alpha=0.3, label=f'Menos de {split} {keyword} ({perc2:.2f}%)')
-    
-    plt.vlines(x=group1.mean(), ymin=0, ymax=1.2, colors='blue', linestyles='-', label=f'Mediana de más de {split} {keyword}: {m1:.2f}', alpha=0.7)
-    plt.vlines(x=group2.mean(), ymin=0, ymax=1.2, colors='orange', linestyles='-', label=f'Mediana de menos de {split} {keyword}: {m2:.2f}', alpha=0.7)
-    plt.title(f'Comparación robusta de Distribuciones de Calificaciones por {estudiante_o_calificacion}')
+    sns.kdeplot(group1, cut=0, bw_adjust=0.5, fill=True, alpha=0.3,
+                label=f'Más de {split} {keyword} ({perc1:.2f}%)')
+    sns.kdeplot(group2, cut=0, bw_adjust=0.5, fill=True, alpha=0.3,
+                label=f'Menos de {split} {keyword} ({perc2:.2f}%)')
+
+    plt.vlines(x=group1.mean(), ymin=0, ymax=1.2, colors='blue', linestyles='-',
+               label=f'Mediana de más de {split} {keyword}: {m1:.2f}', alpha=0.7)
+    plt.vlines(x=group2.mean(), ymin=0, ymax=1.2, colors='orange', linestyles='-',
+               label=f'Mediana de menos de {split} {keyword}: {m2:.2f}', alpha=0.7)
+    plt.title(
+        f'Comparación robusta de Distribuciones de Calificaciones por {estudiante_o_calificacion}')
     plt.xlabel('Calificación Estandarizada (KDE, Z-score)')
     plt.ylabel('Densidad de Calificaciones')
     if estudiante_o_calificacion == 'Estudiante':
@@ -161,5 +169,6 @@ def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Sa
     plt.xlim(-4, 2)
     if MATERIA is not None:
         plt.suptitle(f'Materia: {MATERIA}', y=1.02, fontsize=16)
-    plt.savefig(f'{PATH}08_NoParametricos_{estudiante_o_calificacion}.pdf', bbox_inches='tight')
+    plt.savefig(
+        f'{PATH}08_NoParametricos_{estudiante_o_calificacion}.pdf', bbox_inches='tight')
     plt.show()
