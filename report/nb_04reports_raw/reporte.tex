@@ -1,5 +1,6 @@
 \documentclass[8pt,a4paper]{article} % Compila con lualatex o xelatex
 
+\usepackage[spanish]{babel}
 % --- Layout & links ---
 \usepackage[margin=1.5in]{geometry}
 \usepackage[hidelinks]{hyperref}
@@ -64,9 +65,7 @@
 \begin{titlepage}
   \centering
   \vspace*{4cm}
-  {\Huge\bfseries CMAT\par}
-  \vspace{2cm}
-  {\Large Nombre del autor\par}
+  {\Huge\bfseries Centro de Apredizaje de Matemáticas\par}
   \vspace{1cm}
   {\large Universidad de las Américas Puebla\par}
   \vfill
@@ -79,6 +78,7 @@ Este documento evalúa la asociación entre el uso del CMAT (Centro de Matemáti
 \end{abstract}
 
 % --- Tabla de contenidos ---
+\newpage
 \tableofcontents
 \thispagestyle{empty}
 \newpage
@@ -96,6 +96,15 @@ Se hace de esta forma porque han habido profesores que cambian su forma de evalu
 
 Bajo esta definición, dos secciones de la misma materia con el mismo profesor en el mismo periodo se tratan como una sola unidad de evaluación (un mismo ``marco de calificación'').
 En cambio, si el mismo profesor imparte la misma materia en periodos distintos, se consideran aulas distintas, precisamente para capturar cambios intertemporales en nivel promedio, dispersión o forma de la distribución de calificaciones.
+
+\subsection{Estructura del conjunto de datos y limpieza}
+El conjunto analítico se construye de forma que no existan ambigüedades en la unidad de observación:
+\begin{itemize}
+  \item \textbf{No hay alumnos repetidos en una misma aula}: para cada par (estudiante, aula) se conserva un único registro, evitando duplicidades dentro de la misma unidad docente--materia--periodo.
+  \item \textbf{Se eliminaron registros de alumnos con doble licenciatura}, para reducir mezcla de trayectorias curriculares y posibles esquemas de evaluación/avance que no sean comparables con el resto.
+  \item \textbf{Se mantienen las calificaciones de alumnos que reprobaron}: no se excluyen reprobados, ya que eliminarlos induciría un sesgo de supervivencia y distorsionaría tanto promedios como colas de la distribución.
+\end{itemize}
+Estas decisiones buscan que las distribuciones por aula y por profesor reflejen el comportamiento real del sistema, incluyendo casos de bajo desempeño.
 
 \subsection{Estandarización: por qué y cómo}
 El problema práctico es la comparabilidad: distintos docentes (o el mismo docente en años distintos) pueden asignar calificaciones con severidad diferente.
@@ -164,7 +173,7 @@ La consecuencia práctica es un desbalance notable de tamaños muestrales; por e
 \section{\texorpdfstring{¿Mejoran su desempeño?}{Mejoran su desempeno?}}
 A partir del umbral mostrado en \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}}, se comparan distribuciones de desempeño entre grupos.
 Conceptualmente, $>3$ visitas busca capturar un patrón de uso que no se reduce al incentivo mínimo (PPA1), mientras que $\le 3$ incluye a quienes no usan el servicio o lo usan de manera limitada (incluyendo quienes podrían haber ido exactamente tres veces para obtener puntos).
-Esta distinción reduce ambigüedad interpretativa: una diferencia a favor del grupo $>3$ visitas puede leerse como asociación con uso adicional, no solo con cumplimiento del mínimo.
+Esta distinción reduce ambigüedad interpretativa: una diferencia a favor del grupo $>3$ visitas se alinea con uso adicional, no solo con cumplimiento del mínimo.
 
 \subsection{\texorpdfstring{¿Cómo se mide el desempeño de forma comparable?}{Como se mide el desempeno de forma comparable?}}
 Antes de comparar grupos por visitas, se resuelven dos obstáculos que afectan comparabilidad:
@@ -183,28 +192,29 @@ Sup: Con sus calificaciones, pero utilizando una escala estandarizada por aula (
 \newpage
 \section{Calificaciones}
 
-\subsection{\texorpdfstring{¿Por qué hay valores faltantes?}{Por que hay valores faltantes?}}
-Los estudiantes tienen la opción de no recibir calificación.
-
-Sup: Los estudiantes evitan recibir calificación cuando anticipan que no aprobarán el curso.
-
-Este punto es relevante porque, si los faltantes se concentran en cierto tramo del desempeño (por ejemplo, estudiantes con alta probabilidad de reprobar), entonces ignorarlos o imputarlos puede cambiar sustancialmente la forma de la distribución y, con ello, cualquier comparación posterior entre grupos de visitas.
+\subsection{\texorpdfstring{¿Qué significa ``sin calificación''?}{Que significa sin calificacion?}}
+En este conjunto de datos, ``sin calificación'' corresponde a que el estudiante \textbf{dio de baja la materia}.
+Los alumnos tienen la oportunidad de dar de baja antes de cierto periodo; al hacerlo, \textbf{no reciben calificación final} en esa materia.
+Esto es importante porque este tipo de ausencia suele concentrarse en situaciones específicas (por ejemplo, cambios de carga, decisiones estratégicas o anticipación de un resultado desfavorable), por lo que no debe asumirse como un faltante aleatorio sin más.
 
 \subsection{Imputación de valores faltantes: comparación visual}
 En \hyperref[fig:imp_metodos]{Figura~\ref{fig:imp_metodos}} se comparan tres tratamientos:
 \begin{itemize}
-  \item \textbf{Eliminada}: se descartan registros sin calificación.
+  \item \textbf{Eliminada}: se descartan registros sin calificación (bajas).
   \item \textbf{Media}: se imputan faltantes con el promedio del salón.
   \item \textbf{KDE}: se imputan faltantes usando una estimación de densidad.
 \end{itemize}
 
 La lectura es directa: las tres curvas representan cómo se vería la distribución de calificaciones bajo cada decisión.
-Imputar por media tiende a concentrar masa en un valor puntual (el promedio), mientras que KDE preserva una estructura suave de la distribución al aproximar densidad a partir de los datos observados.
+Un punto crítico es que imputar con un valor fijo o altamente concentrado (por ejemplo, imputar alrededor de 7.5) puede introducir \textbf{picos artificiales} que no existían en los datos observados, alterando la forma de la distribución y sesgando comparaciones posteriores.
+Por ello se usa KDE: su objetivo es \textbf{preservar la forma global} de la distribución (modos, colas y asimetrías) sin crear masa puntual nueva.
+
 Formalmente, si $x_1,\dots,x_n$ son observaciones (calificaciones) y $K$ es un kernel, entonces
 \[
 \hat f_h(x)=\frac{1}{nh}\sum_{i=1}^n K\!\left(\frac{x-x_i}{h}\right),
 \]
-donde $h>0$ es el ancho de banda; en la práctica, $h$ controla qué tan suave queda la curva y, por tanto, la sensibilidad a picos/colas.
+donde $h>0$ es el ancho de banda; en la práctica, $h$ controla el suavizado y, por tanto, qué tan sensible queda la densidad a picos locales.
+En este contexto, KDE se usa como estrategia para imputar sin ``apilar'' valores en un punto, evitando cambios estructurales fuertes en la distribución.
 
 \begin{figure}[!htbp]
     \centering
@@ -270,8 +280,8 @@ El conjunto de curvas (una por docente) muestra variación en picos, dispersión
 \end{figure}
 
 En \hyperref[fig:prof_con_kde]{Figura~\ref{fig:prof_con_kde}} las tasas cambian a ``Reprobados: 20.33\%'' y ``Aprobados: 79.67\%''.
-Esto ilustra que la forma de tratar faltantes no es un detalle menor: puede modificar la masa en la zona baja y alterar proporciones agregadas.
-Por ello, las comparaciones posteriores en Z-score se interpretan como dependientes de la estrategia de imputación documentada.
+Esto ilustra que la forma de tratar bajas (sin calificación) no es un detalle menor: puede modificar la masa en la zona baja y alterar proporciones agregadas.
+Por ello, las comparaciones posteriores en Z-score se interpretan como dependientes de la estrategia de imputación documentada, y KDE se usa para minimizar alteraciones estructurales (por ejemplo, evitar picos nuevos por imputación puntual).
 
 \subsection{Agrupamiento y distancias entre profesores}
 La \hyperref[fig:ks_kmedoids]{Figura~\ref{fig:ks_kmedoids}} incluye una matriz KS entre profesores y diagnósticos para elegir $k$ en \textit{k-medoids}.
@@ -381,7 +391,7 @@ Esto reduce el sesgo por diferencias de severidad entre aulas y evita confundir 
 En \hyperref[fig:salon_scatter]{Figura~\ref{fig:salon_scatter}} el eje $x$ es el número de visitas (0--120) y el eje $y$ es la calificación estandarizada (KDE, Z-score).
 La leyenda distingue los grupos de visitas.
 Como visualización, este diagrama no impone una relación funcional; sirve para inspeccionar dispersión, densidad de puntos en baja visita y presencia de casos en la cola de visitas altas.
-También permite evaluar si los puntos del grupo $>3$ visitas tienden a concentrarse en valores de $z$ más altos o si la relación es débil/heterogénea.
+También permite evaluar si los puntos del grupo $>3$ visitas tienden a concentrarse en valores de $z$ más altos o si el patrón es heterogéneo.
 
 \subsection{Diferencia de medias (prueba $t$ de Welch)}
 \begin{figure}[!htbp]
@@ -393,7 +403,7 @@ También permite evaluar si los puntos del grupo $>3$ visitas tienden a concentr
 
 En \hyperref[fig:salon_t]{Figura~\ref{fig:salon_t}} se superponen densidades de Z-score para los dos grupos y se reporta $t=24.34$ con $p=0.0000$.
 Este resultado resume una diferencia promedio detectable en la escala estandarizada.
-La comparación visual de densidades aporta información adicional: si la densidad del grupo de más visitas está desplazada hacia la derecha, sugiere mayor desempeño relativo; si las colas difieren, sugiere que la diferencia puede concentrarse en ciertos tramos y no ser uniforme.
+La comparación visual de densidades aporta información adicional: desplazamientos hacia la derecha sugieren mayor desempeño relativo; diferencias en colas sugieren que el contraste puede concentrarse en ciertos tramos y no ser uniforme.
 
 \subsection{Pruebas robustas y tamaños de efecto}
 \begin{figure}[!htbp]
@@ -476,7 +486,7 @@ CL=0.641 puede interpretarse como una probabilidad de superioridad: al comparar 
 
 \FloatBarrier
 \newpage
-\section{Gráfica agregada (``cute plot'')}
+\section{Gráfica de desempeño}
 
 Esta sección resume la relación promedio entre visitas y desempeño estandarizado, con incertidumbre.
 La idea es complementar densidades y pruebas con una vista agregada por número de visitas, cuidando que en visitas altas hay menos observaciones (según \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}}), lo que típicamente ensancha el intervalo de confianza.
@@ -507,6 +517,6 @@ Los tamaños de efecto e intervalos de confianza aportan magnitud e incertidumbr
 \subsection{Alcances y límites}
 La evidencia es observacional: describe asociación entre uso del CMAT y calificación estandarizada, pero no demuestra causalidad.
 La estandarización por aula (docente--materia--periodo) responde a heterogeneidad docente y cambios de evaluación en el tiempo, motivados visualmente por \hyperref[fig:serie_prof]{Figura~\ref{fig:serie_prof}}.
-El tratamiento de valores faltantes (comparado en \hyperref[fig:imp_metodos]{Figura~\ref{fig:imp_metodos}}) puede afectar proporciones agregadas; por ello la interpretación de resultados depende del método de imputación documentado.
+El tratamiento de ``sin calificación'' como bajas de materia y su imputación con KDE (comparado en \hyperref[fig:imp_metodos]{Figura~\ref{fig:imp_metodos}}) se adopta para minimizar distorsiones de forma (por ejemplo, evitar picos nuevos por imputación puntual) y mantener comparabilidad en los análisis posteriores.
 
 \end{document}
