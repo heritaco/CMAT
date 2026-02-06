@@ -116,13 +116,13 @@ La Figura 3.1.2 introduce explícitamente la partición por frecuencia de uso de
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{03_01.pdf}
-    \caption{PDF imported as image}
+    \caption{Histograma del número de visitas al CMAT por estudiante.}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{03_02.pdf}
-    \caption{PDF imported as image}
+    \caption{Histograma del número de visitas al CMAT con partición por umbral de 3 visitas (más de 3 vs 3 o menos).}
 \end{figure}
 
 
@@ -168,7 +168,7 @@ En ausencia de más anotaciones numéricas dentro del PDF, esta figura aporta pr
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_01.pdf}
-    \caption{PDF imported as image}
+    \caption{Comparación de métodos de imputación de calificaciones para un salón: eliminación, imputación por media e imputación por KDE.}
 \end{figure}
 
 Casos especiales
@@ -176,7 +176,7 @@ Casos especiales
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth,page=1]{05_03.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones en un salón con valor atípico (vista acotada al rango 7.5--10).}
 \end{figure}
 La Figura 5.3.2 muestra la "Calificaciones de un Salón con un Valor Atípico" como una distribución de densidad restringida al intervalo 7.5--10.0.
 El eje $y$ está rotulado como "Densidad" (0.0 a 1.0), lo que sugiere una concentración de observaciones en el tramo alto de la escala.
@@ -185,7 +185,7 @@ El hecho de que el eje $x$ comience en 7.5 es consistente con un caso donde no s
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth,page=1]{05_04.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones en un salón con valor atípico (vista en el rango completo de calificación).}
 \end{figure}
 En la Figura 5.3.3 se representa nuevamente el caso de "Calificaciones de un Salón con un Valor Atípico", pero ahora sobre el rango completo de calificación (marcas en 2, 4, 6, 8, 10).
 La escala de densidad alcanza aproximadamente 4.0, indicando picos más pronunciados que en la vista acotada de la Figura 5.3.2.
@@ -194,7 +194,7 @@ Esta visualización permite contrastar el comportamiento del mismo salón cuando
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_05.pdf}
-    \caption{PDF imported as image}
+    \caption{Comparación de métodos estandarizados de imputación (eliminación, media y KDE) sobre la escala de calificación.}
 \end{figure}
 La Figura 5.3.4 compara "Métodos Estandarizados de Imputación de Calificaciones" (Eliminada, Media, KDE) usando nuevamente curvas de densidad.
 El eje $x$ recorre 0--10 y el eje $y$ (densidad) llega aproximadamente a 0.7, indicando que la estandarización cambia la escala de la estimación respecto a la Figura 5.3.1.
@@ -203,7 +203,7 @@ La leyenda hace explícitos los tres tratamientos de faltantes para evaluar su e
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_06.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones reportadas por profesor: densidades por docente y proporción de estudiantes.}
 \end{figure}
 En la Figura 5.3.5 se muestra la "Distribución de Calificaciones Reportadas por Profesor" como un conjunto de curvas de densidad por docente.
 El gráfico incluye una barra/escala asociada a "Proporción de Estudiantes" y reporta tasas globales de "Reprobados: 9.43\%" y "Aprobados: 90.57\%".
@@ -212,7 +212,7 @@ Los ejes están definidos en calificación (0--10) y densidad, permitiendo compa
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_07.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones por profesor con imputación KDE: densidades por docente y proporción de estudiantes.}
 \end{figure}
 La Figura 5.3.6 presenta la "Distribución de Calificaciones por Profesor con Imputacion de KDE", incorporando el manejo de faltantes mediante KDE.
 Se reportan explícitamente "Reprobados: 20.33\%" y "Aprobados: 79.67\%", junto con una escala de "Proporción de Estudiantes".
@@ -226,7 +226,7 @@ Las Figuras 5.4.3--5.4.8 muestran distribuciones por profesor bajo imputación K
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_08.pdf}
-    \caption{PDF imported as image}
+    \caption{Matriz de estadísticos KS entre profesores (IMPKDE) y criterios de selección de $k$ para \textit{k-medoids} (codo y \textit{silhouette}).}
 \end{figure}
 En la Figura 5.4.1 aparece la "Matriz de Estadísticos KS entre Profesores (IMPKDE)", con ejes rotulados como \texttt{CLAVEPROFESOR} y marcas identificadas por claves numéricas.
 En el mismo entorno se incluyen dos diagnósticos para \textit{k-medoids}: "Elbow Method" (inercia vs número de clusters $k$) con anotación $k^*=3$, y "Silhouette Score" (silhouette vs $k$) con anotación $k^*=10$.
@@ -235,7 +235,7 @@ Ambos paneles usan $k$ en el rango 2--10, haciendo explícito el criterio de val
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_09.pdf}
-    \caption{PDF imported as image}
+    \caption{Visualización complementaria asociada al análisis de heterogeneidad docente (detalles no legibles en el PDF).}
 \end{figure}
 En la Figura 5.4.2 no se extrae texto de títulos, ejes o leyendas desde el PDF, por lo que el contenido específico del gráfico no se distingue con claridad en esta conversión.
 Únicamente es verificable su numeración (Figura 5.4.2) y su coexistencia temporal con la Figura 5.4.1 dentro del flujo del documento.
@@ -244,7 +244,7 @@ En consecuencia, cualquier interpretación adicional (p.ej., asignación de clus
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_10_0.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones por profesor con imputación KDE: escenario A (reprobados/aprobados según la anotación del panel).}
 \end{figure}
 La Figura 5.4.3 muestra "Distribución de Calificaciones por Profesor con Imputacion de KDE" con una escala de "Proporción de Estudiantes" y tasas: "Reprobados: 9.73\%" y "Aprobados: 90.27\%".
 El eje $x$ es la calificación (0--10) y el eje $y$ es densidad, sugiriendo la superposición de múltiples curvas correspondientes a distintos profesores.
@@ -253,7 +253,7 @@ El propósito descriptivo es comparar la forma de las distribuciones docentes ba
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_10_1.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones por profesor con imputación KDE: escenario B (reprobados/aprobados según la anotación del panel).}
 \end{figure}
 En la Figura 5.4.4 se presenta nuevamente la "Distribución de Calificaciones por Profesor con Imputacion de KDE", ahora con "Reprobados: 17.16\%" y "Aprobados: 82.84\%".
 El formato coincide con la Figura 5.4.3: calificación en 0--10, densidad en el eje vertical y una codificación asociada a la proporción de estudiantes.
@@ -262,7 +262,7 @@ La diferencia en la tasa reportada entre Figuras 5.4.3 y 5.4.4 es evidencia desc
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_10_2.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones por profesor con imputación KDE: escenario C (reprobados/aprobados según la anotación del panel).}
 \end{figure}
 La Figura 5.4.5 mantiene la misma estructura de visualización por profesor bajo imputación KDE, pero reporta "Reprobados: 32.89\%" y "Aprobados: 67.11\%".
 Se observan los mismos ejes (calificación 0--10, densidad) y la referencia a "Proporción de Estudiantes".
@@ -273,7 +273,7 @@ Comparada con Figuras 5.4.3--5.4.4, esta gráfica documenta un escenario con may
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_11_0.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones por profesor con imputación KDE: escenario D (reprobados/aprobados según la anotación del panel).}
 \end{figure}
 En la Figura 5.4.6 se vuelve a mostrar la distribución por profesor con imputación KDE, reportando "Reprobados: 9.73\%" y "Aprobados: 90.27\%".
 El rango de calificación permanece en 0--10 y el eje vertical está en densidad, con codificación por proporción de estudiantes.
@@ -282,7 +282,7 @@ El hecho de que el porcentaje de reprobados coincida con el de la Figura 5.4.3 s
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_11_1.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones por profesor con imputación KDE: escenario E (reprobados/aprobados según la anotación del panel).}
 \end{figure}
 La Figura 5.4.7 repite la visualización de distribuciones por profesor con imputación KDE e indica "Reprobados: 17.16\%" y "Aprobados: 82.84\%".
 Los ejes y la escala de proporción se mantienen, permitiendo comparar directamente con Figuras 5.4.4 y 5.4.5.
@@ -291,7 +291,7 @@ En el PDF no se distingue con claridad qué partición específica origina esta 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{05_11_2.pdf}
-    \caption{PDF imported as image}
+    \caption{Distribución de calificaciones por profesor con imputación KDE: escenario F (reprobados/aprobados según la anotación del panel).}
 \end{figure}
 En la Figura 5.4.8 se reporta nuevamente "Distribución de Calificaciones por Profesor con Imputación de KDE" con "Reprobados: 32.89\%" y "Aprobados: 67.11\%".
 El diseño gráfico (calificación 0--10, densidad, escala de proporción de estudiantes) es consistente con Figuras 5.4.3--5.4.7.
@@ -321,7 +321,7 @@ Este panel contextualiza la necesidad de considerar dependencia temporal ($t$) a
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{06_00.pdf}
-    \caption{PDF imported as image}
+    \caption{Media de calificaciones por profesor a lo largo de los años (serie temporal para el profesor mostrado en el panel).}
 \end{figure}
 La Figura 6.2.1 permite evaluar si la media anual del profesor 22471 se mantiene estable o fluctúa a lo largo de 2019--2025 dentro del rango mostrado (aprox. 5.5--8.5).
 No se distingue con claridad en el PDF la dirección exacta de la tendencia (creciente/decreciente) ni los valores año a año.
@@ -343,7 +343,7 @@ La Figura 7.1.1 añade una comparación de distribuciones con estadístico $t=24
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{07_00.pdf}
-    \caption{PDF imported as image}
+    \caption{Relación entre número de visitas y calificación estandarizada (KDE, Z-score) agregada por salón.}
 \end{figure}
 La Figura 7.0.1 ("Relación entre Número de Visitas y Calificación por Salón") es un diagrama de dispersión con "Número de Visitas" en el eje $x$ (0--120) y "Calificación Estandarizada (KDE, Z-score)" en el eje $y$.
 La leyenda distingue dos grupos: "Más de 3 visitas" y "3 o menos visitas".
@@ -357,7 +357,7 @@ En el panel se comparan las dos curvas etiquetadas como "Más de 3 visitas" y "3
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{07_01.pdf}
-    \caption{PDF imported as image}
+    \caption{Comparación de distribuciones de calificación estandarizada por salón entre grupos de visitas (prueba $t$ reportada en el panel).}
 \end{figure}
 En la Figura 7.1.1 el contraste paramétrico se presenta como un resumen numérico (t=24.34, $p$=0.0000) junto a la superposición de densidades por grupo.
 El rango del eje de Z-score incluye valores negativos y positivos, permitiendo apreciar diferencias de localización y dispersión entre grupos.
@@ -376,7 +376,7 @@ También incluye métricas de tamaño de efecto (CL=0.620, $r_{rb}=0.240$, Cliff
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{07_02.pdf}
-    \caption{PDF imported as image}
+    \caption{Comparación robusta por salón: densidades, medianas, pruebas no paramétricas y tamaños de efecto (anotados en el panel).}
 \end{figure}
 En la Figura 7.3.1 se detallan, en el propio gráfico, estimadores robustos: diferencia de medianas 0.205 con IC95\% [0.190, 0.224] y prueba de permutación para la mediana ($p_{\text{mediana}}=0.0003999$).
 El panel incluye además CL=0.620 y $r_{rb}=0.240$, junto con Cliff's $\delta=0.243$, todos asociados a la comparación entre los dos grupos de visitas.
@@ -402,7 +402,7 @@ La Figura 8.3.1 añade un bloque de pruebas robustas (no paramétricas) con medi
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{08_00.pdf}
-    \caption{PDF imported as image}
+    \caption{Relación entre número de visitas y calificación estandarizada (KDE, Z-score) a nivel estudiante.}
 \end{figure}
 La Figura 8.0.1 ("Relación entre Número de Visitas y Calificación por Estudiante") es un diagrama de dispersión con "Número de Visitas" en el eje $x$ (0--120) y Z-score estandarizado en el eje $y$.
 La leyenda distingue "Más de 3 visitas" y "3 o menos visitas".
@@ -416,7 +416,7 @@ También se reportan tamaños muestrales: $n=1036$ (más de 3) y $n=9377$ (3 o m
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{08_01.pdf}
-    \caption{PDF imported as image}
+    \caption{Comparación de distribuciones de calificación estandarizada por estudiante entre grupos de visitas (prueba $t$, medias y $n$ anotados).}
 \end{figure}
 La Figura 8.1.1 incluye, además de las curvas de densidad por grupo, marcadores/etiquetas para las medias de cada grupo en la escala Z.
 El resumen numérico (medias 0.34 vs -0.08; diferencia 0.41; $t=21.93$; $p$=0.0000) está impreso en el propio panel.
@@ -435,7 +435,7 @@ El panel también presenta una prueba de permutación para la mediana con $p_{\t
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{08_02.pdf}
-    \caption{PDF imported as image}
+    \caption{Comparación robusta por estudiante: densidades, medianas, pruebas no paramétricas, tamaños de efecto e IC95\% (anotados en el panel).}
 \end{figure}
 En la Figura 8.3.1 se muestran explícitamente CL=0.641 (IC95\% [0.625, 0.657]) y Cliff's $\delta=0.283$ (IC95\% [0.234, 0.326]).
 La diferencia de medianas anotada es 0.237 con IC95\% [0.202, 0.284], junto con $r_{rb}=0.282$ (IC95\% [0.250, 0.313]).
@@ -456,7 +456,7 @@ La Figura 9.3.1 muestra el promedio de Z por salón contra número de visitas, i
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{07_00.pdf}
-    \caption{PDF imported as image}
+    \caption{Relación entre número de visitas y calificación estandarizada (KDE, Z-score) por salón (reutilizada como referencia).}
 \end{figure}
 La Figura 9.0.1 muestra "Relación entre Número de Visitas y Calificación por Salón" con "Calificación Estandarizada (KDE, Z-score)" en el eje $y$ y "Número de Visitas" en el eje $x$.
 Se distinguen dos grupos (más de 3 visitas vs 3 o menos visitas) mediante la leyenda.
@@ -470,7 +470,7 @@ El panel permite una lectura directa de la diferencia detectada por la prueba $t
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{07_01.pdf}
-    \caption{PDF imported as image}
+    \caption{Comparación de distribuciones por salón entre grupos de visitas (reutilizada como referencia; prueba $t$ reportada en el panel).}
 \end{figure}
 En la Figura 9.1.1, el resultado paramétrico (t=24.34, $p$=0.0000) aparece como texto en el mismo gráfico de densidades.
 Las curvas están etiquetadas por grupo de visitas, facilitando la comparación visual en la escala estandarizada.
@@ -489,7 +489,7 @@ El eje $x$ cubre aproximadamente 0--30 visitas y el eje $y$ muestra medias de Z 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{09_01.pdf}
-    \caption{PDF imported as image}
+    \caption{Z promedio por salón vs número de visitas, con intervalo de confianza del 95\% (IC95\%) alrededor de la media agregada.}
 \end{figure}
 En la Figura 9.3.1, la media de Z por número de visitas se presenta como una serie agregada acompañada de su IC 95\%.
 El PDF no permite distinguir con claridad valores exactos punto a punto, pero sí la escala del eje vertical (media de Z) y el rango de visitas considerado (hasta ~30).

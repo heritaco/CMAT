@@ -1,0 +1,5 @@
+# Ignore the entire data folder
+data/
+
+# Ignore the onedrive subfolder inside data
+data/onedrive/
