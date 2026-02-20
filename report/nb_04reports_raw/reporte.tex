@@ -72,9 +72,17 @@
   {\large \today\par}
 \end{titlepage}
 
-% --- Resumen ---
 \begin{abstract}
-Este documento evalúa la asociación entre el uso del CMAT (Centro de Matemáticas) y el desempeño académico usando calificaciones estandarizadas (Z-score) e imputación de valores faltantes por KDE (Kernel Density Estimation). El flujo incluye: (i) exploración de la distribución de visitas, (ii) diagnóstico de valores faltantes y comparación de estrategias de imputación, (iii) evidencia visual de heterogeneidad entre docentes y su relación con la comparabilidad de calificaciones, (iv) análisis por aula (agregado) y por estudiante (individual) con pruebas paramétricas (Welch $t$) y no paramétricas (Mann--Whitney, Brunner--Munzel), tamaños de efecto e intervalos de confianza, y (v) una visualización agregada de $Z$ promedio contra visitas con IC95\%.
+Este documento evalúa la asociación entre el uso del Centro de Aprendizaje de Matemáticas (CMAT) y el desempeño académico usando calificaciones estandarizadas (Z-score) e imputación de valores faltantes por Kernel Density Estimation (KDE).
+
+El flujo incluye:
+\begin{enumerate}
+  \item exploración de la distribución de visitas,
+  \item diagnóstico de valores faltantes y comparación de estrategias de imputación,
+  \item evidencia visual de heterogeneidad entre docentes y su relación con la comparabilidad de calificaciones,
+  \item análisis por aula (agregado) y por estudiante (individual) con pruebas paramétricas (Welch $t$) y no paramétricas (Mann--Whitney, Brunner--Munzel), tamaños de efecto e intervalos de confianza,
+  \item una visualización agregada de $Z$ promedio contra visitas con IC95\%.
+\end{enumerate}
 \end{abstract}
 
 % --- Tabla de contenidos ---
@@ -87,51 +95,48 @@ Este documento evalúa la asociación entre el uso del CMAT (Centro de Matemáti
 \section{Panorama general}
 
 \subsection{Pregunta y alcance}
-La pregunta central es observacional: si se agrupan estudiantes por su nivel de uso del CMAT, ¿aparecen diferencias sistemáticas en desempeño académico medido con una escala comparable?
-La intención no es atribuir causalidad de forma automática, sino documentar patrones y cuantificarlos con herramientas estadísticas que respeten la estructura de los datos (docente, materia y periodo).
+La pregunta central es observacional: si se agrupan estudiantes por su cantidad de visitas al CMAT, ¿aparecen diferencias sistemáticas en desempeño académico medido con una escala comparable?
+La intención no es atribuir causalidad de forma automática, sino documentar patrones y cuantificarlos con herramientas estadísticas que respeten la estructura de los datos (docente, calificación materia y periodo).
 
 \subsection{Definición operativa de ``aula'' (unidad de comparación)}
-Para este análisis, se considera un \textbf{``aula''} como \textbf{un profesor impartiendo una materia en el mismo periodo}, \textbf{independientemente de si existen dos secciones}.
-Se hace de esta forma porque han habido profesores que cambian su forma de evaluar durante el tiempo; por ello, el periodo es parte explícita de la unidad de comparación.
+Para este análisis, se considera un \textbf{``aula''} como \textbf{un profesor impartiendo una materia en el mismo periodo}, \textbf{independientemente de si un profesor imparte más de una sección}.
+Se hace de esta forma porque algunos profesores han cambiado su forma de evaluar durante el tiempo; por ello, el periodo es parte explícita de la unidad de comparación.
 
-Bajo esta definición, dos secciones de la misma materia con el mismo profesor en el mismo periodo se tratan como una sola unidad de evaluación (un mismo ``marco de calificación'').
+Bajo esta definición, dos secciones de la misma materia con el mismo profesor en el mismo periodo se tratan como una sola unidad de evaluación, un mismo ``marco de calificación''.
 En cambio, si el mismo profesor imparte la misma materia en periodos distintos, se consideran aulas distintas, precisamente para capturar cambios intertemporales en nivel promedio, dispersión o forma de la distribución de calificaciones.
 
 \subsection{Estructura del conjunto de datos y limpieza}
 El conjunto analítico se construye de forma que no existan ambigüedades en la unidad de observación:
 \begin{itemize}
-  \item \textbf{No hay alumnos repetidos en una misma aula}: para cada par (estudiante, aula) se conserva un único registro, evitando duplicidades dentro de la misma unidad docente--materia--periodo.
-  \item \textbf{Se eliminaron registros de alumnos con doble licenciatura}, para reducir mezcla de trayectorias curriculares y posibles esquemas de evaluación/avance que no sean comparables con el resto.
-  \item \textbf{Se mantienen las calificaciones de alumnos que reprobaron}: no se excluyen reprobados, ya que eliminarlos induciría un sesgo de supervivencia y distorsionaría tanto promedios como colas de la distribución.
+  \item \textbf{No hay alumnos repetidos en una misma aula}: para cada par aula-estudiante se conserva un único registro, evitando duplicidades dentro de la misma unidad docente--materia--periodo.
+  \item \textbf{Se eliminaron registros de alumnos con doble licenciatura}, para reducir mezcla de trayectorias curriculares y posibles esquemas de evaluación-avance que no sean comparables con el resto de manera temporal.
+  \item \textbf{Se mantienen las calificaciones de alumnos que reprobaron, bajas volunatrias o retiros temporales}: no se excluyen reprobados, ya que eliminarlos induciría un sesgo de supervivencia y distorsionaría tanto promedios como colas de la distribución.
 \end{itemize}
-Estas decisiones buscan que las distribuciones por aula y por profesor reflejen el comportamiento real del sistema, incluyendo casos de bajo desempeño.
+Estas decisiones buscan que las distribuciones por aula reflejen el comportamiento real del sistema, incluyendo casos de bajo desempeño.
 
-\subsection{Estandarización: por qué y cómo}
-El problema práctico es la comparabilidad: distintos docentes (o el mismo docente en años distintos) pueden asignar calificaciones con severidad diferente.
+\subsection{Estandarización: ¿por qué? y ¿cómo?}
+El problema práctico es la comparabilidad: distintos docentes o el mismo docente en periodos distintos pueden asignar calificaciones con diferente nivel de exigencia.
 Por ello se trabaja con calificación estandarizada dentro de cada aula.
 
-Sea $g$ la calificación cruda y sea $a$ un aula. Se define el Z-score:
-\[
+Sea $g$ la calificación cruda y sea $a$ una aula. Se define el Z-score:
+\[ 
 z=\frac{g-\mu_a}{\sigma_a},
 \]
-donde $\mu_a$ y $\sigma_a$ son la media y desviación estándar del aula $a$ bajo el tratamiento de faltantes elegido.
-Esta transformación permite que $z>0$ signifique ``por arriba del promedio de su aula'' y $z<0$ ``por debajo'', manteniendo la comparación en una escala común aun si las calificaciones crudas no son directamente comparables entre aulas.
+donde $\mu_a$ y $\sigma_a$ son la media y desviación estándar del aula $a$ bajo el tratamiento de imputación faltantes elegido, como KDE.
+Esta transformación permite que $z>0$ signifique ``por arriba del promedio de su aula'' y $z<0$ ``por debajo'', manteniendo la comparación en una escala común incluso si las calificaciones crudas no son directamente comparables entre aulas.
 
 \subsection{Criterio de agrupamiento por visitas (umbral 3)}
 El análisis usa un corte operativo de 3 visitas para definir grupos: ``más de 3'' versus ``3 o menos''.
-Además de ser un umbral natural en la distribución (con fuerte concentración en pocas visitas), tiene una interpretación institucional: \textbf{con 3 visitas al CMAT se otorgan puntos de PPA1}, una materia optativa de la universidad orientada a estudiantes de nuevo ingreso.
-Esto implica que $\le 3$ visitas puede capturar un comportamiento de cumplimiento mínimo para obtener puntos, mientras que $>3$ visitas refleja uso adicional más allá del incentivo mínimo.
-
-En el resto del documento, cuando se cite una figura (por ejemplo, \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}}), el enlace es clicable y lleva directamente a la figura correspondiente.
-
+Además de ser un umbral natural en la distribución, con fuerte concentración en pocas visitas, tiene una interpretación institucional: \textbf{con 3 visitas al CMAT se otorgan puntos de PPA1 en algunos periodos}, un requierimiento de la universidad orientado a estudiantes de nuevo ingreso.
+Esto implica que 3 o menos visitas puede capturar un comportamiento de cumplimiento mínimo para obtener puntos, mientras que más de 3 visitas refleja uso adicional más allá del incentivo mínimo.
 
 
 \FloatBarrier
 \newpage
 \section{\texorpdfstring{¿Qué es CMAT?}{Que es CMAT?}}
-El CMAT (Centro de Matemáticas) es un espacio de asesorías académicas al que los estudiantes asisten para reforzar temas y resolver dudas.
-En este trabajo se usa el número de visitas como medida de exposición al servicio, con la idea de contrastar desempeño relativo entre grupos definidos por uso.
-La evidencia que se presenta es asociacional: describe diferencias entre grupos y su magnitud (con incertidumbre), pero por sí sola no establece que el CMAT sea la causa directa del cambio en calificaciones.
+El CMAT es un espacio de asesorías académicas al que los estudiantes asisten para reforzar temas y resolver dudas.
+En este trabajo se usa el número de visitas como medida de exposición al servicio, con la idea de contrastar desempeño relativo entre grupos definidos por visita.
+La evidencia que se presenta es asociacional: describe diferencias entre grupos y su magnitud con incertidumbre, pero por sí sola no establece que el CMAT sea la causa directa del cambio en calificaciones.
 
 
 
@@ -140,8 +145,8 @@ La evidencia que se presenta es asociacional: describe diferencias entre grupos 
 \section{Análisis exploratorio de datos}
 
 Las Figuras \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}} y \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}} muestran la distribución del número de visitas por estudiante.
-Aquí se define el contexto básico: cuánto se usa el CMAT, qué tan frecuente es el uso intensivo y qué tan rara es la cola de visitas altas.
-Esta inspección es relevante porque, cuando una variable es muy asimétrica (mucha masa cerca de 0 y cola larga), promedios simples pueden ocultar la estructura y las comparaciones deben interpretarse considerando el desbalance entre grupos.
+Aquí se define el contexto básico: cuánto se usa el CMAT, qué tan frecuente es el uso intensivo y cuál es el comportamiento en la cola de visitas altas.
+Esta inspección es relevante porque, cuando una variable es muy asimétrica, es decir mucha masa cerca de 0 y cola larga, promedios simples pueden ocultar la estructura y las comparaciones deben interpretarse considerando el desbalance entre grupos.
 
 \subsection{\texorpdfstring{¿Cuántas visitas hacen los estudiantes?}{Cuantas visitas hacen los estudiantes?}}
 En \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}} el histograma concentra la mayor parte de observaciones en valores bajos (incluyendo 0) y presenta una cola larga que llega aproximadamente a 120 visitas.
@@ -360,13 +365,13 @@ En adelante, este contexto justifica que el análisis principal use estandarizac
 \FloatBarrier
 \newpage
 \section{\texorpdfstring{¿Cuál es la mejor forma de estandarizar?}{Cual es la mejor forma de estandarizar?}}
-La motivación para incluir el periodo dentro de la definición de aula se refuerza con evidencia temporal: si la forma de evaluar cambia a través de los años, mezclar periodos degrada la comparabilidad.
+La motivación para incluir el periodo dentro de la definición de aula se refuerza con evidencia temporal: si la forma de evaluar cambia a través de los periodos, mezclar periodos degrada la comparabilidad.
 \hyperref[fig:serie_prof]{Figura~\ref{fig:serie_prof}} muestra la media anual de calificaciones para un profesor en el rango 2019--2025, evidenciando variación longitudinal.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{06_00.pdf}
-    \caption{Media de calificaciones por profesor a lo largo de los años (ejemplo de variación temporal en el mismo docente).}
+    \caption{Media de calificaciones por profesor a lo largo de los periodos (ejemplo de variación temporal en el mismo docente).}
     \label{fig:serie_prof}
 \end{figure}
 
