@@ -4,6 +4,8 @@
 % --- Layout & links ---
 \usepackage[margin=1.5in]{geometry}
 \usepackage[hidelinks]{hyperref}
+% Hace que los enlaces a figuras apunten a la parte alta del flotante
+\usepackage[all]{hypcap}
 
 % --- Fuentes (texto y matemáticas) ---
 \usepackage{newtxmath}
@@ -31,15 +33,16 @@
 \fancyhead[L]{\small\leftmark}
 \fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0.0pt}
+\setlength{\headheight}{22pt}
 
 % --- Espaciado ---
 \usepackage{setspace}
 
 % --- Otros paquetes útiles ---
-\usepackage{tocloft}  % Para personalizar la tabla de contenidos
-\usepackage{xcolor}   % Para colores en el código
-\usepackage{booktabs} % Para tablas bonitas
-\usepackage{graphicx} % Para las graficas
+\usepackage{tocloft}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{graphicx}
 \graphicspath{{../../visualizations/nb_04reportes_raw/}}
 
 % Mantener figuras cerca de donde se mencionan
@@ -65,7 +68,7 @@
 \begin{titlepage}
   \centering
   \vspace*{4cm}
-  {\Huge\bfseries Centro de Apredizaje de Matemáticas\par}
+  {\Huge\bfseries Centro de Aprendizaje de Matemáticas\par}
   \vspace{1cm}
   {\large Universidad de las Américas Puebla\par}
   \vfill
@@ -73,16 +76,9 @@
 \end{titlepage}
 
 \begin{abstract}
-Este documento evalúa la asociación entre el uso del Centro de Aprendizaje de Matemáticas (CMAT) y el desempeño académico usando calificaciones estandarizadas (Z-score) e imputación de valores faltantes por Kernel Density Estimation (KDE).
+Este documento presenta una revisión estadística del uso del Centro de Aprendizaje de Matemáticas (CMAT) y de su asociación con el desempeño académico. La pregunta central es si, al comparar estudiantes con distintos niveles de asistencia al centro, aparecen diferencias sistemáticas en su rendimiento una vez que las calificaciones se vuelven comparables entre aulas. Para ello se trabaja con calificaciones estandarizadas por aula, es decir, con una medida que ubica a cada estudiante respecto del promedio y de la variación de su propio contexto docente.
 
-El flujo incluye:
-\begin{enumerate}
-  \item exploración de la distribución de visitas,
-  \item diagnóstico de valores faltantes y comparación de estrategias de imputación,
-  \item evidencia visual de heterogeneidad entre docentes y su relación con la comparabilidad de calificaciones,
-  \item análisis por aula (agregado) y por estudiante (individual) con pruebas paramétricas (Welch $t$) y no paramétricas (Mann--Whitney, Brunner--Munzel), tamaños de efecto e intervalos de confianza,
-  \item una visualización agregada de $Z$ promedio contra visitas con IC95\%.
-\end{enumerate}
+El reporte conserva el recorrido analítico del estudio original. Primero describe la distribución de visitas al CMAT y justifica el corte entre estudiantes con estrictamente más de 3 visitas y aquellos con 3 visitas o menos. Después examina el tratamiento de registros sin calificación final, compara estrategias de imputación y documenta la variación en los patrones de calificación entre profesores y periodos. Finalmente, presenta comparaciones por aula y por estudiante mediante pruebas paramétricas y no paramétricas, tamaños de efecto e intervalos de confianza. En todo momento, la interpretación se mantiene en un plano observacional: los resultados describen asociaciones presentes en los datos, pero no establecen por sí solos una relación causal.
 \end{abstract}
 
 % --- Tabla de contenidos ---
@@ -95,48 +91,41 @@ El flujo incluye:
 \section{Panorama general}
 
 \subsection{Pregunta y alcance}
-La pregunta central es observacional: si se agrupan estudiantes por su cantidad de visitas al CMAT, ¿aparecen diferencias sistemáticas en desempeño académico medido con una escala comparable?
-La intención no es atribuir causalidad de forma automática, sino documentar patrones y cuantificarlos con herramientas estadísticas que respeten la estructura de los datos (docente, calificación materia y periodo).
+La pregunta que orienta este informe es observacional y puede formularse de la siguiente manera: si se agrupa a los estudiantes según su número de visitas al CMAT, ¿se observan diferencias sistemáticas en su desempeño académico cuando ese desempeño se mide en una escala comparable? La relevancia institucional de esta pregunta es clara, ya que permite examinar si un uso más frecuente del centro se asocia con un mejor posicionamiento relativo dentro de los cursos en los que participan los estudiantes.
+
+Conviene subrayar desde el inicio que el propósito del documento no es atribuir causalidad de manera automática. Los datos disponibles describen registros académicos y visitas al servicio, pero no provienen de un diseño experimental controlado. Por esa razón, el análisis se concentra en identificar patrones, cuantificar su magnitud y explicitar la incertidumbre de las comparaciones, respetando la estructura real del sistema de información: docente, materia, periodo y condición de la calificación.
 
 \subsection{Definición operativa de ``aula'' (unidad de comparación)}
-Para este análisis, se considera un \textbf{``aula''} como \textbf{un profesor impartiendo una materia en el mismo periodo}, \textbf{independientemente de si un profesor imparte más de una sección}.
-Se hace de esta forma porque algunos profesores han cambiado su forma de evaluar durante el tiempo; por ello, el periodo es parte explícita de la unidad de comparación.
+Para este análisis se considera un \textbf{``aula''} como \textbf{un profesor impartiendo una materia en el mismo periodo}, \textbf{independientemente de si un profesor atiende más de una sección}. Esta definición no es un detalle operativo menor, sino una decisión necesaria para que la comparación sea justa. Dos grupos con el mismo profesor y la misma materia, dentro del mismo periodo, comparten un mismo marco de evaluación y pueden tratarse como una unidad analítica común.
 
-Bajo esta definición, dos secciones de la misma materia con el mismo profesor en el mismo periodo se tratan como una sola unidad de evaluación, un mismo ``marco de calificación''.
-En cambio, si el mismo profesor imparte la misma materia en periodos distintos, se consideran aulas distintas, precisamente para capturar cambios intertemporales en nivel promedio, dispersión o forma de la distribución de calificaciones.
+En cambio, cuando un mismo profesor imparte la misma materia en periodos distintos, esas observaciones se consideran aulas distintas. La razón es que los criterios de evaluación, los niveles de exigencia o la distribución general de las calificaciones pueden cambiar con el tiempo. Incorporar el periodo dentro de la definición de aula permite capturar esas variaciones y evita mezclar, en una sola referencia, contextos docentes que ya no son plenamente comparables.
 
 \subsection{Estructura del conjunto de datos y limpieza}
-El conjunto analítico se construye de forma que no existan ambigüedades en la unidad de observación:
-\begin{itemize}
-  \item \textbf{No hay alumnos repetidos en una misma aula}: para cada par aula-estudiante se conserva un único registro, evitando duplicidades dentro de la misma unidad docente--materia--periodo.
-  \item \textbf{Se eliminaron registros de alumnos con doble licenciatura}, para reducir mezcla de trayectorias curriculares y posibles esquemas de evaluación-avance que no sean comparables con el resto de manera temporal.
-  \item \textbf{Se mantienen las calificaciones de alumnos que reprobaron, bajas volunatrias o retiros temporales}: no se excluyen reprobados, ya que eliminarlos induciría un sesgo de supervivencia y distorsionaría tanto promedios como colas de la distribución.
-\end{itemize}
-Estas decisiones buscan que las distribuciones por aula reflejen el comportamiento real del sistema, incluyendo casos de bajo desempeño.
+El conjunto analítico se construyó de manera que la unidad de observación quedara bien definida. Para cada combinación aula--estudiante se conserva un solo registro, con lo cual se evita contar dos veces a una misma persona dentro del mismo entorno de evaluación. Esta depuración es importante porque una duplicidad alteraría tanto los promedios como la forma de las distribuciones utilizadas en los análisis posteriores.
 
-\subsection{Estandarización: ¿por qué? y ¿cómo?}
-El problema práctico es la comparabilidad: distintos docentes o el mismo docente en periodos distintos pueden asignar calificaciones con diferente nivel de exigencia.
-Por ello se trabaja con calificación estandarizada dentro de cada aula.
+También se eliminaron los registros de estudiantes con doble licenciatura. La intención no es excluir trayectorias académicas relevantes, sino reducir la mezcla de recorridos curriculares que podrían seguir calendarios, cargas o condiciones de avance poco comparables con el resto de la población analizada. Del mismo modo, se conservaron las calificaciones de estudiantes reprobados, con baja voluntaria o con retiro temporal. Excluir esos casos produciría un \textbf{sesgo de supervivencia}, es decir, una distorsión que aparece cuando el análisis solo conserva a quienes lograron permanecer o concluir en condiciones favorables. Mantenerlos permite que las distribuciones por aula representen mejor el comportamiento real del sistema, incluyendo situaciones de bajo desempeño.
 
-Sea $g$ la calificación cruda y sea $a$ una aula. Se define el Z-score:
-\[ 
+\subsection{Estandarización por aula: justificación y procedimiento}
+El principal reto práctico del reporte es la comparabilidad. Una calificación de 8.5 no necesariamente representa el mismo nivel relativo en todos los cursos, porque los patrones de calificación pueden variar entre profesores e incluso para un mismo profesor en distintos periodos. Si se trabajara únicamente con calificaciones crudas, parte de la diferencia observada entre estudiantes podría reflejar el contexto de evaluación y no su posición relativa dentro del curso.
+
+Para resolver este problema se utiliza una calificación estandarizada por aula. En términos simples, cada estudiante se compara con el promedio y la variación de su propio grupo. En estadística, esta medida se conoce como \textbf{Z-score}. Si $g$ representa la calificación cruda y $a$ identifica un aula, entonces se define:
+\[
 z=\frac{g-\mu_a}{\sigma_a},
 \]
-donde $\mu_a$ y $\sigma_a$ son la media y desviación estándar del aula $a$ bajo el tratamiento de imputación faltantes elegido, como KDE.
-Esta transformación permite que $z>0$ signifique ``por arriba del promedio de su aula'' y $z<0$ ``por debajo'', manteniendo la comparación en una escala común incluso si las calificaciones crudas no son directamente comparables entre aulas.
+donde $\mu_a$ es la media del aula y $\sigma_a$ su desviación estándar, calculadas bajo la estrategia de imputación elegida para tratar los faltantes. Con esta transformación, un valor positivo de $z$ indica que el estudiante se ubica por arriba del promedio de su aula, mientras que un valor negativo indica que se ubica por debajo. La utilidad del procedimiento es que traslada todas las aulas a una misma escala de referencia, aun cuando las calificaciones originales no sean directamente comparables entre sí.
 
 \subsection{Criterio de agrupamiento por visitas (umbral 3)}
-El análisis usa un corte operativo de 3 visitas para definir grupos: ``más de 3'' versus ``3 o menos''.
-Además de ser un umbral natural en la distribución, con fuerte concentración en pocas visitas, tiene una interpretación institucional: \textbf{con 3 visitas al CMAT se otorgan puntos de PPA1 en algunos periodos}, un requierimiento de la universidad orientado a estudiantes de nuevo ingreso.
-Esto implica que 3 o menos visitas puede capturar un comportamiento de cumplimiento mínimo para obtener puntos, mientras que más de 3 visitas refleja uso adicional más allá del incentivo mínimo.
+El análisis utiliza un punto de corte operativo en 3 visitas para definir dos grupos: estudiantes con estrictamente más de 3 visitas y estudiantes con 3 visitas o menos. Esta separación responde, por un lado, a la forma observada en los datos, donde la mayor concentración se encuentra en niveles bajos de asistencia. Por otro lado, responde a una consideración institucional relevante: en algunos periodos, registrar 3 visitas al CMAT podía asociarse con la obtención de puntos de PPA1 para estudiantes de nuevo ingreso.
+
+Bajo esta lógica, el grupo con 3 visitas o menos reúne tanto a quienes no utilizaron el servicio como a quienes tuvieron una participación nula o limitada, incluyendo posibles casos de cumplimiento del mínimo incentivado. En cambio, el grupo con estrictamente más de 3 visitas puede interpretarse como un uso adicional del centro, más allá de ese posible incentivo inicial. Esta distinción aporta claridad a las comparaciones posteriores, porque una diferencia favorable al grupo con estrictamente más de 3 visitas se alinea con un mayor aprovechamiento del servicio y no únicamente con el cumplimiento de un requisito mínimo.
 
 
 \FloatBarrier
 \newpage
-\section{\texorpdfstring{¿Qué es CMAT?}{Que es CMAT?}}
-El CMAT es un espacio de asesorías académicas al que los estudiantes asisten para reforzar temas y resolver dudas.
-En este trabajo se usa el número de visitas como medida de exposición al servicio, con la idea de contrastar desempeño relativo entre grupos definidos por visita.
-La evidencia que se presenta es asociacional: describe diferencias entre grupos y su magnitud con incertidumbre, pero por sí sola no establece que el CMAT sea la causa directa del cambio en calificaciones.
+\section{Descripción del CMAT}
+El CMAT es un espacio de apoyo académico al que los estudiantes acuden para reforzar contenidos, resolver dudas y acompañar su proceso de aprendizaje en matemáticas. Dentro de este reporte, el número de visitas se utiliza como una medida de exposición al servicio. No se trata de una medida exhaustiva de todo lo que ocurre en el acompañamiento académico, pero sí ofrece un indicador observable y consistente para distinguir niveles de uso del centro.
+
+La evidencia presentada a lo largo del documento debe leerse en términos asociativos. En otras palabras, el análisis describe cómo se relaciona el uso del CMAT con el desempeño relativo de los estudiantes dentro de sus aulas. Esa información es valiosa para la toma de decisiones institucionales, pero no implica por sí misma que el CMAT sea la causa única o directa de las diferencias observadas en las calificaciones.
 
 
 
@@ -144,14 +133,14 @@ La evidencia que se presenta es asociacional: describe diferencias entre grupos 
 \newpage
 \section{Análisis exploratorio de datos}
 
-Las Figuras \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}} y \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}} muestran la distribución del número de visitas por estudiante.
-Aquí se define el contexto básico: cuánto se usa el CMAT, qué tan frecuente es el uso intensivo y cuál es el comportamiento en la cola de visitas altas.
-Esta inspección es relevante porque, cuando una variable es muy asimétrica, es decir mucha masa cerca de 0 y cola larga, promedios simples pueden ocultar la estructura y las comparaciones deben interpretarse considerando el desbalance entre grupos.
+Antes de comparar resultados, conviene revisar la distribución de visitas al CMAT. Las Figuras \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}} y \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}} muestran esa estructura básica. Esta revisión inicial es importante porque el patrón de uso del servicio condiciona la interpretación de cualquier contraste posterior: no es lo mismo comparar dos grupos de tamaño similar que comparar un grupo pequeño de uso frecuente contra una mayoría amplia de uso bajo o nulo.
 
-\subsection{\texorpdfstring{¿Cuántas visitas hacen los estudiantes?}{Cuantas visitas hacen los estudiantes?}}
-En \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}} el histograma concentra la mayor parte de observaciones en valores bajos (incluyendo 0) y presenta una cola larga que llega aproximadamente a 120 visitas.
-La lectura inmediata es que el uso frecuente del CMAT existe, pero es minoritario frente al uso bajo o nulo.
-En términos estadísticos, esta forma sugiere asimetría fuerte y presencia de valores extremos; por ello, el análisis posterior evita resumir todo con una sola media de visitas y usa una partición por umbral que separa un grupo de uso relativamente frecuente.
+Además, la forma de la distribución aporta información sobre la naturaleza de la variable. Cuando muchas observaciones se concentran cerca de 0 y solo unas pocas alcanzan valores altos, se habla de una distribución asimétrica con cola larga. En contextos así, un promedio simple puede ocultar rasgos relevantes del comportamiento real de los datos.
+
+\subsection{Distribución del número de visitas al CMAT}
+En \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}} el histograma concentra la mayor parte de las observaciones en números bajos de visitas, incluyendo 0, y presenta una cola larga que se extiende aproximadamente hasta 120 visitas. Lo primero que debe observar el lector es precisamente ese contraste: el uso intensivo del CMAT existe, pero representa una fracción reducida frente al uso bajo o inexistente.
+
+Desde el punto de vista estadístico, esta figura muestra una distribución fuertemente asimétrica y con valores extremos. Por ello, el análisis posterior evita resumir el comportamiento del servicio con una sola media de visitas y prefiere una partición por umbral que permita distinguir entre un uso limitado y un uso más sostenido del centro.
 
 \begin{figure}[!htbp]
     \centering
@@ -160,14 +149,14 @@ En términos estadísticos, esta forma sugiere asimetría fuerte y presencia de 
     \label{fig:visitas_hist}
 \end{figure}
 
-En \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}} se presenta la misma distribución, pero distinguiendo dos grupos: ``Más de 3 visitas'' (9.95\%) y ``3 o menos visitas'' (90.05\%).
-Ese corte tiene doble utilidad: (i) separa el uso adicional (más allá de un mínimo) y (ii) refleja una condición institucional, ya que con 3 visitas se obtienen puntos de PPA1 para estudiantes de nuevo ingreso.
-La consecuencia práctica es un desbalance notable de tamaños muestrales; por ello, más adelante se reportan tamaños de efecto e intervalos de confianza además de $p$-valores.
+La \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}} presenta la misma distribución, pero ahora separada en dos grupos: estudiantes con estrictamente más de 3 visitas (9.95\%) y estudiantes con 3 visitas o menos (90.05\%). Esta segunda visualización permite ubicar con claridad el punto de corte que se utilizará en el resto del documento.
+
+La utilidad del umbral es doble. Por una parte, separa un uso adicional del servicio respecto de un uso muy limitado. Por otra, recoge la consideración institucional de que 3 visitas podían estar vinculadas con PPA1 en ciertos periodos. La consecuencia práctica es un desbalance importante entre tamaños muestrales, por lo que más adelante no solo se reportan pruebas de significancia, sino también tamaños de efecto e intervalos de confianza que ayudan a valorar la magnitud y la precisión de las diferencias.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{03_02.pdf}
-    \caption{Histograma del número de visitas al CMAT con partición por umbral de 3 visitas (más de 3 vs 3 o menos).}
+    \caption{Histograma del número de visitas al CMAT con partición por umbral de 3 visitas: estrictamente más de 3 frente a 3 visitas o menos.}
     \label{fig:visitas_split}
 \end{figure}
 
@@ -175,21 +164,20 @@ La consecuencia práctica es un desbalance notable de tamaños muestrales; por e
 
 \FloatBarrier
 \newpage
-\section{\texorpdfstring{¿Mejoran su desempeño?}{Mejoran su desempeno?}}
-A partir del umbral mostrado en \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}}, se comparan distribuciones de desempeño entre grupos.
-Conceptualmente, $>3$ visitas busca capturar un patrón de uso que no se reduce al incentivo mínimo (PPA1), mientras que $\le 3$ incluye a quienes no usan el servicio o lo usan de manera limitada (incluyendo quienes podrían haber ido exactamente tres veces para obtener puntos).
-Esta distinción reduce ambigüedad interpretativa: una diferencia a favor del grupo $>3$ visitas se alinea con uso adicional, no solo con cumplimiento del mínimo.
+\section{Comparación de desempeño entre grupos de visitas}
+A partir del umbral mostrado en \hyperref[fig:visitas_split]{Figura~\ref{fig:visitas_split}}, el análisis contrasta el desempeño de dos grupos: quienes registran estrictamente más de 3 visitas al CMAT y quienes registran 3 visitas o menos. Esta separación no se adopta solo por conveniencia descriptiva. También permite distinguir, dentro de lo posible, entre un uso adicional del servicio y un uso que podría estar asociado con el cumplimiento de un mínimo institucional.
 
-\subsection{\texorpdfstring{¿Cómo se mide el desempeño de forma comparable?}{Como se mide el desempeno de forma comparable?}}
-Antes de comparar grupos por visitas, se resuelven dos obstáculos que afectan comparabilidad:
-\begin{itemize}
-  \item \textbf{Valores faltantes} (``sin calificación''): se decide si se eliminan o se imputan, y se documenta cómo cambia la distribución bajo cada opción.
-  \item \textbf{Heterogeneidad docente y temporal}: se estandariza por aula (docente--materia--periodo) para controlar diferencias en severidad y cambios en el tiempo.
-\end{itemize}
-Este orden es importante: comparar calificaciones crudas sin controlar por aula puede confundir diferencias de evaluación con diferencias reales de desempeño relativo.
+La pregunta que guía esta sección es si ambos grupos ocupan posiciones distintas dentro de las distribuciones de calificación de sus respectivas aulas. La respuesta no se busca en calificaciones crudas, sino en una escala comparable. Por esa razón, antes de presentar resultados se explican dos decisiones metodológicas previas: cómo se tratan los casos sin calificación final y por qué se estandariza el desempeño por aula.
 
-\subsection{\texorpdfstring{¿Con qué lo comparamos?}{Con que lo comparamos?}}
-Sup: Con sus calificaciones, pero utilizando una escala estandarizada por aula (Z-score) y una estrategia explícita para tratar la ausencia de calificación.
+\subsection{Medición comparable del desempeño académico}
+Antes de comparar grupos por visitas, es necesario atender dos obstáculos que afectan directamente la comparabilidad. El primero es la presencia de registros ``sin calificación'', que obligan a decidir si esos casos deben excluirse o si conviene asignarles un valor plausible mediante algún procedimiento de imputación. El segundo es la \textbf{heterogeneidad} entre aulas, es decir, la existencia de diferencias en la forma de evaluar, en la dispersión de las calificaciones o en la distribución general de notas entre profesores y periodos.
+
+El orden de estas decisiones es importante. Si se compararan calificaciones crudas sin resolver primero el tratamiento de faltantes y sin controlar por aula, el análisis podría mezclar fenómenos distintos: diferencias genuinas en desempeño relativo, diferencias en los criterios de evaluación y diferencias derivadas de cómo se maneja la ausencia de calificación final. El objetivo del reporte es precisamente evitar esa confusión.
+
+\subsection{Escala de comparación utilizada}
+La comparación principal se hace con las calificaciones finales, pero no en su escala original. Se utiliza la versión estandarizada por aula, expresada mediante Z-score, y una estrategia explícita para tratar los casos sin calificación final. Esto permite formular la pregunta de manera más precisa: dentro de contextos docentes comparables, ¿los estudiantes con estrictamente más de 3 visitas tienden a ubicarse más arriba en la distribución de su propio grupo que los estudiantes con 3 visitas o menos?
+
+Con este encuadre, los resultados posteriores no deben leerse como una comparación entre cursos o entre profesores, sino como una comparación entre posiciones relativas dentro de cada aula. Esa diferencia conceptual es clave para que la interpretación institucional del documento sea sólida y prudente.
 
 
 
@@ -197,29 +185,25 @@ Sup: Con sus calificaciones, pero utilizando una escala estandarizada por aula (
 \newpage
 \section{Calificaciones}
 
-\subsection{\texorpdfstring{¿Qué significa ``sin calificación''?}{Que significa sin calificacion?}}
-En este conjunto de datos, ``sin calificación'' corresponde a que el estudiante \textbf{dio de baja la materia}.
-Los alumnos tienen la oportunidad de dar de baja antes de cierto periodo; al hacerlo, \textbf{no reciben calificación final} en esa materia.
-Esto es importante porque este tipo de ausencia suele concentrarse en situaciones específicas (por ejemplo, cambios de carga, decisiones estratégicas o anticipación de un resultado desfavorable), por lo que no debe asumirse como un faltante aleatorio sin más.
+\subsection{Interpretación de la categoría ``sin calificación''}
+En este conjunto de datos, la categoría ``sin calificación'' corresponde a estudiantes que \textbf{dieron de baja la materia}. En consecuencia, no se trata de una ausencia puramente administrativa o de un dato faltante sin contexto, sino de un evento académico con significado propio dentro de la trayectoria del estudiante.
 
-\subsection{Imputación de valores faltantes: comparación visual}
-En \hyperref[fig:imp_metodos]{Figura~\ref{fig:imp_metodos}} se comparan tres tratamientos:
-\begin{itemize}
-  \item \textbf{Eliminada}: se descartan registros sin calificación (bajas).
-  \item \textbf{Media}: se imputan faltantes con el promedio del salón.
-  \item \textbf{KDE}: se imputan faltantes usando una estimación de densidad.
-\end{itemize}
+Esta precisión es importante porque la baja de una materia suele asociarse con circunstancias específicas, como ajustes de carga, decisiones estratégicas o la expectativa de un resultado desfavorable. Por ello, estos registros no deben tratarse como si faltaran al azar. La manera en que se incorporan o se excluyen puede modificar de forma sustantiva la distribución final de calificaciones y, con ello, las comparaciones posteriores.
 
-La lectura es directa: las tres curvas representan cómo se vería la distribución de calificaciones bajo cada decisión.
-Un punto crítico es que imputar con un valor fijo o altamente concentrado (por ejemplo, imputar alrededor de 7.5) puede introducir \textbf{picos artificiales} que no existían en los datos observados, alterando la forma de la distribución y sesgando comparaciones posteriores.
-Por ello se usa KDE: su objetivo es \textbf{preservar la forma global} de la distribución (modos, colas y asimetrías) sin crear masa puntual nueva.
+\subsection{Comparación visual de estrategias de imputación}
+Cuando en una base de datos falta una calificación y se decide conservar el registro en el análisis, es necesario asignarle un valor de referencia. A este procedimiento se le llama \textbf{imputación}. La \hyperref[fig:imp_metodos]{Figura~\ref{fig:imp_metodos}} compara tres alternativas para hacerlo en un salón: eliminar los casos sin calificación, imputar con la media del grupo o imputar mediante \textbf{Kernel Density Estimation} (KDE), es decir, una estimación de densidad por kernel.
 
-Formalmente, si $x_1,\dots,x_n$ son observaciones (calificaciones) y $K$ es un kernel, entonces
+La intuición detrás de KDE es la siguiente: en vez de colocar todos los faltantes en un solo valor, se reconstruye una curva suave a partir de las calificaciones observadas y se utilizan valores consistentes con esa forma general. Esto ayuda a conservar la estructura de la distribución. En cambio, imputar con un único valor fijo, como la media del salón, puede producir picos artificiales que no estaban presentes en los datos originales.
+
+Conviene precisar qué es un \textbf{kernel}. En este contexto, un kernel es una función suave, generalmente simétrica, que coloca más peso en los valores cercanos a cada observación y menos peso en los alejados. Puede imaginarse como una pequeña ``campana'' centrada en cada calificación observada. Al superponer todas esas campanas se obtiene una curva continua que aproxima la forma general de la distribución sin obligar a que todos los casos se acumulen en un mismo punto.
+
+Formalmente, si $x_1,\dots,x_n$ son observaciones de calificación y $K$ es un kernel, la densidad estimada se escribe como
 \[
 \hat f_h(x)=\frac{1}{nh}\sum_{i=1}^n K\!\left(\frac{x-x_i}{h}\right),
 \]
-donde $h>0$ es el ancho de banda; en la práctica, $h$ controla el suavizado y, por tanto, qué tan sensible queda la densidad a picos locales.
-En este contexto, KDE se usa como estrategia para imputar sin ``apilar'' valores en un punto, evitando cambios estructurales fuertes en la distribución.
+donde $h$ es un ancho de banda positivo. En términos simples, $h$ controla el nivel de suavizado: valores pequeños siguen con más detalle las irregularidades locales y valores grandes producen curvas más suaves. En este reporte, KDE se adopta porque permite imputar sin concentrar masa artificial en un punto específico y, con ello, reduce alteraciones fuertes en la forma de la distribución.
+
+Las curvas de esta figura, y de otras similares a lo largo del reporte, son \textbf{curvas de densidad}. El eje vertical no representa número de estudiantes ni porcentaje directo. Representa concentración relativa de observaciones por unidad de calificación. Por ello, una densidad puede tomar valores por encima de 1 cuando muchas calificaciones se concentran en un intervalo estrecho. Esto no significa que exista ``más de 100\%'' de estudiantes en esa zona; significa, simplemente, que la distribución está muy concentrada allí. Lo importante es que el área total bajo cada curva sea 1. En términos de lectura visual, una curva alta y angosta indica mayor concentración, mientras que una curva más baja y extendida indica mayor dispersión.
 
 \begin{figure}[!htbp]
     \centering
@@ -229,8 +213,9 @@ En este contexto, KDE se usa como estrategia para imputar sin ``apilar'' valores
 \end{figure}
 
 \subsection{Casos especiales: distribución atípica y rangos truncados}
-Las Figuras \hyperref[fig:atipico_acotado]{Figura~\ref{fig:atipico_acotado}} y \hyperref[fig:atipico_completo]{Figura~\ref{fig:atipico_completo}} muestran un salón con comportamiento atípico, primero con una vista acotada y luego en rango completo.
-Un detalle clave es que recortar el eje $x$ cambia el soporte visible y puede inducir una lectura engañosa sobre ausencia/presencia de calificaciones bajas.
+Las Figuras \hyperref[fig:atipico_acotado]{Figura~\ref{fig:atipico_acotado}} y \hyperref[fig:atipico_completo]{Figura~\ref{fig:atipico_completo}} muestran un caso con comportamiento atípico. Este bloque se incluye porque, en análisis institucionales, no basta con observar una distribución; también es necesario revisar cómo cambia la interpretación cuando el eje horizontal se presenta acotado o en su rango completo.
+
+En \hyperref[fig:atipico_acotado]{Figura~\ref{fig:atipico_acotado}} el eje $x$ inicia en 7.5. Esa decisión visual puede dar la impresión de que no existen calificaciones por debajo de ese valor o de que la distribución está enteramente concentrada en la zona alta. La lectura, sin embargo, debe mantenerse provisional mientras no se revise el soporte completo.
 
 \begin{figure}[!htbp]
     \centering
@@ -239,8 +224,7 @@ Un detalle clave es que recortar el eje $x$ cambia el soporte visible y puede in
     \label{fig:atipico_acotado}
 \end{figure}
 
-En \hyperref[fig:atipico_acotado]{Figura~\ref{fig:atipico_acotado}} el eje $x$ inicia en 7.5, lo que sugiere que en ese salón no aparecen calificaciones por debajo de ese umbral en la vista mostrada.
-Esto es compatible con un escenario donde prácticamente no hay reprobación (o donde la distribución observada está fuertemente concentrada en valores altos), aunque esa conclusión debe contrastarse con el dominio completo.
+La \hyperref[fig:atipico_completo]{Figura~\ref{fig:atipico_completo}} reexpone el mismo caso en el dominio completo de la escala de calificación. Lo que debe observarse aquí es si la aparente ausencia de valores bajos era una propiedad real del salón o un efecto del recorte gráfico. La comparación entre ambas figuras funciona como una verificación visual contra interpretaciones apresuradas inducidas por la presentación del eje.
 
 \begin{figure}[!htbp]
     \centering
@@ -249,12 +233,10 @@ Esto es compatible con un escenario donde prácticamente no hay reprobación (o 
     \label{fig:atipico_completo}
 \end{figure}
 
-En \hyperref[fig:atipico_completo]{Figura~\ref{fig:atipico_completo}} se re-expone el dominio completo; esto permite verificar si la aparente ausencia de valores bajos era real o un artefacto de la ventana acotada.
-La comparación entre ambas figuras funciona como control visual contra interpretaciones guiadas por recorte del eje.
+\subsection{Estandarización posterior a la imputación}
+La \hyperref[fig:imp_estandar]{Figura~\ref{fig:imp_estandar}} retoma la comparación entre métodos de imputación, pero ahora dentro de un marco estandarizado. Esta visualización es útil porque separa dos cuestiones que a veces se confunden: los cambios puramente de escala y los cambios en la forma de la distribución.
 
-\subsection{Estandarización de imputación}
-La \hyperref[fig:imp_estandar]{Figura~\ref{fig:imp_estandar}} presenta la comparación de métodos en un marco estandarizado.
-La utilidad es doble: facilita contraste directo en una escala comparable y ayuda a separar cambios de forma (por imputación) de cambios puramente de escala.
+Al llevar todos los métodos a una referencia comparable, resulta más sencillo identificar si una estrategia altera el centro, la dispersión o la estructura general de las calificaciones. En términos prácticos, la figura ayuda a justificar que la decisión de imputación no es un trámite técnico aislado, sino una parte sustantiva del análisis.
 
 \begin{figure}[!htbp]
     \centering
@@ -263,9 +245,10 @@ La utilidad es doble: facilita contraste directo en una escala comparable y ayud
     \label{fig:imp_estandar}
 \end{figure}
 
-\subsection{Heterogeneidad entre profesores}
-Las Figuras \hyperref[fig:prof_sin_kde]{Figura~\ref{fig:prof_sin_kde}} y \hyperref[fig:prof_con_kde]{Figura~\ref{fig:prof_con_kde}} muestran distribuciones por profesor.
-Estas visualizaciones motivan el control por aula: si un profesor concentra calificaciones cerca de 10 y otro cerca de 8, entonces comparar calificaciones crudas entre estudiantes de ambos entornos puede reflejar diferencias de severidad, no diferencias de desempeño relativo.
+\subsection{Variación entre profesores en la distribución de calificaciones}
+Las Figuras \hyperref[fig:prof_sin_kde]{Figura~\ref{fig:prof_sin_kde}} y \hyperref[fig:prof_con_kde]{Figura~\ref{fig:prof_con_kde}} muestran cómo cambian las distribuciones de calificaciones entre profesores. El objetivo de este bloque es documentar la existencia de contextos de evaluación distintos. Si un docente concentra calificaciones cerca de 10 y otro alrededor de 8, comparar de manera directa a estudiantes de ambos entornos puede reflejar diferencias en la distribución de notas y no necesariamente diferencias equivalentes en desempeño relativo.
+
+Estas figuras también deben leerse como gráficas de densidad. Por ello, la altura de las curvas no representa una proporción directa de estudiantes, sino concentración relativa. Cuando una curva rebasa el valor 1 en el eje vertical, lo que muestra es que muchas calificaciones se encuentran comprimidas en un tramo pequeño de la escala, no que el grupo tenga una proporción imposible.
 
 \begin{figure}[!htbp]
     \centering
@@ -274,8 +257,7 @@ Estas visualizaciones motivan el control por aula: si un profesor concentra cali
     \label{fig:prof_sin_kde}
 \end{figure}
 
-En \hyperref[fig:prof_sin_kde]{Figura~\ref{fig:prof_sin_kde}} se reporta explícitamente ``Reprobados: 9.43\%'' y ``Aprobados: 90.57\%''.
-El conjunto de curvas (una por docente) muestra variación en picos, dispersión y cola inferior; esto evidencia que la distribución de calificaciones no es homogénea entre profesores.
+En \hyperref[fig:prof_sin_kde]{Figura~\ref{fig:prof_sin_kde}} se reportan explícitamente las proporciones agregadas de reprobación (9.43\%) y aprobación (90.57\%). Más allá de esos porcentajes, lo importante es observar que las curvas por docente no tienen la misma forma: cambian sus picos, su dispersión y el peso de la cola inferior. Esa diversidad es una evidencia visual de heterogeneidad en los patrones de calificación.
 
 \begin{figure}[!htbp]
     \centering
@@ -284,13 +266,12 @@ El conjunto de curvas (una por docente) muestra variación en picos, dispersión
     \label{fig:prof_con_kde}
 \end{figure}
 
-En \hyperref[fig:prof_con_kde]{Figura~\ref{fig:prof_con_kde}} las tasas cambian a ``Reprobados: 20.33\%'' y ``Aprobados: 79.67\%''.
-Esto ilustra que la forma de tratar bajas (sin calificación) no es un detalle menor: puede modificar la masa en la zona baja y alterar proporciones agregadas.
-Por ello, las comparaciones posteriores en Z-score se interpretan como dependientes de la estrategia de imputación documentada, y KDE se usa para minimizar alteraciones estructurales (por ejemplo, evitar picos nuevos por imputación puntual).
+En \hyperref[fig:prof_con_kde]{Figura~\ref{fig:prof_con_kde}} las proporciones cambian a 20.33\% de reprobados y 79.67\% de aprobados. Esta diferencia muestra que la forma de tratar las bajas no es un detalle menor: puede modificar la masa de la distribución en la zona baja y alterar indicadores agregados. Por ello, los análisis posteriores se interpretan siempre en el marco de la estrategia de imputación documentada y no como si esa decisión fuera neutra.
 
-\subsection{Agrupamiento y distancias entre profesores}
-La \hyperref[fig:ks_kmedoids]{Figura~\ref{fig:ks_kmedoids}} incluye una matriz KS entre profesores y diagnósticos para elegir $k$ en \textit{k-medoids}.
-La idea es que las distribuciones de calificaciones por profesor pueden verse como ``firmas''; comparar firmas con una métrica (KS) permite agrupar docentes con patrones similares.
+\subsection{Distancias y agrupamiento entre profesores}
+La \hyperref[fig:ks_kmedoids]{Figura~\ref{fig:ks_kmedoids}} profundiza en la variación entre profesores mediante una matriz de distancias y un análisis de agrupamiento. La idea es tratar la distribución de calificaciones de cada docente como una ``firma'' y comparar esas firmas entre sí.
+
+La medida utilizada es el estadístico \textbf{KS}, abreviatura de Kolmogorov--Smirnov. En términos sencillos, este estadístico resume qué tan separadas están dos distribuciones acumuladas; valores mayores indican diferencias más marcadas entre los patrones de calificación comparados. A partir de esa matriz se realiza un \textbf{clustering} o agrupamiento, es decir, un procedimiento para reunir profesores con distribuciones semejantes. El método empleado es \textit{k-medoids}, cercano en espíritu a \textit{k-means}, pero más estable frente a valores atípicos porque cada grupo queda representado por un caso observado y no por un promedio abstracto.
 
 \begin{figure}[!htbp]
     \centering
@@ -299,8 +280,7 @@ La idea es que las distribuciones de calificaciones por profesor pueden verse co
     \label{fig:ks_kmedoids}
 \end{figure}
 
-En el panel de selección de $k$, el método del codo y el puntaje silhouette aportan criterios internos de validación: el primero busca un punto de rendimientos decrecientes en la inercia, y el segundo evalúa separación/compacidad promedio.
-Estos diagnósticos son consistentes con la idea de que no hay una única forma ``correcta'' de agrupar, sino un rango plausible que debe interpretarse junto con evidencia sustantiva.
+La elección de $k$, es decir, del número de grupos, se apoya en dos diagnósticos internos. El método del codo busca el punto a partir del cual aumentar el número de grupos aporta cada vez menos mejora. El índice \textit{silhouette} resume qué tan compactos y qué tan bien separados quedan los grupos formados. Ninguno de estos criterios debe interpretarse como una regla automática o única; más bien ofrecen una guía cuantitativa para respaldar la lectura sustantiva de la heterogeneidad docente.
 
 \begin{figure}[!htbp]
     \centering
@@ -309,11 +289,10 @@ Estos diagnósticos son consistentes con la idea de que no hay una única forma 
     \label{fig:doc_no_legible}
 \end{figure}
 
-En \hyperref[fig:doc_no_legible]{Figura~\ref{fig:doc_no_legible}} no se distinguen detalles suficientes para describir ejes o leyendas con precisión; se conserva como soporte contextual del bloque de heterogeneidad docente, evitando inferencias no verificables.
+En \hyperref[fig:doc_no_legible]{Figura~\ref{fig:doc_no_legible}} no es posible distinguir con suficiente claridad los ejes o las leyendas en la versión disponible del PDF. Por ello, la figura se conserva como referencia contextual del bloque, pero sin extraer de ella inferencias específicas que no puedan verificarse con certeza.
 
 \subsection{Distribuciones por profesor: escenarios comparables}
-Las Figuras \hyperref[fig:dist_prof_A]{Figura~\ref{fig:dist_prof_A}}--\hyperref[fig:dist_prof_F]{Figura~\ref{fig:dist_prof_F}} muestran distribuciones por profesor con imputación KDE en distintos escenarios/subconjuntos, con tasas impresas de reprobación/aprobación.
-La repetición de valores (por ejemplo, 9.73\%, 17.16\%, 32.89\%) en conjuntos de figuras sugiere que se están comparando particiones con métricas agregadas consistentes, aunque el criterio exacto no se distingue a nivel de panel.
+Las Figuras \hyperref[fig:dist_prof_A]{Figura~\ref{fig:dist_prof_A}}--\hyperref[fig:dist_prof_F]{Figura~\ref{fig:dist_prof_F}} presentan distribuciones por profesor con imputación KDE en distintos escenarios o subconjuntos comparables. En todas ellas se reportan proporciones agregadas de reprobación y aprobación. La finalidad de este conjunto no es introducir un resultado aislado, sino mostrar que la diversidad de patrones persiste aun cuando se observan configuraciones distintas del conjunto de datos.
 
 \begin{figure}[!htbp]
     \centering
@@ -357,16 +336,14 @@ La repetición de valores (por ejemplo, 9.73\%, 17.16\%, 32.89\%) en conjuntos d
     \label{fig:dist_prof_F}
 \end{figure}
 
-Estas figuras funcionan como diagnóstico de diversidad de patrones: escenarios con mayor tasa de reprobación suelen reflejar más masa en la cola inferior o un corrimiento global hacia valores más bajos.
-En adelante, este contexto justifica que el análisis principal use estandarización por aula y reporte contrastes robustos (no solo promedios), pues la forma de la distribución importa.
+La repetición de ciertas tasas, como 9.73\%, 17.16\% y 32.89\%, sugiere que las figuras comparan particiones con métricas agregadas consistentes. Aun cuando el criterio exacto no es completamente legible en cada panel, el mensaje general sí es claro: existen escenarios con mayor concentración de masa en la cola inferior y otros con distribuciones desplazadas hacia valores más altos. En adelante, este diagnóstico refuerza la necesidad de trabajar con estandarización por aula y con contrastes que no dependan únicamente de la media.
 
 
 
 \FloatBarrier
 \newpage
-\section{\texorpdfstring{¿Cuál es la mejor forma de estandarizar?}{Cual es la mejor forma de estandarizar?}}
-La motivación para incluir el periodo dentro de la definición de aula se refuerza con evidencia temporal: si la forma de evaluar cambia a través de los periodos, mezclar periodos degrada la comparabilidad.
-\hyperref[fig:serie_prof]{Figura~\ref{fig:serie_prof}} muestra la media anual de calificaciones para un profesor en el rango 2019--2025, evidenciando variación longitudinal.
+\section{Justificación de la estandarización por aula}
+La conveniencia de incluir el periodo dentro de la definición de aula se refuerza con evidencia temporal. La \hyperref[fig:serie_prof]{Figura~\ref{fig:serie_prof}} muestra la media de calificaciones de un mismo profesor a lo largo de varios periodos entre 2019 y 2025. El propósito de este ejemplo no es describir un caso excepcional, sino ilustrar que el patrón de calificación de un docente puede cambiar con el tiempo.
 
 \begin{figure}[!htbp]
     \centering
@@ -375,9 +352,9 @@ La motivación para incluir el periodo dentro de la definición de aula se refue
     \label{fig:serie_prof}
 \end{figure}
 
-Si el nivel promedio cambia por año, también es plausible que cambie la dispersión o incluso la forma (asimetría, colas).
-Por ello, la estandarización se realiza dentro de aula (docente--materia--periodo) y se agregan secciones cuando corresponden al mismo docente, materia y periodo.
-Esto reduce el sesgo por diferencias de severidad entre aulas y evita confundir cambios intertemporales de evaluación con diferencias de desempeño relativo entre estudiantes.
+Si el nivel promedio varía entre años, también es razonable pensar que cambien la dispersión y, en algunos casos, la forma completa de la distribución. Por ello, mezclar periodos dentro de una misma referencia puede degradar la comparabilidad del análisis. La estandarización dentro de aula, entendida como docente--materia--periodo, busca justamente evitar ese problema.
+
+Esta decisión no elimina toda la variabilidad del sistema, pero sí reduce una fuente importante de confusión. En términos institucionales, permite que la comparación se haga entre estudiantes ubicados en contextos de evaluación más homogéneos y evita atribuir a diferencias de desempeño relativo lo que en realidad podría deberse a cambios en los patrones de calificación entre periodos.
 
 
 
@@ -385,7 +362,9 @@ Esto reduce el sesgo por diferencias de severidad entre aulas y evita confundir 
 \newpage
 \section{Análisis por aula (agregado por salón)}
 
-\subsection{Relación visitas--Z-score (dispersión)}
+\noindent En esta sección la unidad de observación es el aula ya definida anteriormente. En lugar de comparar directamente a todos los estudiantes entre sí, se resume el comportamiento dentro de cada entorno docente y posteriormente se contrastan los grupos de visitas. Esta perspectiva es útil porque reduce el peso desproporcionado que podrían tener las aulas con mayor matrícula y permite verificar si el patrón general se sostiene también a nivel agregado.
+
+\subsection{Relación entre visitas y Z-score: dispersión}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{07_00.pdf}
@@ -393,22 +372,21 @@ Esto reduce el sesgo por diferencias de severidad entre aulas y evita confundir 
     \label{fig:salon_scatter}
 \end{figure}
 
-En \hyperref[fig:salon_scatter]{Figura~\ref{fig:salon_scatter}} el eje $x$ es el número de visitas (0--120) y el eje $y$ es la calificación estandarizada (KDE, Z-score).
-La leyenda distingue los grupos de visitas.
-Como visualización, este diagrama no impone una relación funcional; sirve para inspeccionar dispersión, densidad de puntos en baja visita y presencia de casos en la cola de visitas altas.
-También permite evaluar si los puntos del grupo $>3$ visitas tienden a concentrarse en valores de $z$ más altos o si el patrón es heterogéneo.
+En \hyperref[fig:salon_scatter]{Figura~\ref{fig:salon_scatter}} el eje horizontal muestra el número de visitas y el eje vertical la calificación estandarizada. La figura no impone una forma funcional específica; su función es descriptiva. Lo que debe observarse es la concentración de aulas en niveles bajos de visita, la presencia de una cola de visitas altas y la ubicación relativa de los puntos de acuerdo con su Z-score.
 
-\subsection{Diferencia de medias (prueba $t$ de Welch)}
+Esta visualización también ayuda a valorar si las aulas asociadas con estrictamente más de 3 visitas tienden a concentrarse en valores de $z$ más altos o si el patrón es más heterogéneo. Por sí sola no prueba una diferencia, pero prepara la lectura de los contrastes formales que se presentan a continuación.
+
+\subsection{\texorpdfstring{Comparación de medias con prueba $t$ de Welch}{Comparacion de medias con prueba t de Welch}}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{07_01.pdf}
-    \caption{Comparación de distribuciones de calificación estandarizada por aula entre grupos de visitas (Welch $t$ reportado en el panel: $t=24.34$, $p=0.0000$).}
+    \caption{Comparación de distribuciones de calificación estandarizada por aula entre grupos de visitas (prueba $t$ de Welch reportada en el panel: $t=24.34$, $p=0.0000$).}
     \label{fig:salon_t}
 \end{figure}
 
-En \hyperref[fig:salon_t]{Figura~\ref{fig:salon_t}} se superponen densidades de Z-score para los dos grupos y se reporta $t=24.34$ con $p=0.0000$.
-Este resultado resume una diferencia promedio detectable en la escala estandarizada.
-La comparación visual de densidades aporta información adicional: desplazamientos hacia la derecha sugieren mayor desempeño relativo; diferencias en colas sugieren que el contraste puede concentrarse en ciertos tramos y no ser uniforme.
+La \hyperref[fig:salon_t]{Figura~\ref{fig:salon_t}} compara las distribuciones de Z-score entre aulas asociadas con estrictamente más de 3 visitas y aulas asociadas con 3 visitas o menos. La prueba utilizada es la \textbf{$t$ de Welch}, un contraste de medias diseñado para situaciones en las que los grupos pueden tener tamaños distintos y varianzas diferentes. El panel reporta $t=24.34$ y $p=0.0000$. El \textbf{$p$-valor} resume qué tan compatible sería un resultado de esta magnitud con un escenario en el que no existiera diferencia promedio entre grupos; en este caso, el valor reportado sugiere una diferencia claramente detectable en la muestra analizada.
+
+La lectura no debe detenerse en la significancia estadística. La superposición de densidades permite observar hacia dónde se desplazan las distribuciones y si la diferencia parece concentrarse en el centro o también en las colas. Un corrimiento hacia la derecha del grupo con mayor número de visitas es consistente con un mejor desempeño relativo en la escala estandarizada, aunque siempre dentro de una interpretación asociativa y no causal. En esta figura, como en las demás curvas de densidad, el eje vertical muestra concentración relativa y no porcentaje directo; por ello, una altura mayor que 1 no implica un exceso de casos, sino una mayor concentración en un intervalo estrecho de valores.
 
 \subsection{Pruebas robustas y tamaños de efecto}
 \begin{figure}[!htbp]
@@ -418,18 +396,9 @@ La comparación visual de densidades aporta información adicional: desplazamien
     \label{fig:salon_rob}
 \end{figure}
 
-En \hyperref[fig:salon_rob]{Figura~\ref{fig:salon_rob}} se reporta, en el propio panel:
-\begin{itemize}
-  \item Mediana (más de 3 visitas): 0.489; Mediana (3 o menos): 0.284; Diferencia: 0.205.
-  \item IC95\% para diferencia de medianas: [0.190, 0.224].
-  \item $p_{\text{mediana}}=0.0003999$ (permutación para mediana).
-  \item Mann--Whitney: $p=4.958\times10^{-117}$; Brunner--Munzel: $p=9.599\times10^{-122}$.
-  \item Tamaños de efecto: CL=0.620, $r_{rb}=0.240$, Cliff's $\delta=0.243$.
-\end{itemize}
+La \hyperref[fig:salon_rob]{Figura~\ref{fig:salon_rob}} complementa la comparación de medias con herramientas más robustas, es decir, menos sensibles a colas largas o a valores extremos. El panel reporta una mediana de 0.489 para el grupo con estrictamente más de 3 visitas y de 0.284 para el grupo con 3 visitas o menos, con una diferencia de 0.205. El intervalo de confianza del 95\% (IC95\%) para esa diferencia es [0.190, 0.224], y la prueba de permutación para medianas arroja $p_{\text{mediana}}=0.0003999$. Un intervalo de confianza puede entenderse como un rango de valores plausibles para la diferencia poblacional compatible con la evidencia observada bajo el procedimiento utilizado.
 
-Estas cantidades complementan la prueba $t$ de medias.
-La mediana y su IC95\% describen una diferencia ``típica'' robusta a colas y valores extremos.
-Los tamaños de efecto (CL, $r_{rb}$, Cliff's $\delta$) cuantifican magnitud práctica en escala de rangos/probabilidades, particularmente útil cuando hay grandes tamaños muestrales, donde el $p$-valor tiende a ser pequeño incluso para efectos modestos.
+Además se reportan dos pruebas no paramétricas: \textbf{Mann--Whitney}, con $p=4.958\times10^{-117}$, y \textbf{Brunner--Munzel}, con $p=9.599\times10^{-122}$. Ambas comparan la posición relativa de los grupos a partir de rangos, por lo que son útiles cuando se desea reducir la dependencia respecto de supuestos paramétricos estrictos. Junto a ellas aparecen varios \textbf{tamaños de efecto}, es decir, medidas de magnitud práctica. En particular, $CL=0.620$ se interpreta como una probabilidad de superioridad en lenguaje simple; $r_{rb}=0.240$ y Cliff's $\delta=0.243$ resumen el grado de separación entre ambas distribuciones. En conjunto, estos indicadores muestran que la diferencia no solo es estadísticamente detectable, sino también consistente cuando se examina desde métricas robustas.
 
 
 
@@ -437,7 +406,9 @@ Los tamaños de efecto (CL, $r_{rb}$, Cliff's $\delta$) cuantifican magnitud pr�
 \newpage
 \section{Análisis por estudiante (individual)}
 
-\subsection{Relación visitas--Z-score (dispersión)}
+\noindent La sección anterior trabajó con aulas agregadas. Ahora el foco vuelve al nivel individual para examinar si el patrón persiste cuando cada observación corresponde a un estudiante. Esta segunda mirada es relevante porque recupera toda la variabilidad de la población estudiantil y permite valorar si la asociación observada a nivel agregado también aparece en los datos individuales.
+
+\subsection{Relación entre visitas y Z-score: dispersión}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{08_00.pdf}
@@ -445,11 +416,11 @@ Los tamaños de efecto (CL, $r_{rb}$, Cliff's $\delta$) cuantifican magnitud pr�
     \label{fig:est_scatter}
 \end{figure}
 
-En \hyperref[fig:est_scatter]{Figura~\ref{fig:est_scatter}} cada punto es un estudiante.
-Se observa alta variabilidad individual en Z-score, aun para el mismo número de visitas, lo cual es esperable: el desempeño depende de múltiples factores no observados en esta visualización.
-Aun así, la figura permite ver la concentración masiva de estudiantes en bajas visitas y la existencia de una cola de estudiantes con visitas altas, coherente con la distribución exploratoria.
+En \hyperref[fig:est_scatter]{Figura~\ref{fig:est_scatter}} cada punto representa a un estudiante. La primera impresión es la alta variabilidad individual del Z-score, incluso entre estudiantes con un número similar de visitas. Esto es esperable, ya que el desempeño académico depende de múltiples factores que no están contenidos en esta sola visualización.
 
-\subsection{Diferencia de medias (Welch $t$)}
+Al mismo tiempo, la figura confirma dos rasgos ya observados: la concentración masiva en niveles bajos de visita y la existencia de una cola de estudiantes con uso intensivo del CMAT. La gráfica, por tanto, no pretende establecer una relación lineal simple, sino mostrar la amplitud de la dispersión sobre la cual se realizan las comparaciones formales.
+
+\subsection{\texorpdfstring{Comparación de medias con Welch $t$}{Comparacion de medias con Welch t}}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{08_01.pdf}
@@ -457,15 +428,9 @@ Aun así, la figura permite ver la concentración masiva de estudiantes en bajas
     \label{fig:est_t}
 \end{figure}
 
-En \hyperref[fig:est_t]{Figura~\ref{fig:est_t}} se reporta:
-\begin{itemize}
-  \item $t=21.93$, $p=0.0000$.
-  \item Media (más de 3 visitas)=0.34; Media (3 o menos)=-0.08; Diferencia=0.41.
-  \item Tamaños muestrales: $n=1036$ y $n=9377$.
-\end{itemize}
+En \hyperref[fig:est_t]{Figura~\ref{fig:est_t}} se presenta nuevamente la prueba $t$ de Welch, ahora a nivel estudiante. El panel reporta $t=21.93$ y $p=0.0000$, junto con medias de 0.34 para el grupo con estrictamente más de 3 visitas y de -0.08 para el grupo con 3 visitas o menos, con una diferencia reportada de 0.41. Los tamaños muestrales son $n=1036$ y $n=9377$, respectivamente.
 
-La diferencia promedio de 0.41 en Z-score sugiere desplazamiento hacia valores mayores en el grupo con más de 3 visitas, en la escala estandarizada.
-El tamaño muestral grande ayuda a estimar con precisión la diferencia promedio; por ello se complementa con evidencia robusta y tamaños de efecto para interpretar magnitud.
+En una escala estandarizada, esta diferencia promedio describe un desplazamiento del grupo con mayor número de visitas hacia valores más altos de desempeño relativo. El tamaño muestral amplio permite estimar esa diferencia con alta precisión estadística; sin embargo, precisamente por ello resulta indispensable complementar la lectura con medidas robustas y con tamaños de efecto, para no confundir detectabilidad estadística con relevancia práctica.
 
 \subsection{Pruebas robustas, tamaños de efecto e IC95\%}
 \begin{figure}[!htbp]
@@ -475,38 +440,29 @@ El tamaño muestral grande ayuda a estimar con precisión la diferencia promedio
     \label{fig:est_rob}
 \end{figure}
 
-En \hyperref[fig:est_rob]{Figura~\ref{fig:est_rob}} se reporta:
-\begin{itemize}
-  \item Mediana (más de 3 visitas)=0.422; Mediana (3 o menos)=0.185; Diferencia=0.237.
-  \item IC95\% para diferencia de medianas: [0.202, 0.284]; $p_{\text{mediana}}=0.0003999$.
-  \item Mann--Whitney: $p=3.224\times10^{-50}$; Brunner--Munzel: $p=2.023\times10^{-57}$.
-  \item CL=0.641 (IC95\% [0.625, 0.657]); $r_{rb}=0.282$ (IC95\% [0.250, 0.313]).
-  \item Cliff's $\delta=0.283$ (IC95\% [0.234, 0.326]).
-\end{itemize}
+La \hyperref[fig:est_rob]{Figura~\ref{fig:est_rob}} refuerza la lectura anterior desde estadísticos robustos. La mediana del grupo con estrictamente más de 3 visitas es 0.422, mientras que la del grupo con 3 visitas o menos es 0.185; la diferencia es 0.237. El IC95\% para esa diferencia es [0.202, 0.284] y la prueba de permutación para la mediana reporta $p_{\text{mediana}}=0.0003999$. De nuevo, el hecho de que el intervalo no incluya 0 es consistente con una diferencia positiva entre grupos.
 
-La diferencia de medianas (0.237) es consistente con un desplazamiento hacia arriba del grupo con más visitas, con un IC95\% que no incluye 0.
-CL=0.641 puede interpretarse como una probabilidad de superioridad: al comparar un estudiante al azar del grupo $>3$ visitas contra uno del grupo $\le 3$, la probabilidad de que el primero tenga mayor Z-score es alrededor de 0.641 bajo la forma de cálculo del estimador.
+Las pruebas de Mann--Whitney y Brunner--Munzel reportan, respectivamente, $p=3.224\times10^{-50}$ y $p=2.023\times10^{-57}$. En cuanto a tamaños de efecto, se informa $CL=0.641$ con IC95\% [0.625, 0.657], $r_{rb}=0.282$ con IC95\% [0.250, 0.313] y Cliff's $\delta=0.283$ con IC95\% [0.234, 0.326]. En lenguaje más intuitivo, el valor $CL=0.641$ puede leerse como una probabilidad de superioridad: al comparar aleatoriamente un estudiante del grupo con estrictamente más de 3 visitas contra uno del grupo con 3 visitas o menos, la probabilidad estimada de que el primero tenga mayor Z-score es cercana a 0.641. En conjunto, estas medidas describen una separación moderada y consistente entre ambos grupos dentro de la escala estandarizada.
 
 
 
 \FloatBarrier
 \newpage
-\section{Gráfica de desempeño}
+\section{Desempeño agregado por número de visitas}
 
-Esta sección resume la relación promedio entre visitas y desempeño estandarizado, con incertidumbre.
-La idea es complementar densidades y pruebas con una vista agregada por número de visitas, cuidando que en visitas altas hay menos observaciones (según \hyperref[fig:visitas_hist]{Figura~\ref{fig:visitas_hist}}), lo que típicamente ensancha el intervalo de confianza.
+\noindent Esta sección ofrece una síntesis gráfica de la relación entre visitas y desempeño estandarizado. La intención es complementar las comparaciones por grupos con una vista agregada por número de visitas específico. Dado que los niveles altos de asistencia son mucho menos frecuentes, también es esperable que la incertidumbre aumente en esa zona.
 
-\subsection{Agregación de $Z$ promedio por visitas con IC95\%}
+\subsection{\texorpdfstring{Agregación de $Z$ promedio por visitas con IC95\%}{Agregacion de Z promedio por visitas con IC95\%}}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.7\textwidth,page=1]{09_01.pdf}
-    \caption{$Z$ promedio por aula vs número de visitas, con intervalo de confianza del 95\% (IC95\%) alrededor de la media agregada.}
+    \caption{$Z$ promedio por aula frente al número de visitas, con intervalo de confianza del 95\% (IC95\%) alrededor de la media agregada.}
     \label{fig:z_vs_visitas_ic}
 \end{figure}
 
-En \hyperref[fig:z_vs_visitas_ic]{Figura~\ref{fig:z_vs_visitas_ic}} se grafica la media de $Z$ por número de visitas y su IC95\%.
-Cuando la media aumenta con visitas, sugiere una tendencia promedio positiva; cuando el IC se ensancha, indica menor precisión (habitualmente por menor tamaño muestral en ese nivel de visitas).
-Esta figura se interpreta como resumen descriptivo con incertidumbre: no sustituye las comparaciones por grupos, sino que ayuda a visualizar si el patrón se mantiene al agregar por conteo de visitas.
+En \hyperref[fig:z_vs_visitas_ic]{Figura~\ref{fig:z_vs_visitas_ic}} se grafica la media de $Z$ para cada número de visitas y se añade su IC95\%. Lo que conviene observar es si la trayectoria promedio asciende, desciende o se mantiene estable conforme aumenta el número de visitas. Cuando la media crece, la lectura descriptiva es que los niveles mayores de asistencia se asocian con mejor desempeño relativo promedio.
+
+El ancho del intervalo de confianza aporta información adicional sobre precisión. Un intervalo más amplio suele reflejar que en ese nivel de visitas hay menos observaciones disponibles. Por ello, esta figura debe leerse como un resumen descriptivo con incertidumbre y no como sustituto de las comparaciones por grupos realizadas en las secciones anteriores.
 
 
 
@@ -515,13 +471,124 @@ Esta figura se interpreta como resumen descriptivo con incertidumbre: no sustitu
 \section{Conclusiones}
 
 \subsection{Síntesis interpretativa}
-A nivel aula (\hyperref[fig:salon_t]{Figura~\ref{fig:salon_t}} y \hyperref[fig:salon_rob]{Figura~\ref{fig:salon_rob}}) y a nivel estudiante (\hyperref[fig:est_t]{Figura~\ref{fig:est_t}} y \hyperref[fig:est_rob]{Figura~\ref{fig:est_rob}}), las comparaciones muestran diferencias detectables entre grupos definidos por visitas ($>3$ vs $\le 3$) en la escala estandarizada.
-El umbral de 3 visitas tiene interpretación institucional (puntos de PPA1), por lo que el contraste $>3$ vs $\le 3$ separa uso adicional del mínimo incentivado.
-Los tamaños de efecto e intervalos de confianza aportan magnitud e incertidumbre, complementando los $p$-valores de pruebas paramétricas y no paramétricas.
+Tanto a nivel aula (\hyperref[fig:salon_t]{Figura~\ref{fig:salon_t}} y \hyperref[fig:salon_rob]{Figura~\ref{fig:salon_rob}}) como a nivel estudiante (\hyperref[fig:est_t]{Figura~\ref{fig:est_t}} y \hyperref[fig:est_rob]{Figura~\ref{fig:est_rob}}), el análisis muestra diferencias detectables entre los grupos definidos por visitas al CMAT. En la escala estandarizada utilizada, los estudiantes con estrictamente más de 3 visitas tienden a ubicarse, en promedio y también en términos robustos, por arriba de quienes registran 3 visitas o menos.
+
+La interpretación de este hallazgo gana claridad porque el umbral de 3 visitas tiene un sentido institucional concreto. El contraste entre estrictamente más de 3 visitas y 3 visitas o menos no solo separa dos conteos numéricos, sino dos formas de uso potencialmente distintas del servicio: un uso adicional del CMAT frente a un uso nulo, limitado o posiblemente vinculado al cumplimiento de un mínimo. Los tamaños de efecto y los intervalos de confianza complementan a los $p$-valores y permiten sostener que la diferencia observada no depende únicamente del gran tamaño muestral.
 
 \subsection{Alcances y límites}
-La evidencia es observacional: describe asociación entre uso del CMAT y calificación estandarizada, pero no demuestra causalidad.
-La estandarización por aula (docente--materia--periodo) responde a heterogeneidad docente y cambios de evaluación en el tiempo, motivados visualmente por \hyperref[fig:serie_prof]{Figura~\ref{fig:serie_prof}}.
-El tratamiento de ``sin calificación'' como bajas de materia y su imputación con KDE (comparado en \hyperref[fig:imp_metodos]{Figura~\ref{fig:imp_metodos}}) se adopta para minimizar distorsiones de forma (por ejemplo, evitar picos nuevos por imputación puntual) y mantener comparabilidad en los análisis posteriores.
+La evidencia presentada es observacional. En consecuencia, describe asociaciones entre el uso del CMAT y la calificación estandarizada, pero no demuestra por sí sola una relación causal. La prudencia en esta interpretación es especialmente importante en un contexto académico donde intervienen múltiples factores adicionales, como antecedentes formativos, características del curso, decisiones de inscripción o condiciones personales del estudiante.
+
+La estandarización por aula, entendida como docente--materia--periodo, se adopta para responder a la variación entre contextos de evaluación y a los cambios que pueden presentarse en el tiempo, tal como se ilustra en \hyperref[fig:serie_prof]{Figura~\ref{fig:serie_prof}}. Asimismo, el tratamiento de la categoría ``sin calificación'' como baja de materia y su imputación mediante KDE, comparada en \hyperref[fig:imp_metodos]{Figura~\ref{fig:imp_metodos}}, busca conservar mejor la forma de las distribuciones y evitar distorsiones introducidas por imputaciones puntuales. En conjunto, estas decisiones metodológicas fortalecen la comparabilidad del análisis y dan mayor solidez al uso institucional del reporte.
+
+\appendix
+\newpage
+\section{Apéndice metodológico de técnicas estadísticas y de aprendizaje no supervisado}
+
+Este apéndice reúne, en formato sintético y formal, la notación, las definiciones operativas, los estadísticos y las expresiones principales de los métodos empleados a lo largo del reporte. Su finalidad es dejar explícito el andamiaje metodológico del documento y facilitar una lectura técnica homogénea del análisis.
+
+\subsection{Notación general}
+Sea $g$ la calificación cruda de un estudiante y sea $a$ el aula definida por la combinación docente--materia--periodo. Sean $\mu_a$ y $\sigma_a$ la media y la desviación estándar de las calificaciones en el aula $a$. Para las comparaciones entre grupos, se denota por $G_1$ al conjunto de observaciones con estrictamente más de 3 visitas al CMAT y por $G_0$ al conjunto con 3 visitas o menos. Sus tamaños muestrales se representan por $n_1$ y $n_0$, respectivamente.
+
+\subsection{Estandarización por aula}
+La variable de respuesta principal del reporte es la calificación estandarizada por aula:
+\[
+z=\frac{g-\mu_a}{\sigma_a}.
+\]
+Esta transformación convierte cada calificación en una posición relativa respecto de su propio entorno de evaluación. Bajo esta convención, $z=0$ corresponde al promedio del aula, $z>0$ indica un desempeño relativo por encima del promedio y $z<0$ un desempeño relativo por debajo de él. La estandarización se realiza dentro de cada aula para reducir problemas de comparabilidad derivados de diferencias entre docentes, materias y periodos.
+
+\subsection{Tratamiento de faltantes e imputación por KDE}
+Los registros ``sin calificación'' se interpretan como bajas de materia. Cuando tales registros se incorporan al análisis mediante imputación, se compara la eliminación simple, la imputación por media y la imputación basada en estimación de densidad por kernel.
+
+La densidad estimada por KDE se escribe como
+\[
+\hat f_h(x)=\frac{1}{nh}\sum_{i=1}^{n}K\!\left(\frac{x-x_i}{h}\right),
+\]
+donde $x_1,\dots,x_n$ son las calificaciones observadas, $K$ es el kernel y $h$ es el ancho de banda. El kernel actúa como una función de ponderación local centrada en cada observación; el ancho de banda controla el nivel de suavizado. En el presente contexto, KDE se utiliza para preservar la forma global de la distribución al imputar faltantes, evitando la acumulación artificial de masa en un valor único.
+
+\subsection{Curvas de densidad}
+En las figuras que muestran densidades, el eje vertical no representa frecuencia absoluta ni porcentaje directo de estudiantes. Representa densidad de probabilidad. Por ello, la altura de una curva puede ser mayor que 1 sin contradecir la interpretación probabilística, siempre que el área total bajo la curva sea igual a 1:
+\[
+\int_{-\infty}^{\infty} f(x)\,dx = 1.
+\]
+Una curva más alta y angosta indica mayor concentración de observaciones en un intervalo reducido; una curva más baja y extendida indica mayor dispersión.
+
+\subsection{Contraste paramétrico de medias: prueba t de Welch}
+Para contrastar medias entre $G_1$ y $G_0$ se emplea la prueba \textit{t} de Welch, apropiada cuando los grupos pueden diferir tanto en tamaño como en varianza. El estadístico se define como
+\[
+t=\frac{\bar z_1-\bar z_0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_0^2}{n_0}}},
+\]
+donde $\bar z_j$ y $s_j^2$ son la media y la varianza muestral del grupo $G_j$. Los grados de libertad se aproximan mediante la corrección de Welch--Satterthwaite:
+\[
+\nu \approx
+\frac{\left(\frac{s_1^2}{n_1}+\frac{s_0^2}{n_0}\right)^2}
+{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1-1}+\frac{\left(\frac{s_0^2}{n_0}\right)^2}{n_0-1}}.
+\]
+El contraste se interpreta como una prueba de diferencia de medias bajo independencia entre observaciones y sin requerir homogeneidad de varianzas.
+
+\subsection{Comparación de medianas y prueba de permutación}
+Como complemento robusto a la comparación de medias, el reporte utiliza la diferencia de medianas
+\[
+\Delta_{\mathrm{med}}=\operatorname{Med}(G_1)-\operatorname{Med}(G_0),
+\]
+y una prueba de permutación asociada. Bajo esta estrategia, la hipótesis nula se evalúa reordenando aleatoriamente las etiquetas de grupo y recalculando repetidamente el estadístico de interés. El valor-$p$ se obtiene como la proporción de permutaciones que generan una diferencia al menos tan extrema como la observada. Este procedimiento resulta útil cuando se desea reducir la dependencia respecto de supuestos paramétricos clásicos.
+
+\subsection{Pruebas no paramétricas de rangos}
+La prueba de Mann--Whitney se basa en los rangos conjuntos de ambas muestras y contrasta si una población tiende a producir valores sistemáticamente mayores que la otra. Su estadístico puede expresarse, en forma equivalente, como
+\[
+U = R_1-\frac{n_1(n_1+1)}{2},
+\]
+donde $R_1$ es la suma de rangos del grupo $G_1$.
+
+La prueba de Brunner--Munzel se apoya en el parámetro de dominancia estocástica
+\[
+p=P(X_1>X_0)+\frac{1}{2}P(X_1=X_0),
+\]
+y proporciona un contraste robusto aun cuando no conviene asumir igualdad de varianzas ni formas distributivas idénticas. En este sentido, su uso complementa a Mann--Whitney cuando la heterogeneidad entre grupos puede ser más amplia.
+
+\subsection{Tamaños de efecto}
+El reporte informa tres medidas principales de magnitud práctica. La primera es la probabilidad de superioridad o \textit{common language effect size}:
+\[
+CL=P(X_1>X_0)+\frac{1}{2}P(X_1=X_0).
+\]
+La segunda es la correlación biserial por rangos, que puede escribirse como
+\[
+r_{rb}=\frac{2U}{n_1n_0}-1.
+\]
+La tercera es el $\delta$ de Cliff,
+\[
+\delta=\frac{\#(X_1>X_0)-\#(X_1<X_0)}{n_1n_0}.
+\]
+Estas medidas no sustituyen a los contrastes de hipótesis; su función es cuantificar la magnitud de la separación entre grupos en una escala interpretable, especialmente cuando el tamaño muestral hace que diferencias pequeñas resulten estadísticamente detectables.
+
+\subsection{Intervalos de confianza}
+Los intervalos de confianza al 95\% se reportan como rangos de compatibilidad entre los datos observados y los valores plausibles del parámetro bajo el procedimiento de estimación utilizado. En notación general,
+\[
+IC_{95\%}(\theta)=[L,U],
+\]
+donde $L$ y $U$ representan los límites inferior y superior del intervalo. En el reporte se usan para acompañar diferencias de medianas y tamaños de efecto, con el fin de complementar la evidencia puntual con una medida explícita de incertidumbre.
+
+\subsection{Heterogeneidad entre distribuciones docentes}
+La heterogeneidad entre patrones de calificación se resume mediante el estadístico de Kolmogorov--Smirnov:
+\[
+D_{KS}=\sup_x |F_1(x)-F_2(x)|,
+\]
+donde $F_1$ y $F_2$ son funciones de distribución acumulada. Este estadístico mide la mayor discrepancia vertical entre dos distribuciones acumuladas y ofrece una medida natural de distancia distributiva cuando interesa comparar forma, dispersión y localización en conjunto.
+
+\subsection{Agrupamiento mediante k-medoids}
+Sobre la matriz de distancias derivada de los estadísticos KS se aplica un procedimiento de agrupamiento no supervisado mediante k-medoids. A diferencia de k-means, este método representa cada grupo por una observación real del conjunto, llamada medoide. Su criterio de optimización puede escribirse como
+\[
+\min_{M:\,|M|=k}\sum_{i=1}^{N}\min_{m\in M} d(i,m),
+\]
+donde $M$ es el conjunto de medoides seleccionados y $d(i,m)$ es la distancia entre la observación $i$ y el medoide $m$. Esta formulación es particularmente útil cuando la matriz de disimilitud no surge de una distancia euclidiana clásica.
+
+\subsection{Criterios de selección del número de grupos}
+Para apoyar la elección de $k$ se utilizan dos criterios internos. El primero es el método del codo, que examina la reducción de la disimilitud intra-grupo al aumentar el número de grupos y busca el punto a partir del cual el beneficio marginal decrece de manera marcada. El segundo es el coeficiente \textit{silhouette}, definido para cada observación como
+\[
+s(i)=\frac{b(i)-a(i)}{\max\{a(i),b(i)\}},
+\]
+donde $a(i)$ es la disimilitud promedio de $i$ con su propio grupo y $b(i)$ la menor disimilitud promedio con un grupo alternativo. Valores cercanos a 1 indican buena asignación, valores cercanos a 0 sugieren solapamiento entre grupos y valores negativos apuntan a una asignación inadecuada.
+
+\subsection{Alcance inferencial}
+Todos los procedimientos descritos en este apéndice se aplican dentro de un marco observacional. En consecuencia, los estadísticos y contrastes reportados cuantifican asociaciones, diferencias distributivas y magnitudes de efecto en los datos disponibles, pero no constituyen por sí mismos evidencia suficiente para establecer relaciones causales.
 
 \end{document}
