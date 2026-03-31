@@ -1,0 +1,35 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Panorama general}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Pregunta y alcance}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Definición operativa de ``aula'' (unidad de comparación)}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Estructura del conjunto de datos y limpieza}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Estandarización: ¿por qué? y ¿cómo?}{3}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Criterio de agrupamiento por visitas (umbral 3)}{4}{subsection.1.5}%
+\contentsline {section}{\numberline {2}¿Qué es CMAT?}{5}{section.2}%
+\contentsline {section}{\numberline {3}Análisis exploratorio de datos}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}¿Cuántas visitas hacen los estudiantes?}{6}{subsection.3.1}%
+\contentsline {section}{\numberline {4}¿Mejoran su desempeño?}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}¿Cómo se mide el desempeño de forma comparable?}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}¿Con qué lo comparamos?}{7}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Calificaciones}{8}{section.5}%
+\contentsline {subsection}{\numberline {5.1}¿Qué significa ``sin calificación''?}{8}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Imputación de valores faltantes: comparación visual}{8}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Casos especiales: distribución atípica y rangos truncados}{9}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Estandarización de imputación}{9}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Heterogeneidad entre profesores}{10}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Agrupamiento y distancias entre profesores}{11}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Distribuciones por profesor: escenarios comparables}{12}{subsection.5.7}%
+\contentsline {section}{\numberline {6}¿Cuál es la mejor forma de estandarizar?}{15}{section.6}%
+\contentsline {section}{\numberline {7}Análisis por aula (agregado por salón)}{16}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Relación visitas--Z-score (dispersión)}{16}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Diferencia de medias (prueba $t$ de Welch)}{16}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Pruebas robustas y tamaños de efecto}{17}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Análisis por estudiante (individual)}{18}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Relación visitas--Z-score (dispersión)}{18}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Diferencia de medias (Welch $t$)}{18}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Pruebas robustas, tamaños de efecto e IC95\%}{19}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Gráfica de desempeño}{20}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Agregación de $Z$ promedio por visitas con IC95\%}{20}{subsection.9.1}%
+\contentsline {section}{\numberline {10}Conclusiones}{21}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Síntesis interpretativa}{21}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Alcances y límites}{21}{subsection.10.2}%

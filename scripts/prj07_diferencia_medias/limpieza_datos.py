@@ -129,10 +129,11 @@ def impute_nans_from_pre75_kde_df(
             raise ValueError("Unknown fallback")
 
     df.loc[nan_mask, out_col] = draws
-    # hard bounds only on imputed entries
-    vals = df.loc[nan_mask, out_col].to_numpy(dtype=float, copy=False)
-    np.clip(vals, low, high, out=vals)
-    df.loc[nan_mask, out_col] = vals
+    # Clip through pandas so we do not depend on NumPy returning a writeable view.
+    df.loc[nan_mask, out_col] = df.loc[nan_mask, out_col].clip(
+        lower=low,
+        upper=high,
+    )
     return df
 
 

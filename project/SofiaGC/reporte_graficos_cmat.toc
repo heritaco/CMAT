@@ -1,0 +1,78 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{4}{section.1}%
+\contentsline {section}{\numberline {2}Gráficas por año}{4}{section.2}%
+\contentsline {section}{\numberline {3}Año 2019}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Álgebra Lineal (2019)}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Cálculo I (2019)}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Cálculo II (2019)}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Ecuaciones Diferenciales Ordinarias (2019)}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Estadística Inferencial (2019)}{6}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Estadística para Ciencias de la Salud (2019)}{7}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Estadística para Ciencias Sociales (2019)}{7}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Estadística para Negocios (2019)}{8}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}Matemáticas Universitarias (2019)}{8}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.10}Teoría de Matrices (2019)}{9}{subsection.3.10}%
+\contentsline {section}{\numberline {4}Año 2020}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Álgebra Lineal (2020)}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Cálculo I (2020)}{10}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Cálculo II (2020)}{10}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Estadística Inferencial (2020)}{11}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Estadística para Ciencias de la Salud (2020)}{11}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Estadística para Ciencias Sociales (2020)}{12}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Estadística para Negocios (2020)}{12}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Matemáticas Universitarias (2020)}{13}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Teoría de Matrices (2020)}{13}{subsection.4.9}%
+\contentsline {section}{\numberline {5}Año 2021}{14}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Álgebra Lineal (2021)}{14}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Cálculo I (2021)}{14}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Cálculo II (2021)}{15}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Estadística Inferencial (2021)}{15}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Estadística para Ciencias de la Salud (2021)}{16}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Estadística para Ciencias Sociales (2021)}{16}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Estadística para Negocios (2021)}{17}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.8}Matemáticas Universitarias (2021)}{17}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}Teoría de Matrices (2021)}{18}{subsection.5.9}%
+\contentsline {section}{\numberline {6}Año 2022}{18}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Álgebra Lineal (2022)}{18}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Cálculo I (2022)}{19}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Cálculo II (2022)}{19}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Estadística Inferencial (2022)}{20}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Estadística para Ciencias de la Salud (2022)}{20}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Estadística para Ciencias Sociales (2022)}{21}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Estadística para Negocios (2022)}{21}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}Matemáticas Universitarias (2022)}{22}{subsection.6.8}%
+\contentsline {subsection}{\numberline {6.9}Teoría de Matrices (2022)}{22}{subsection.6.9}%
+\contentsline {section}{\numberline {7}Año 2023}{23}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Álgebra Lineal (2023)}{23}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Cálculo I (2023)}{23}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Cálculo II (2023)}{24}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Estadística Inferencial (2023)}{24}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Estadística para Ciencias Sociales (2023)}{25}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Estadística para Negocios (2023)}{25}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}Matemáticas Universitarias (2023)}{26}{subsection.7.7}%
+\contentsline {subsection}{\numberline {7.8}Teoría de Matrices (2023)}{26}{subsection.7.8}%
+\contentsline {section}{\numberline {8}Año 2024}{27}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Álgebra Lineal (2024)}{27}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Cálculo I (2024)}{27}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Cálculo II (2024)}{28}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Estadística para Ciencias Sociales (2024)}{28}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Estadística para Negocios (2024)}{29}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}Matemáticas Universitarias (2024)}{29}{subsection.8.6}%
+\contentsline {section}{\numberline {9}Año 2025}{30}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Álgebra Lineal (2025)}{30}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Cálculo I (2025)}{30}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Cálculo II (2025)}{31}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Estadística para Ciencias Sociales (2025)}{31}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Estadística para Negocios (2025)}{32}{subsection.9.5}%
+\contentsline {subsection}{\numberline {9.6}Matemáticas Universitarias (2025)}{32}{subsection.9.6}%
+\contentsline {section}{\numberline {10}Evolución en el periodo 2020--2024}{33}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Álgebra Lineal}{33}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Cálculo I}{34}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Cálculo II}{34}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Estadística Inferencial}{35}{subsection.10.4}%
+\contentsline {subsection}{\numberline {10.5}Estadística para Ciencias de la Salud}{35}{subsection.10.5}%
+\contentsline {subsection}{\numberline {10.6}Estadística para Ciencias Sociales}{36}{subsection.10.6}%
+\contentsline {subsection}{\numberline {10.7}Estadística para Negocios}{36}{subsection.10.7}%
+\contentsline {subsection}{\numberline {10.8}Matemáticas Universitarias}{37}{subsection.10.8}%
+\contentsline {subsection}{\numberline {10.9}Teoría de Matrices}{37}{subsection.10.9}%
+\contentsline {section}{\numberline {11}Conclusiones generales}{38}{section.11}%
