@@ -292,51 +292,23 @@ La elección de $k$, es decir, del número de grupos, se apoya en dos diagnósti
 En \hyperref[fig:doc_no_legible]{Figura~\ref{fig:doc_no_legible}} no es posible distinguir con suficiente claridad los ejes o las leyendas en la versión disponible del PDF. Por ello, la figura se conserva como referencia contextual del bloque, pero sin extraer de ella inferencias específicas que no puedan verificarse con certeza.
 
 \subsection{Distribuciones por profesor: escenarios comparables}
-Las Figuras \hyperref[fig:dist_prof_A]{Figura~\ref{fig:dist_prof_A}}--\hyperref[fig:dist_prof_F]{Figura~\ref{fig:dist_prof_F}} presentan distribuciones por profesor con imputación KDE en distintos escenarios o subconjuntos comparables. En todas ellas se reportan proporciones agregadas de reprobación y aprobación. La finalidad de este conjunto no es introducir un resultado aislado, sino mostrar que la diversidad de patrones persiste aun cuando se observan configuraciones distintas del conjunto de datos.
+Las Figuras \hyperref[fig:dist_prof_panel]{Figura~\ref{fig:dist_prof_panel}} y \hyperref[fig:dist_prof_ci_panel]{Figura~\ref{fig:dist_prof_ci_panel}} presentan distribuciones por profesor con imputación KDE en tres particiones comparables, organizadas en paneles de izquierda a derecha. En todas ellas se reportan proporciones agregadas de reprobación y aprobación. La finalidad de este conjunto no es introducir un resultado aislado, sino mostrar que la diversidad de patrones persiste aun cuando se observan configuraciones distintas del conjunto de datos.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.7\textwidth,page=1]{05_10_0.pdf}
-    \caption{Distribución por profesor con KDE: escenario A (Reprobados: 9.73\%, Aprobados: 90.27\%).}
-    \label{fig:dist_prof_A}
+    \includegraphics[width=\textwidth,page=1]{05_10.pdf}
+    \caption{Distribuciones por profesor con imputación KDE en formato panel ($1\times 3$). De izquierda a derecha se muestran los tres clusters docentes comparables, cada uno con sus proporciones agregadas de reprobación y aprobación.}
+    \label{fig:dist_prof_panel}
 \end{figure}
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.7\textwidth,page=1]{05_10_1.pdf}
-    \caption{Distribución por profesor con KDE: escenario B (Reprobados: 17.16\%, Aprobados: 82.84\%).}
-    \label{fig:dist_prof_B}
+    \includegraphics[width=\textwidth,page=1]{05_11.pdf}
+    \caption{Distribuciones por profesor con imputación KDE e intervalos de confianza en formato panel ($1\times 3$). De izquierda a derecha se muestran los mismos tres clusters docentes, ahora con bandas de incertidumbre alrededor de cada curva.}
+    \label{fig:dist_prof_ci_panel}
 \end{figure}
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth,page=1]{05_10_2.pdf}
-    \caption{Distribución por profesor con KDE: escenario C (Reprobados: 32.89\%, Aprobados: 67.11\%).}
-    \label{fig:dist_prof_C}
-\end{figure}
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth,page=1]{05_11_0.pdf}
-    \caption{Distribución por profesor con KDE: escenario D (Reprobados: 9.73\%, Aprobados: 90.27\%).}
-    \label{fig:dist_prof_D}
-\end{figure}
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth,page=1]{05_11_1.pdf}
-    \caption{Distribución por profesor con KDE: escenario E (Reprobados: 17.16\%, Aprobados: 82.84\%).}
-    \label{fig:dist_prof_E}
-\end{figure}
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth,page=1]{05_11_2.pdf}
-    \caption{Distribución por profesor con KDE: escenario F (Reprobados: 32.89\%, Aprobados: 67.11\%).}
-    \label{fig:dist_prof_F}
-\end{figure}
-
-La repetición de ciertas tasas, como 9.73\%, 17.16\% y 32.89\%, sugiere que las figuras comparan particiones con métricas agregadas consistentes. Aun cuando el criterio exacto no es completamente legible en cada panel, el mensaje general sí es claro: existen escenarios con mayor concentración de masa en la cola inferior y otros con distribuciones desplazadas hacia valores más altos. En adelante, este diagnóstico refuerza la necesidad de trabajar con estandarización por aula y con contrastes que no dependan únicamente de la media.
+La repetición de ciertas tasas entre paneles sugiere que las figuras comparan particiones con métricas agregadas consistentes. Aun cuando cada panel resume un subconjunto diferente de profesores, el mensaje general sí es claro: existen escenarios con mayor concentración de masa en la cola inferior y otros con distribuciones desplazadas hacia valores más altos. En adelante, este diagnóstico refuerza la necesidad de trabajar con estandarización por aula y con contrastes que no dependan únicamente de la media.
 
 
 

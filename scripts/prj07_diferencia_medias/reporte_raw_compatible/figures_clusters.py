@@ -13,7 +13,7 @@ from sklearn_extra.cluster import KMedoids
 
 from .context import BaseContext
 from .kde_safe import gaussian_kde_grid, kde_bootstrap_ci, kde_curve, plot_split_kde, silverman_bandwidth
-from .plot_helpers import add_half_blues_colorbar, save_cluster_grid, save_figure, OutputLayout
+from .plot_helpers import save_cluster_grid, save_figure, OutputLayout
 
 
 @dataclass
@@ -128,54 +128,36 @@ def assign_notebook_clusters(ultramerge: pd.DataFrame, cluster_ctx: ClusterConte
     return ultramerge
 
 
-def _cluster_legend(ax, base: BaseContext, below: float, above: float) -> None:
+def _cluster_legend(ax, base: BaseContext, below: float, above: float, *, fontsize: str = "small") -> None:
     handles, labels = ax.get_legend_handles_labels()
     stat_handles = [
         Line2D([0], [0], marker="s", color=base.magma_by_prof[35], markersize=8, linestyle=""),
         Line2D([0], [0], marker="s", color=base.viridis_by_prof[35], markersize=8, linestyle=""),
     ]
     stat_labels = [f"Reprobados: {below:.2%}", f"Aprobados: {above:.2%}"]
-    ax.legend(handles + stat_handles, labels + stat_labels, loc="upper left", fontsize="small")
+    ax.legend(handles + stat_handles, labels + stat_labels, loc="upper left", fontsize=fontsize)
 
 
-def plot_cluster_distributions(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None:
-    for i in range(3):
-        fig, ax = plt.subplots(figsize=(12, 8))
-        k1 = ultramerge[ultramerge["KS_CLUSTER"] == i]
-        for num, prof_id in enumerate(base.profes_ids):
-            profe2 = k1[k1["CLAVEPROFESOR"] == prof_id]
-            profe2num = profe2[pd.to_numeric(profe2["IMPKDE"], errors="coerce").notnull()]
-            if profe2num.empty:
-                continue
-            plot_split_kde(
-                ax,
-                profe2num["IMPKDE"],
-                threshold=base.threshold,
-                left_color=base.magma_by_prof[num],
-                right_color=base.viridis_by_prof[num],
-                alpha=0.3,
-                linewidth=0.5,
-            )
-
-        mean_below = (k1["IMPKDE"] < base.threshold).mean()
-        mean_above = (k1["IMPKDE"] >= base.threshold).mean()
-        _cluster_legend(ax, base, mean_below, mean_above)
-        ax.set_title("Distribuci\u00f3n de calificaciones por profesor con imputaci\u00f3n de KDE")
-        ax.set_xlabel("Calificaci\u00f3n")
-        ax.set_ylabel("Densidad")
-        ax.set_xlim(0, 10)
-        ax.set_ylim(0, 1.5)
-        add_half_blues_colorbar(ax)
-        fig.tight_layout()
-        save_figure(fig, layout.pdf_dir / f"05_10_{i}.pdf")
+def _add_shared_cluster_colorbar(fig: plt.Figure, axes) -> None:
+    half_palette = sns.color_palette("Blues_r", 100)[:51]
+    half_cmap = plt.matplotlib.colors.ListedColormap(half_palette)
+    sm = plt.cm.ScalarMappable(cmap=half_cmap, norm=plt.Normalize(vmin=0, vmax=1))
+    sm.set_array([])
+    fig.colorbar(sm, ax=axes, label="Proporción de estudiantes", fraction=0.03, pad=0.02)
 
 
-def plot_cluster_distributions_with_ci(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None:
-    for i in range(3):
-        fig, ax = plt.subplots(figsize=(12, 8))
-        k1 = ultramerge[ultramerge["KS_CLUSTER"] == i]
-        for num, prof_id in enumerate(base.profes_ids):
-            profe2 = k1[k1["CLAVEPROFESOR"] == prof_id]
+def _plot_cluster_distribution_axis(
+    ax: plt.Axes,
+    *,
+    base: BaseContext,
+    ultramerge: pd.DataFrame,
+    cluster_id: int,
+    with_ci: bool,
+) -> None:
+    k1 = ultramerge[ultramerge["KS_CLUSTER"] == cluster_id]
+    for num, prof_id in enumerate(base.profes_ids):
+        profe2 = k1[k1["CLAVEPROFESOR"] == prof_id]
+        if with_ci:
             profe2num = profe2[pd.to_numeric(profe2["IMPKDE"], errors="coerce").notnull()]["IMPKDE"].to_numpy(float)
             if profe2num.size == 0:
                 continue
@@ -208,15 +190,56 @@ def plot_cluster_distributions_with_ci(base: BaseContext, ultramerge: pd.DataFra
             ax.fill_between(x_right, lo_right, hi_right, color=base.viridis_by_prof[num], alpha=0.05, linewidth=0)
             ax.plot(x_left, yh_left, color=base.magma_by_prof[num], linewidth=0.5, alpha=0.1)
             ax.plot(x_right, yh_right, color=base.viridis_by_prof[num], linewidth=0.5, alpha=0.1)
+        else:
+            profe2num = profe2[pd.to_numeric(profe2["IMPKDE"], errors="coerce").notnull()]
+            if profe2num.empty:
+                continue
+            plot_split_kde(
+                ax,
+                profe2num["IMPKDE"],
+                threshold=base.threshold,
+                left_color=base.magma_by_prof[num],
+                right_color=base.viridis_by_prof[num],
+                alpha=0.3,
+                linewidth=0.5,
+            )
 
-        mean_below = (k1["IMPKDE"] < base.threshold).mean()
-        mean_above = (k1["IMPKDE"] >= base.threshold).mean()
-        _cluster_legend(ax, base, mean_below, mean_above)
-        ax.set_title("Distribuci\u00f3n de calificaciones por profesor con imputaci\u00f3n de KDE")
-        ax.set_xlabel("Calificaci\u00f3n")
-        ax.set_ylabel("Densidad")
-        ax.set_xlim(0, 10)
-        ax.set_ylim(0, 1.5)
-        add_half_blues_colorbar(ax)
-        fig.tight_layout()
-        save_figure(fig, layout.pdf_dir / f"05_11_{i}.pdf")
+    mean_below = (k1["IMPKDE"] < base.threshold).mean()
+    mean_above = (k1["IMPKDE"] >= base.threshold).mean()
+    _cluster_legend(ax, base, mean_below, mean_above, fontsize="x-small")
+    ax.set_title(f"Cluster {cluster_id}")
+    ax.set_xlabel("Calificación")
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 1.5)
+
+
+def plot_cluster_distributions(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None:
+    fig, axes = plt.subplots(1, 3, figsize=(21, 6), sharex=True, sharey=True, constrained_layout=True)
+    for i, ax in enumerate(np.atleast_1d(axes)):
+        _plot_cluster_distribution_axis(
+            ax,
+            base=base,
+            ultramerge=ultramerge,
+            cluster_id=i,
+            with_ci=False,
+        )
+    axes[0].set_ylabel("Densidad")
+    fig.suptitle("Distribución de calificaciones por profesor con imputación de KDE")
+    _add_shared_cluster_colorbar(fig, axes)
+    save_figure(fig, layout.pdf_dir / "05_10.pdf")
+
+
+def plot_cluster_distributions_with_ci(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None:
+    fig, axes = plt.subplots(1, 3, figsize=(21, 6), sharex=True, sharey=True, constrained_layout=True)
+    for i, ax in enumerate(np.atleast_1d(axes)):
+        _plot_cluster_distribution_axis(
+            ax,
+            base=base,
+            ultramerge=ultramerge,
+            cluster_id=i,
+            with_ci=True,
+        )
+    axes[0].set_ylabel("Densidad")
+    fig.suptitle("Distribución de calificaciones por profesor con imputación de KDE e intervalos de confianza")
+    _add_shared_cluster_colorbar(fig, axes)
+    save_figure(fig, layout.pdf_dir / "05_11.pdf")

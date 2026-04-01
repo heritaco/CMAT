@@ -3,3 +3,6 @@ data/
 
 # Ignore the onedrive subfolder inside data
 data/onedrive/
+
+# all __pycache__ folders from all subdirectories
+**/__pycache__/
