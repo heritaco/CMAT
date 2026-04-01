@@ -1,0 +1,6 @@
+step,rows_before,rows_after,rows_removed,pct_removed_from_previous,pct_removed_from_raw,note
+raw_input,27788,27788,0,0.0,0.0,Raw materias workbook rows before any cleaning.
+drop_duplicate_student_subject_grade_rows,27788,26645,1143,0.04113286310637685,0.04113286310637685,"Matches clean_materias_df duplicate rule on student, subject variant, and grade token."
+drop_NUMORDEN_column,26645,26645,0,0.0,0.04113286310637685,Column removal only; row count unchanged.
+drop_missing_professor_id,26645,26140,505,0.018952899230624883,0.05930617532747949,Matches clean_materias_df dropna on CLAVEPROFESOR.
+cast_professor_id_to_int,26140,26140,0,0.0,0.05930617532747949,Type normalization only; row count unchanged.

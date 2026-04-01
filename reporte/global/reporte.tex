@@ -43,7 +43,7 @@
 \usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\graphicspath{{../../visualizations/nb_04reportes_raw/}}
+\graphicspath{{../../visualizations/nb_04reportes_raw/}{../../info/figures/}}
 
 % Mantener figuras cerca de donde se mencionan
 \usepackage{placeins}
@@ -128,6 +128,147 @@ El CMAT es un espacio de apoyo académico al que los estudiantes acuden para ref
 La evidencia presentada a lo largo del documento debe leerse en términos asociativos. En otras palabras, el análisis describe cómo se relaciona el uso del CMAT con el desempeño relativo de los estudiantes dentro de sus aulas. Esa información es valiosa para la toma de decisiones institucionales, pero no implica por sí misma que el CMAT sea la causa única o directa de las diferencias observadas en las calificaciones.
 
 
+
+\FloatBarrier
+\newpage
+\section{Descripcion de los Datos}
+
+\subsection{Fuentes, cobertura y unidad analitica}
+Esta seccion resume el conjunto analitico efectivamente utilizado en el reporte, construido solo a partir de los archivos \texttt{Materias estudiantes-profesores 2019-2025 P y O.xlsx} y \texttt{Asesorias2024.xlsx}. La finalidad es dejar explicitas la cobertura, la limpieza, la unidad de observacion y la escala de varias cantidades descriptivas antes de entrar al analisis comparativo.
+
+\input{../../info/tex/descriptive_summary.tex}
+
+La unidad basica del reporte no es el estudiante aislado ni la materia agregada, sino la observacion \textbf{estudiante--aula}. En este documento, un aula queda definida por la combinacion de profesor, variante de materia, anio y sesion. Esta distincion es importante porque varias cantidades cambian segun la unidad de analisis: por ejemplo, el numero de visitas se define a nivel estudiante, mientras que la calificacion imputada y estandarizada se observa a nivel estudiante--aula.
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \caption{Conteos basicos del conjunto analitico utilizado en el reporte.}
+    \label{tab:data_core_counts}
+    \resizebox{0.82\textwidth}{!}{\input{../../info/tex/core_counts_table.tex}}
+\end{table}
+
+La limpieza removio principalmente dos tipos de registros: filas duplicadas bajo la regla estudiante--materia--calificacion y filas sin identificador de profesor. En terminos acumulados, la depuracion retuvo 26{,}140 observaciones estudiante--aula y elimino 5.9\% de las filas crudas de materias. La Tabla~\ref{tab:data_cleaning} resume estas etapas de forma compacta.
+
+\begin{table}[!htbp]
+    \centering
+    \scriptsize
+    \caption{Resumen de los pasos de limpieza recuperables a partir del pipeline actual.}
+    \label{tab:data_cleaning}
+    \resizebox{\textwidth}{!}{\input{../../info/tex/cleaning_summary_table.tex}}
+\end{table}
+
+\subsection{Distribucion y concentracion de visitas}
+La variable \texttt{VISITAS} del reporte se construye contando todas las asesorias observadas para cada estudiante en el archivo de asesorias y despues mergeando ese total a cada fila limpia de materias. Por ello, \texttt{VISITAS} es una variable de exposicion \textbf{a nivel estudiante} y no un conteo anual por si mismo. Bajo esta definicion, 71.9\% de los estudiantes tienen exactamente 0 visitas, 28.1\% registran al menos 1, 13.3\% registran al menos 3 y 9.95\% superan el umbral operativo de 3 visitas. El maximo observado es 116 visitas.
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \caption{Distribucion de visitas en puntos de corte seleccionados.}
+    \label{tab:data_visits}
+    \resizebox{0.9\textwidth}{!}{\input{../../info/tex/visits_distribution_table.tex}}
+\end{table}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{visits_histogram.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{visits_histogram_low_counts.pdf}
+    \end{minipage}
+
+    \vspace{0.75em}
+
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{visits_ecdf.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{visits_tail_curve.pdf}
+    \end{minipage}
+    \caption{Descripcion grafica de la distribucion de visitas: histograma completo, histograma ampliado en conteos bajos, funcion acumulada empirica y curva de cola $P(V \geq k)$.}
+    \label{fig:data_visits_overview}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{visits_continuation_curve.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{visits_lorenz_curve.pdf}
+    \end{minipage}
+    \caption{Continuacion de visitas $P(V \geq k+1 \mid V \geq k)$ y curva de Lorenz de la distribucion de visitas.}
+    \label{fig:data_visits_concentration}
+\end{figure}
+
+La concentracion del uso del servicio es marcada. El indice de Gini de visitas es 0.871; el top 1\% de estudiantes concentra 22.9\% de todas las visitas, el top 5\% concentra 56.0\% y el top 10\% concentra 76.2\%. Estos valores indican que el uso intensivo del CMAT existe, pero esta fuertemente concentrado en una minoria relativamente pequena de estudiantes.
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \caption{Indicadores de concentracion y dispersion estructural de las visitas.}
+    \label{tab:data_concentration}
+    \resizebox{0.72\textwidth}{!}{\input{../../info/tex/concentration_table.tex}}
+\end{table}
+
+\subsection{Cobertura temporal y estructura academica}
+El conjunto limpio cubre 7 anios, de 2019 a 2025. La mayor cantidad de estudiantes unicos en materias se observa en 2021, mientras que el mayor numero de eventos crudos de asesoria fechados aparece en 2023. Esta distincion es relevante: el conteo anual de asesorias proviene de la fecha del archivo de asesorias, pero la variable \texttt{VISITAS} usada en el reporte sigue siendo el conteo total por estudiante. Por eso, en 2025 el conteo anual crudo de asesorias es 0, aunque los estudiantes activos ese anio todavia pueden aparecer con \texttt{VISITAS} positivas debido a asesorias registradas en anios previos.
+
+\begin{table}[!htbp]
+    \centering
+    \scriptsize
+    \caption{Cobertura anual del conjunto analitico y estadisticos descriptivos de VISITAS entre estudiantes activos en cada anio.}
+    \label{tab:data_years}
+    \resizebox{\textwidth}{!}{\input{../../info/tex/year_summary_table.tex}}
+\end{table}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{visits_by_year.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,page=1]{classroom_size_distribution.pdf}
+    \end{minipage}
+    \caption{A la izquierda, distribucion de \texttt{VISITAS} entre estudiantes activos por anio. A la derecha, distribucion del tamano de aula medido como numero de estudiantes por aula.}
+    \label{fig:data_years_structure}
+\end{figure}
+
+En terminos estructurales, el sistema analitico contiene 77 profesores y 769 aulas definidas por profesor, variante de materia, anio y sesion. La mediana del tamano de aula es 30 estudiantes y el maximo observado es 107. Ademas, 65.2\% de los estudiantes aparecen en multiples aulas dentro del conjunto, con una media de 2.51 aulas por estudiante y una mediana de 2.00. Esto confirma que el reporte no observa trayectorias aisladas, sino recorridos academicos distribuidos en varios contextos docentes.
+
+\subsection{Calificaciones, faltantes e imputacion}
+El bloque de calificaciones tambien requiere una descripcion explicita porque el reporte combina calificacion cruda, imputaciones y estandarizacion por aula. La version numerica de la calificacion cruda presenta 3{,}217 faltantes, equivalentes a 12.3\% de las observaciones estudiante--aula. En esta base, los tokens no numericos mas frecuentes asociados con ausencia de calificacion son \texttt{BV}, \texttt{RT} y \texttt{BA}, con participaciones de 66.5\%, 30.8\% y 2.7\% dentro de ese subconjunto, respectivamente.
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \caption{Resumen de variables de calificacion utilizadas en el pipeline analitico.}
+    \label{tab:data_grades}
+    \resizebox{\textwidth}{!}{\input{../../info/tex/grade_overview_table.tex}}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \caption{Tokens no numericos observados en la calificacion cruda.}
+    \label{tab:data_grade_tokens}
+    \resizebox{0.5\textwidth}{!}{\input{../../info/tex/grade_tokens_table.tex}}
+\end{table}
+
+La Tabla~\ref{tab:data_grades} muestra ademas que la imputacion por KDE y su version estandarizada eliminan faltantes a nivel estudiante--aula, mientras que el promedio estudiantil de Z-KDE queda completamente definido al colapsar por alumno. Esta seccion descriptiva no sustituye el analisis metodologico posterior sobre imputacion, pero si fija el contexto necesario para interpretar los resultados inferenciales que siguen.
 
 \FloatBarrier
 \newpage

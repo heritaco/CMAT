@@ -1,0 +1,16 @@
+metric,value,unit,definition
+materias_source_file,Materias estudiantes-profesores 2019-2025 P y O.xlsx,file_name,Primary materias workbook used by the report pipeline.
+asesorias_source_file,Asesorias2024.xlsx,file_name,Primary asesorias workbook used by the report pipeline.
+raw_rows_materias,27788,raw_rows,Rows read directly from the materias workbook.
+raw_rows_asesorias,13500,raw_rows,Rows read directly from the asesorias workbook.
+cleaned_student_classroom_rows,26140,student_classroom_observations,Rows after applying the existing materias cleaning rules.
+removed_rows_total,1648,rows_removed,Total materias rows removed by the tracked cleaning steps.
+removed_rows_share_total,0.05930617532747949,share,Share of materias rows removed by cleaning.
+unique_students_cleaned,10413,students,Unique students in the cleaned analytical materias dataset.
+unique_professors_cleaned,77,professors,Unique professors in the cleaned analytical materias dataset.
+unique_subject_variants_cleaned,7,subject_variants,Unique subject or course variants in the cleaned analytical materias dataset.
+unique_sessions_cleaned,2,sessions,Unique session labels in the cleaned analytical materias dataset.
+unique_years_cleaned,7,years,Unique academic years covered by the cleaned materias dataset.
+years_covered,"2019, 2020, 2021, 2022, 2023, 2024, 2025",year_list,Sorted list of academic years covered by the cleaned materias dataset.
+unique_classroom_units,769,classroom_units,Unique classroom units defined as professor x subject variant x year x session.
+student_classroom_observations,26140,student_classroom_observations,Rows in the cleaned and imputed analytical dataset used by the report.

@@ -1,0 +1,11 @@
+metric,value,unit,definition
+gini_visits,0.8707517472821249,gini,Gini coefficient of the student-level visit distribution.
+top_1pct_visit_share,0.22897378044036412,share,Share of total visits contributed by the top 105 students (top 1%).
+top_5pct_visit_share,0.5604139111491481,share,Share of total visits contributed by the top 521 students (top 5%).
+top_10pct_visit_share,0.7615342721543609,share,Share of total visits contributed by the top 1042 students (top 10%).
+prop_students_multiple_classroom_units,0.6518774608662249,share,Share of students appearing in more than one classroom unit.
+mean_classroom_units_per_student,2.5102276001152406,classroom_units,Mean number of classroom units per student in the analytical sample.
+median_classroom_units_per_student,2.0,classroom_units,Median number of classroom units per student in the analytical sample.
+year_with_most_students,2021.0,year,Academic year with the highest number of unique students in cleaned materias.
+year_with_most_raw_asesoria_events,2023.0,year,Calendar year with the highest number of raw asesorias events by fecha.
+year_with_highest_prop_gt_3_visits_report_variable,2023.0,year,Academic year with the highest share of active students whose report VISITAS variable exceeds 3.
