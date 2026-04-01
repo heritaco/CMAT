@@ -6,11 +6,11 @@
 \contentsline {subsection}{\numberline {1.4}Estandarización por aula: justificación y procedimiento}{4}{subsection.1.4}%
 \contentsline {subsection}{\numberline {1.5}Criterio de agrupamiento por visitas (umbral 3)}{5}{subsection.1.5}%
 \contentsline {section}{\numberline {2}Descripción del CMAT}{6}{section.2}%
-\contentsline {section}{\numberline {3}Descripcion de los Datos}{7}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Fuentes, cobertura y unidad analitica}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Distribucion y concentracion de visitas}{7}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Cobertura temporal y estructura academica}{10}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Calificaciones, faltantes e imputacion}{11}{subsection.3.4}%
+\contentsline {section}{\numberline {3}Descripción de los Datos}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Fuentes, cobertura y unidad analítica}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Distribución y concentración de visitas}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Cobertura temporal y estructura académica}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Calificaciones, faltantes e imputación}{11}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Análisis exploratorio de datos}{12}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Distribución del número de visitas al CMAT}{12}{subsection.4.1}%
 \contentsline {section}{\numberline {5}Comparación de desempeño entre grupos de visitas}{14}{section.5}%
@@ -28,29 +28,29 @@
 \contentsline {section}{\numberline {8}Análisis por aula (agregado por salón)}{25}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Relación entre visitas y Z-score: dispersión}{25}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}Comparación de medias con prueba $t$ de Welch}{26}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Pruebas robustas y tamaños de efecto}{26}{subsection.8.3}%
-\contentsline {section}{\numberline {9}Análisis por estudiante (individual)}{28}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Relación entre visitas y Z-score: dispersión}{28}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Comparación de medias con Welch $t$}{28}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Pruebas robustas, tamaños de efecto e IC95\%}{29}{subsection.9.3}%
-\contentsline {section}{\numberline {10}Desempeño agregado por número de visitas}{31}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Agregación de $Z$ promedio por visitas con IC95\%}{31}{subsection.10.1}%
-\contentsline {section}{\numberline {11}Conclusiones}{32}{section.11}%
-\contentsline {subsection}{\numberline {11.1}Síntesis interpretativa}{32}{subsection.11.1}%
-\contentsline {subsection}{\numberline {11.2}Alcances y límites}{32}{subsection.11.2}%
-\contentsline {section}{\numberline {A}Apéndice metodológico de técnicas estadísticas y de aprendizaje no supervisado}{33}{appendix.Alph1}%
-\contentsline {subsection}{\numberline {A.1}Notación general}{33}{subsection.Alph1.1}%
-\contentsline {subsection}{\numberline {A.2}Estandarización por aula}{33}{subsection.Alph1.2}%
-\contentsline {subsection}{\numberline {A.3}Tratamiento de faltantes e imputación por KDE}{33}{subsection.Alph1.3}%
-\contentsline {subsection}{\numberline {A.4}Curvas de densidad}{33}{subsection.Alph1.4}%
-\contentsline {subsection}{\numberline {A.5}Distribución acumulada, cola y continuación de visitas}{34}{subsection.Alph1.5}%
-\contentsline {subsection}{\numberline {A.6}Concentración de visitas: curva de Lorenz y coeficiente de Gini}{34}{subsection.Alph1.6}%
-\contentsline {subsection}{\numberline {A.7}Contraste paramétrico de medias: prueba t de Welch}{34}{subsection.Alph1.7}%
-\contentsline {subsection}{\numberline {A.8}Comparación de medianas y prueba de permutación}{35}{subsection.Alph1.8}%
-\contentsline {subsection}{\numberline {A.9}Pruebas no paramétricas de rangos}{35}{subsection.Alph1.9}%
-\contentsline {subsection}{\numberline {A.10}Tamaños de efecto}{35}{subsection.Alph1.10}%
-\contentsline {subsection}{\numberline {A.11}Intervalos de confianza}{36}{subsection.Alph1.11}%
-\contentsline {subsection}{\numberline {A.12}Heterogeneidad entre distribuciones docentes}{36}{subsection.Alph1.12}%
-\contentsline {subsection}{\numberline {A.13}Agrupamiento mediante k-medoids}{36}{subsection.Alph1.13}%
-\contentsline {subsection}{\numberline {A.14}Criterios de selección del número de grupos}{36}{subsection.Alph1.14}%
-\contentsline {subsection}{\numberline {A.15}Alcance inferencial}{36}{subsection.Alph1.15}%
+\contentsline {subsection}{\numberline {8.3}Pruebas robustas y tamaños de efecto}{27}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Análisis por estudiante (individual)}{29}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Relación entre visitas y Z-score: dispersión}{29}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Comparación de medias con Welch $t$}{30}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Pruebas robustas, tamaños de efecto e IC95\%}{31}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Desempeño agregado por número de visitas}{33}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Agregación de $Z$ promedio por visitas con IC95\%}{33}{subsection.10.1}%
+\contentsline {section}{\numberline {11}Conclusiones}{34}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Síntesis interpretativa}{34}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Alcances y límites}{34}{subsection.11.2}%
+\contentsline {section}{\numberline {A}Apéndice metodológico de técnicas estadísticas y de aprendizaje no supervisado}{35}{appendix.Alph1}%
+\contentsline {subsection}{\numberline {A.1}Notación general}{35}{subsection.Alph1.1}%
+\contentsline {subsection}{\numberline {A.2}Estandarización por aula}{35}{subsection.Alph1.2}%
+\contentsline {subsection}{\numberline {A.3}Tratamiento de faltantes e imputación por KDE}{35}{subsection.Alph1.3}%
+\contentsline {subsection}{\numberline {A.4}Curvas de densidad}{35}{subsection.Alph1.4}%
+\contentsline {subsection}{\numberline {A.5}Distribución acumulada, cola y continuación de visitas}{36}{subsection.Alph1.5}%
+\contentsline {subsection}{\numberline {A.6}Concentración de visitas: curva de Lorenz y coeficiente de Gini}{36}{subsection.Alph1.6}%
+\contentsline {subsection}{\numberline {A.7}Contraste paramétrico de medias: prueba t de Welch}{36}{subsection.Alph1.7}%
+\contentsline {subsection}{\numberline {A.8}Comparación de medianas y prueba de permutación}{37}{subsection.Alph1.8}%
+\contentsline {subsection}{\numberline {A.9}Pruebas no paramétricas de rangos}{37}{subsection.Alph1.9}%
+\contentsline {subsection}{\numberline {A.10}Tamaños de efecto}{37}{subsection.Alph1.10}%
+\contentsline {subsection}{\numberline {A.11}Intervalos de confianza}{38}{subsection.Alph1.11}%
+\contentsline {subsection}{\numberline {A.12}Heterogeneidad entre distribuciones docentes}{38}{subsection.Alph1.12}%
+\contentsline {subsection}{\numberline {A.13}Agrupamiento mediante k-medoids}{38}{subsection.Alph1.13}%
+\contentsline {subsection}{\numberline {A.14}Criterios de selección del número de grupos}{38}{subsection.Alph1.14}%
+\contentsline {subsection}{\numberline {A.15}Alcance inferencial}{38}{subsection.Alph1.15}%

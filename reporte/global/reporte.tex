@@ -1,3 +1,5 @@
+% !TEX program = lualatex
+% !TEX encoding = UTF-8 Unicode
 \documentclass[8pt,a4paper]{article} % Compila con lualatex o xelatex
 
 \usepackage[spanish]{babel}
@@ -131,24 +133,24 @@ La evidencia presentada a lo largo del documento debe leerse en términos asocia
 
 \FloatBarrier
 \newpage
-\section{Descripcion de los Datos}
+\section{Descripción de los Datos}
 
-\subsection{Fuentes, cobertura y unidad analitica}
-Esta seccion resume el conjunto analitico efectivamente utilizado en el reporte, construido solo a partir de los archivos \texttt{Materias estudiantes-profesores 2019-2025 P y O.xlsx} y \texttt{Asesorias2024.xlsx}. La finalidad es dejar explicitas la cobertura, la limpieza, la unidad de observacion y la escala de varias cantidades descriptivas antes de entrar al analisis comparativo.
+\subsection{Fuentes, cobertura y unidad analítica}
+Esta sección resume el conjunto analítico efectivamente utilizado en el reporte, construido solo a partir de los archivos \texttt{Materias estudiantes-profesores 2019-2025 P y O.xlsx} y \texttt{Asesorias2024.xlsx}. La finalidad es dejar explícitas la cobertura, la limpieza, la unidad de observación y la escala de varias cantidades descriptivas antes de entrar al análisis comparativo.
 
 \input{../../info/tex/descriptive_summary.tex}
 
-La unidad basica del reporte no es el estudiante aislado ni la materia agregada, sino la observacion \textbf{estudiante--aula}. En este documento, un aula queda definida por la combinacion de profesor, variante de materia, anio y sesion. Esta distincion es importante porque varias cantidades cambian segun la unidad de analisis: por ejemplo, el numero de visitas se define a nivel estudiante, mientras que la calificacion imputada y estandarizada se observa a nivel estudiante--aula.
+La unidad básica del reporte no es el estudiante aislado ni la materia agregada, sino la observación \textbf{estudiante--aula}. En este documento, un aula queda definida por la combinación de profesor, variante de materia, año y sesión. Esta distinción es importante porque varias cantidades cambian según la unidad de análisis: por ejemplo, el número de visitas se define a nivel estudiante, mientras que la calificación imputada y estandarizada se observa a nivel estudiante--aula.
 
 \begin{table}[!htbp]
     \centering
     \small
-    \caption{Conteos basicos del conjunto analitico utilizado en el reporte.}
+    \caption{Conteos básicos del conjunto analítico utilizado en el reporte.}
     \label{tab:data_core_counts}
     \resizebox{0.82\textwidth}{!}{\input{../../info/tex/core_counts_table.tex}}
 \end{table}
 
-La limpieza removio principalmente dos tipos de registros: filas duplicadas bajo la regla estudiante--materia--calificacion y filas sin identificador de profesor. En terminos acumulados, la depuracion retuvo 26{,}140 observaciones estudiante--aula y elimino 5.9\% de las filas crudas de materias. La Tabla~\ref{tab:data_cleaning} resume estas etapas de forma compacta.
+La limpieza removió principalmente dos tipos de registros: filas duplicadas bajo la regla estudiante--materia--calificación y filas sin identificador de profesor. En términos acumulados, la depuración retuvo 26{,}140 observaciones estudiante--aula y eliminó 5.9\% de las filas crudas de materias. La Tabla~\ref{tab:data_cleaning} resume estas etapas de forma compacta.
 
 \begin{table}[!htbp]
     \centering
@@ -158,15 +160,15 @@ La limpieza removio principalmente dos tipos de registros: filas duplicadas bajo
     \resizebox{\textwidth}{!}{\input{../../info/tex/cleaning_summary_table.tex}}
 \end{table}
 
-\subsection{Distribucion y concentracion de visitas}
-La variable \texttt{VISITAS} del reporte se construye contando todas las asesorias observadas para cada estudiante en el archivo de asesorias y despues mergeando ese total a cada fila limpia de materias. Por ello, \texttt{VISITAS} es una variable de exposicion \textbf{a nivel estudiante} y no un conteo anual por si mismo. Bajo esta definicion, 71.9\% de los estudiantes tienen exactamente 0 visitas, 28.1\% registran al menos 1, 13.3\% registran al menos 3 y 9.95\% superan el umbral operativo de 3 visitas. El maximo observado es 116 visitas.
+\subsection{Distribución y concentración de visitas}
+La variable \texttt{VISITAS} del reporte se construye contando todas las asesorías observadas para cada estudiante en el archivo de asesorías y después mergeando ese total a cada fila limpia de materias. Por ello, \texttt{VISITAS} es una variable de exposición \textbf{a nivel estudiante} y no un conteo anual por sí mismo. Bajo esta definición, 71.9\% de los estudiantes tienen exactamente 0 visitas, 28.1\% registran al menos 1, 13.3\% registran al menos 3 y 9.95\% superan el umbral operativo de 3 visitas. El máximo observado es 116 visitas.
 
-La pregunta que responde este bloque es muy simple y, al mismo tiempo, decisiva para todo el documento: \emph{como esta distribuido realmente el uso del CMAT?} Antes de comparar desempeno academico, conviene saber si la asistencia se reparte de manera relativamente homogenea o si, por el contrario, se concentra en pocos niveles de visitas. En terminos ejecutivos, lo que el lector debe buscar es si la mayor parte de los estudiantes se ubica en niveles muy bajos de uso y si existe una minoria con asistencia mucho mas intensa. Estadisticamente, esta revision permite anticipar si el promedio por si solo sera suficiente o si haran falta lecturas complementarias de acumulacion, cola y concentracion. Para la interpretacion institucional, este paso ayuda a distinguir entre un uso amplio del servicio y un uso mas focalizado en ciertos perfiles de estudiantes.
+La pregunta que responde este bloque es muy simple y, al mismo tiempo, decisiva para todo el documento: \emph{¿cómo está distribuido realmente el uso del CMAT?} Antes de comparar desempeño académico, conviene saber si la asistencia se reparte de manera relativamente homogénea o si, por el contrario, se concentra en pocos niveles de visitas. En términos ejecutivos, lo que el lector debe buscar es si la mayor parte de los estudiantes se ubica en niveles muy bajos de uso y si existe una minoría con asistencia mucho más intensa. Estadísticamente, esta revisión permite anticipar si el promedio por sí solo será suficiente o si harán falta lecturas complementarias de acumulación, cola y concentración. Para la interpretación institucional, este paso ayuda a distinguir entre un uso amplio del servicio y un uso más focalizado en ciertos perfiles de estudiantes.
 
 \begin{table}[!htbp]
     \centering
     \small
-    \caption{Distribucion de visitas en puntos de corte seleccionados.}
+    \caption{Distribución de visitas en puntos de corte seleccionados.}
     \label{tab:data_visits}
     \resizebox{0.9\textwidth}{!}{\input{../../info/tex/visits_distribution_table.tex}}
 \end{table}
@@ -194,13 +196,13 @@ La pregunta que responde este bloque es muy simple y, al mismo tiempo, decisiva 
         \centering
         \includegraphics[width=\textwidth,page=1]{visits_tail_curve.pdf}
     \end{minipage}
-    \caption{Descripcion grafica de la distribucion de visitas: histograma completo, histograma ampliado en conteos bajos, funcion acumulada empirica y curva de cola $P(V \geq k)$.}
+    \caption{Descripción gráfica de la distribución de visitas: histograma completo, histograma ampliado en conteos bajos, función acumulada empírica y curva de cola $P(V \geq k)$.}
     \label{fig:data_visits_overview}
 \end{figure}
 
-En la Figura~\ref{fig:data_visits_overview} se reunen cuatro lecturas de una misma variable. En el panel superior izquierdo, el eje horizontal muestra el numero de visitas y el vertical el numero de estudiantes con ese conteo; esa vista completa permite apreciar la cola larga que se extiende hacia valores altos. En el panel superior derecho se conserva la misma logica, pero se hace un acercamiento a los conteos bajos para que el lector pueda distinguir con claridad lo que ocurre entre 0 y 10 visitas, zona donde se concentra la inmensa mayoria de los casos. En el panel inferior izquierdo aparece la funcion de distribucion acumulada empirica (ECDF): en el eje horizontal se ubica el numero de visitas y en el vertical la proporcion acumulada de estudiantes con \emph{a lo sumo} ese numero de visitas. En el panel inferior derecho se muestra la curva de cola, donde el eje horizontal sigue siendo $k$ y el vertical representa $P(V \geq k)$, es decir, la proporcion de estudiantes que alcanza \emph{al menos} $k$ visitas.
+En la Figura~\ref{fig:data_visits_overview} se reúnen cuatro lecturas de una misma variable. En el panel superior izquierdo, el eje horizontal muestra el número de visitas y el vertical el número de estudiantes con ese conteo; esa vista completa permite apreciar la cola larga que se extiende hacia valores altos. En el panel superior derecho se conserva la misma lógica, pero se hace un acercamiento a los conteos bajos para que el lector pueda distinguir con claridad lo que ocurre entre 0 y 10 visitas, zona donde se concentra la inmensa mayoría de los casos. En el panel inferior izquierdo aparece la función de distribución acumulada empírica (ECDF): en el eje horizontal se ubica el número de visitas y en el vertical la proporción acumulada de estudiantes con \emph{a lo sumo} ese número de visitas. En el panel inferior derecho se muestra la curva de cola, donde el eje horizontal sigue siendo $k$ y el vertical representa $P(V \geq k)$, es decir, la proporción de estudiantes que alcanza \emph{al menos} $k$ visitas.
 
-En terminos simples, la figura muestra que el uso del CMAT no se reparte de manera uniforme: se concentra fuertemente en 0, 1, 2 y 3 visitas, mientras una fraccion mucho menor se extiende hacia niveles altos. Estadisticamente, esto describe una distribucion muy asimetrica con cola larga: la mayor masa esta en valores pequenos, pero existen observaciones alejadas que elevan la media sin representar al estudiante ``tipico''. Por eso el promedio de visitas, aun siendo informativo, no basta para resumir el patron completo. Para la interpretacion institucional, este hallazgo sugiere que el centro combina dos realidades complementarias: una mayoria con uso nulo o esporadico y una minoria que lo aprovecha de manera sostenida.
+En términos simples, la figura muestra que el uso del CMAT no se reparte de manera uniforme: se concentra fuertemente en 0, 1, 2 y 3 visitas, mientras una fracción mucho menor se extiende hacia niveles altos. Estadísticamente, esto describe una distribución muy asimétrica con cola larga: la mayor masa está en valores pequeños, pero existen observaciones alejadas que elevan la media sin representar al estudiante ``típico''. Por eso el promedio de visitas, aun siendo informativo, no basta para resumir el patrón completo. Para la interpretación institucional, este hallazgo sugiere que el centro combina dos realidades complementarias: una mayoría con uso nulo o esporádico y una minoría que lo aprovecha de manera sostenida.
 
 \begin{figure}[!htbp]
     \centering
@@ -213,31 +215,31 @@ En terminos simples, la figura muestra que el uso del CMAT no se reparte de mane
         \centering
         \includegraphics[width=\textwidth,page=1]{visits_lorenz_curve.pdf}
     \end{minipage}
-    \caption{Continuacion de visitas $P(V \geq k+1 \mid V \geq k)$ y curva de Lorenz de la distribucion de visitas.}
+    \caption{Continuación de visitas $P(V \geq k+1 \mid V \geq k)$ y curva de Lorenz de la distribución de visitas.}
     \label{fig:data_visits_concentration}
 \end{figure}
 
-La Figura~\ref{fig:data_visits_concentration} complementa la lectura anterior desde dos angulos. A la izquierda se grafica la probabilidad condicional $P(V \geq k+1 \mid V \geq k)$: el eje horizontal fija un nivel $k$ y el eje vertical muestra la probabilidad de continuar con una visita adicional entre quienes ya alcanzaron ese umbral. Esta curva no mide cuantas personas llegan a cada nivel, sino que tan persistente es la asistencia una vez iniciada una trayectoria de uso. A la derecha aparece la curva de Lorenz: el eje horizontal muestra la proporcion acumulada de estudiantes, ordenados de menor a mayor numero de visitas, y el eje vertical la proporcion acumulada de visitas que concentran. La linea diagonal representa un escenario de distribucion perfectamente uniforme; cuanto mas se aparta la curva observada de esa diagonal, mayor es la concentracion del uso.
+La Figura~\ref{fig:data_visits_concentration} complementa la lectura anterior desde dos ángulos. A la izquierda se grafica la probabilidad condicional $P(V \geq k+1 \mid V \geq k)$: el eje horizontal fija un nivel $k$ y el eje vertical muestra la probabilidad de continuar con una visita adicional entre quienes ya alcanzaron ese umbral. Esta curva no mide cuántas personas llegan a cada nivel, sino qué tan persistente es la asistencia una vez iniciada una trayectoria de uso. A la derecha aparece la curva de Lorenz: el eje horizontal muestra la proporción acumulada de estudiantes, ordenados de menor a mayor número de visitas, y el eje vertical la proporción acumulada de visitas que concentran. La línea diagonal representa un escenario de distribución perfectamente uniforme; cuanto más se aparta la curva observada de esa diagonal, mayor es la concentración del uso.
 
-En terminos simples, la lectura conjunta es que pocas personas explican una porcion muy grande de las visitas totales. Estadisticamente, esto se resume en un patron de alta concentracion: el indice de Gini de visitas es 0.871; el top 1\% de estudiantes concentra 22.9\% de todas las visitas, el top 5\% concentra 56.0\% y el top 10\% concentra 76.2\%. La curva de continuacion agrega un matiz importante: entre quienes ya superaron ciertos umbrales, la probabilidad de seguir acumulando visitas permanece elevada, lo que es consistente con trayectorias de acompanamiento mas intensas y sostenidas. Para la interpretacion institucional, esto sugiere que el CMAT opera tanto como punto de apoyo ocasional como espacio de seguimiento recurrente para un subconjunto mas reducido de estudiantes. Lo que no debe concluirse apresuradamente es que esa concentracion sea, por si misma, positiva o negativa: lo que documenta es una forma especifica de uso que despues debera leerse junto con el desempeno academico y con el contexto de cada estudiante.
+En términos simples, la lectura conjunta es que pocas personas explican una porción muy grande de las visitas totales. Estadísticamente, esto se resume en un patrón de alta concentración: el índice de Gini de visitas es 0.871; el top 1\% de estudiantes concentra 22.9\% de todas las visitas, el top 5\% concentra 56.0\% y el top 10\% concentra 76.2\%. La curva de continuación agrega un matiz importante: entre quienes ya superaron ciertos umbrales, la probabilidad de seguir acumulando visitas permanece elevada, lo que es consistente con trayectorias de acompañamiento más intensas y sostenidas. Para la interpretación institucional, esto sugiere que el CMAT opera tanto como punto de apoyo ocasional como espacio de seguimiento recurrente para un subconjunto más reducido de estudiantes. Lo que no debe concluirse apresuradamente es que esa concentración sea, por sí misma, positiva o negativa: lo que documenta es una forma específica de uso que después deberá leerse junto con el desempeño académico y con el contexto de cada estudiante.
 
 \begin{table}[!htbp]
     \centering
     \small
-    \caption{Indicadores de concentracion y dispersion estructural de las visitas.}
+    \caption{Indicadores de concentración y dispersión estructural de las visitas.}
     \label{tab:data_concentration}
     \resizebox{0.72\textwidth}{!}{\input{../../info/tex/concentration_table.tex}}
 \end{table}
 
-\subsection{Cobertura temporal y estructura academica}
-El conjunto limpio cubre 7 anios, de 2019 a 2025. La mayor cantidad de estudiantes unicos en materias se observa en 2021, mientras que el mayor numero de eventos crudos de asesoria fechados aparece en 2023. Esta distincion es relevante: el conteo anual de asesorias proviene de la fecha del archivo de asesorias, pero la variable \texttt{VISITAS} usada en el reporte sigue siendo el conteo total por estudiante. Por eso, en 2025 el conteo anual crudo de asesorias es 0, aunque los estudiantes activos ese anio todavia pueden aparecer con \texttt{VISITAS} positivas debido a asesorias registradas en anios previos.
+\subsection{Cobertura temporal y estructura académica}
+El conjunto limpio cubre 7 años, de 2019 a 2025. La mayor cantidad de estudiantes únicos en materias se observa en 2021, mientras que el mayor número de eventos crudos de asesoría fechados aparece en 2023. Esta distinción es relevante: el conteo anual de asesorías proviene de la fecha del archivo de asesorías, pero la variable \texttt{VISITAS} usada en el reporte sigue siendo el conteo total por estudiante. Por eso, en 2025 el conteo anual crudo de asesorías es 0, aunque los estudiantes activos ese año todavía pueden aparecer con \texttt{VISITAS} positivas debido a asesorías registradas en años previos.
 
-La pregunta de esta subseccion es doble. Primero, si la cobertura del conjunto analitico se mantiene relativamente estable a lo largo del tiempo o si existen cambios importantes en el volumen de estudiantes, profesores y aulas. Segundo, si la intensidad de uso del CMAT entre estudiantes activos en cada anio se mueve junto con el numero crudo de asesorias registradas o si ambas cantidades capturan fenomenos distintos. Esta diferenciacion es importante porque, en lenguaje llano, \emph{eventos crudos de asesoria} y \emph{VISITAS entre estudiantes activos por anio} no son la misma medida: la primera cuenta asesorias fechadas en un calendario concreto; la segunda describe el total de visitas acumuladas por los estudiantes que estan presentes en las materias de ese anio.
+La pregunta de esta subsección es doble. Primero, si la cobertura del conjunto analítico se mantiene relativamente estable a lo largo del tiempo o si existen cambios importantes en el volumen de estudiantes, profesores y aulas. Segundo, si la intensidad de uso del CMAT entre estudiantes activos en cada año se mueve junto con el número crudo de asesorías registradas o si ambas cantidades capturan fenómenos distintos. Esta diferenciación es importante porque, en lenguaje llano, \emph{eventos crudos de asesoría} y \emph{VISITAS entre estudiantes activos por año} no son la misma medida: la primera cuenta asesorías fechadas en un calendario concreto; la segunda describe el total de visitas acumuladas por los estudiantes que están presentes en las materias de ese año.
 
 \begin{table}[!htbp]
     \centering
     \scriptsize
-    \caption{Cobertura anual del conjunto analitico y estadisticos descriptivos de VISITAS entre estudiantes activos en cada anio.}
+    \caption{Cobertura anual del conjunto analítico y estadísticos descriptivos de VISITAS entre estudiantes activos en cada año.}
     \label{tab:data_years}
     \resizebox{\textwidth}{!}{\input{../../info/tex/year_summary_table.tex}}
 \end{table}
@@ -253,23 +255,23 @@ La pregunta de esta subseccion es doble. Primero, si la cobertura del conjunto a
         \centering
         \includegraphics[width=\textwidth,page=1]{classroom_size_distribution.pdf}
     \end{minipage}
-    \caption{A la izquierda, distribucion de \texttt{VISITAS} entre estudiantes activos por anio. A la derecha, distribucion del tamano de aula medido como numero de estudiantes por aula.}
+    \caption{A la izquierda, distribución de \texttt{VISITAS} entre estudiantes activos por año. A la derecha, distribución del tamaño de aula medido como número de estudiantes por aula.}
     \label{fig:data_years_structure}
 \end{figure}
 
-La Figura~\ref{fig:data_years_structure} ofrece una lectura visual de esa distincion. En el panel izquierdo, el eje horizontal muestra el anio y el vertical el valor de \texttt{VISITAS} para estudiantes activos en ese anio. Cada caja resume la distribucion central mediante mediana y rango intercuartil, mientras que la linea con marcadores indica la media anual. En el panel derecho, el eje horizontal representa el tamano de aula medido como numero de estudiantes por aula y el eje vertical el numero de aulas con ese tamano. Esta segunda grafica no trata sobre visitas, sino sobre la estructura del contexto docente en el que despues se comparan calificaciones.
+La Figura~\ref{fig:data_years_structure} ofrece una lectura visual de esa distinción. En el panel izquierdo, el eje horizontal muestra el año y el vertical el valor de \texttt{VISITAS} para estudiantes activos en ese año. Cada caja resume la distribución central mediante mediana y rango intercuartil, mientras que la línea con marcadores indica la media anual. En el panel derecho, el eje horizontal representa el tamaño de aula medido como número de estudiantes por aula y el eje vertical el número de aulas con ese tamaño. Esta segunda gráfica no trata sobre visitas, sino sobre la estructura del contexto docente en el que después se comparan calificaciones.
 
-En terminos simples, la figura muestra dos hechos complementarios. Por un lado, la distribucion de \texttt{VISITAS} entre estudiantes activos cambia a lo largo del tiempo y no coincide mecanicamente con el numero de asesorias fechadas en cada anio; esto confirma que ambas cantidades deben leerse con prudencia y sin intercambiarlas. Por otro lado, el sistema docente no esta formado por aulas del mismo tamano: existe una distribucion amplia, con un centro relativamente moderado y con algunas aulas mas numerosas. Estadisticamente, esto importa porque tanto el tamano de aula como la cobertura anual modifican la estabilidad de medias, dispersiones e imputaciones dentro de cada contexto. Para la interpretacion institucional, el mensaje es que el reporte se apoya en una base extensa, multianual y estructuralmente heterogenea, lo cual hace especialmente pertinente trabajar con comparabilidad por aula en vez de mezclar todos los contextos como si fueran equivalentes.
+En términos simples, la figura muestra dos hechos complementarios. Por un lado, la distribución de \texttt{VISITAS} entre estudiantes activos cambia a lo largo del tiempo y no coincide mecánicamente con el número de asesorías fechadas en cada año; esto confirma que ambas cantidades deben leerse con prudencia y sin intercambiarlas. Por otro lado, el sistema docente no está formado por aulas del mismo tamaño: existe una distribución amplia, con un centro relativamente moderado y con algunas aulas más numerosas. Estadísticamente, esto importa porque tanto el tamaño de aula como la cobertura anual modifican la estabilidad de medias, dispersiones e imputaciones dentro de cada contexto. Para la interpretación institucional, el mensaje es que el reporte se apoya en una base extensa, multianual y estructuralmente heterogénea, lo cual hace especialmente pertinente trabajar con comparabilidad por aula en vez de mezclar todos los contextos como si fueran equivalentes.
 
-En terminos estructurales, el sistema analitico contiene 77 profesores y 769 aulas definidas por profesor, variante de materia, anio y sesion. La mediana del tamano de aula es 30 estudiantes y el maximo observado es 107. Ademas, 65.2\% de los estudiantes aparecen en multiples aulas dentro del conjunto, con una media de 2.51 aulas por estudiante y una mediana de 2.00. Esto confirma que el reporte no observa trayectorias aisladas, sino recorridos academicos distribuidos en varios contextos docentes. Esta observacion enlaza de manera natural con la siguiente parte del informe: si los estudiantes transitan por aulas distintas y las aulas mismas varian en tamano y composicion, entonces la comparacion de calificaciones necesita atender tambien el problema de los faltantes y de la heterogeneidad entre contextos docentes.
+En términos estructurales, el sistema analítico contiene 77 profesores y 769 aulas definidas por profesor, variante de materia, año y sesión. La mediana del tamaño de aula es 30 estudiantes y el máximo observado es 107. Además, 65.2\% de los estudiantes aparecen en múltiples aulas dentro del conjunto, con una media de 2.51 aulas por estudiante y una mediana de 2.00. Esto confirma que el reporte no observa trayectorias aisladas, sino recorridos académicos distribuidos en varios contextos docentes. Esta observación enlaza de manera natural con la siguiente parte del informe: si los estudiantes transitan por aulas distintas y las aulas mismas varían en tamaño y composición, entonces la comparación de calificaciones necesita atender también el problema de los faltantes y de la heterogeneidad entre contextos docentes.
 
-\subsection{Calificaciones, faltantes e imputacion}
-El bloque de calificaciones tambien requiere una descripcion explicita porque el reporte combina calificacion cruda, imputaciones y estandarizacion por aula. La version numerica de la calificacion cruda presenta 3{,}217 faltantes, equivalentes a 12.3\% de las observaciones estudiante--aula. En esta base, los tokens no numericos mas frecuentes asociados con ausencia de calificacion son \texttt{BV}, \texttt{RT} y \texttt{BA}, con participaciones de 66.5\%, 30.8\% y 2.7\% dentro de ese subconjunto, respectivamente.
+\subsection{Calificaciones, faltantes e imputación}
+El bloque de calificaciones también requiere una descripción explícita porque el reporte combina calificación cruda, imputaciones y estandarización por aula. La versión numérica de la calificación cruda presenta 3{,}217 faltantes, equivalentes a 12.3\% de las observaciones estudiante--aula. En esta base, los tokens no numéricos más frecuentes asociados con ausencia de calificación son \texttt{BV}, \texttt{RT} y \texttt{BA}, con participaciones de 66.5\%, 30.8\% y 2.7\% dentro de ese subconjunto, respectivamente.
 
 \begin{table}[!htbp]
     \centering
     \small
-    \caption{Resumen de variables de calificacion utilizadas en el pipeline analitico.}
+    \caption{Resumen de variables de calificación utilizadas en el pipeline analítico.}
     \label{tab:data_grades}
     \resizebox{\textwidth}{!}{\input{../../info/tex/grade_overview_table.tex}}
 \end{table}
@@ -277,12 +279,12 @@ El bloque de calificaciones tambien requiere una descripcion explicita porque el
 \begin{table}[!htbp]
     \centering
     \small
-    \caption{Tokens no numericos observados en la calificacion cruda.}
+    \caption{Tokens no numéricos observados en la calificación cruda.}
     \label{tab:data_grade_tokens}
     \resizebox{0.5\textwidth}{!}{\input{../../info/tex/grade_tokens_table.tex}}
 \end{table}
 
-La Tabla~\ref{tab:data_grades} muestra ademas que la imputacion por KDE y su version estandarizada eliminan faltantes a nivel estudiante--aula, mientras que el promedio estudiantil de Z-KDE queda completamente definido al colapsar por alumno. Esta seccion descriptiva no sustituye el analisis metodologico posterior sobre imputacion, pero si fija el contexto necesario para interpretar los resultados inferenciales que siguen.
+La Tabla~\ref{tab:data_grades} muestra además que la imputación por KDE y su versión estandarizada eliminan faltantes a nivel estudiante--aula, mientras que el promedio estudiantil de Z-KDE queda completamente definido al colapsar por alumno. Esta sección descriptiva no sustituye el análisis metodológico posterior sobre imputación, pero sí fija el contexto necesario para interpretar los resultados inferenciales que siguen.
 
 \FloatBarrier
 \newpage
@@ -519,6 +521,15 @@ En esta gráfica, el eje horizontal muestra el número de visitas y el eje verti
 
 Estadísticamente, la nube de puntos no impone una pendiente lineal ni prueba por sí sola una relación causal o funcional simple. Su utilidad es mostrar si el patrón visual es compatible con una posible diferencia entre grupos y si esa diferencia parece uniforme o heterogénea. Para la interpretación institucional, la figura sugiere que el mayor uso del CMAT no se distribuye de manera homogénea en todos los niveles de desempeño, pero también recuerda que las observaciones individuales conservan mucha dispersión. Esa es justamente la razón para pasar de la inspección visual a contrastes formales de medias y de distribuciones.
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth,page=1]{07_00_ecdf.pdf}
+    \caption{Función de distribución acumulada empírica (ECDF) de la calificación estandarizada por aula para los grupos de visitas al CMAT.}
+    \label{fig:salon_ecdf}
+\end{figure}
+
+La \hyperref[fig:salon_ecdf]{Figura~\ref{fig:salon_ecdf}} ofrece una lectura complementaria especialmente útil para comparar posiciones relativas. El eje horizontal representa nuevamente la calificación estandarizada y el eje vertical la proporción acumulada de observaciones con valor menor o igual que cada punto del eje $x$. En términos simples, esta gráfica permite ver con mayor claridad si una distribución se va acumulando antes o después que la otra. En una ECDF estándar, cuando una curva se acumula más lentamente y queda más abajo para un mismo valor de $z$, ello indica que su distribución está desplazada hacia valores relativamente más altos. Estadísticamente, esa es precisamente la señal compatible con mejor posicionamiento relativo del grupo con estrictamente más de 3 visitas: para alcanzar una misma proporción acumulada, ese grupo requiere valores de Z-score mayores. Para la interpretación institucional, la figura no sustituye a las pruebas formales, pero sí hace más visible que la separación entre grupos no depende únicamente de la forma de las densidades, sino también del corrimiento acumulado de toda la distribución.
+
 \subsection{\texorpdfstring{Comparación de medias con prueba $t$ de Welch}{Comparacion de medias con prueba t de Welch}}
 La siguiente pregunta es ya comparativa: \emph{si se separan las observaciones según el umbral de visitas, las medias de desempeño estandarizado lucen diferentes?} La figura aparece en este punto porque la prueba $t$ de Welch permite comparar medias entre grupos con tamaños muy distintos y sin suponer varianzas iguales, condición especialmente pertinente en un contexto como este.
 
@@ -568,6 +579,15 @@ La sección anterior resumió el patrón desde el contexto aula. Aquí la pregun
 En \hyperref[fig:est_scatter]{Figura~\ref{fig:est_scatter}} cada punto representa a un estudiante y el eje vertical muestra su promedio estudiantil de desempeño estandarizado. El eje horizontal indica el número de visitas y los colores distinguen nuevamente los dos grupos definidos por el umbral. En términos simples, la primera impresión es la alta variabilidad individual del Z-score, incluso entre estudiantes con un número similar de visitas. Esto es esperable, ya que el desempeño académico depende de múltiples factores que no están contenidos en esta sola visualización.
 
 Estadísticamente, la figura confirma dos rasgos ya observados: la concentración masiva en niveles bajos de visita y la existencia de una cola de estudiantes con uso intensivo del CMAT. Al mismo tiempo, deja ver que la dispersión individual es mayor que en una lectura agregada por contexto, precisamente porque ya no se está promediando por aula. Para la interpretación institucional, esto significa que la asociación con visitas puede coexistir con trayectorias personales muy heterogéneas. La gráfica, por tanto, no pretende establecer una relación lineal simple ni causal, sino mostrar la amplitud de la dispersión sobre la cual se realizan las comparaciones formales.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth,page=1]{08_00_ecdf.pdf}
+    \caption{Función de distribución acumulada empírica (ECDF) del desempeño estandarizado promedio por estudiante para los grupos de visitas al CMAT.}
+    \label{fig:est_ecdf}
+\end{figure}
+
+La \hyperref[fig:est_ecdf]{Figura~\ref{fig:est_ecdf}} traslada esa misma comparación al nivel individual mediante una función acumulada empírica. El eje horizontal muestra el desempeño estandarizado promedio por estudiante y el eje vertical la proporción acumulada de alumnos con valor menor o igual que cada punto. En términos simples, la ventaja de esta visualización es que ayuda a ver si un grupo ``se va quedando atrás'' o ``se desplaza'' respecto del otro a lo largo de casi toda la escala, no solo alrededor del pico central. Estadísticamente, cuando la curva del grupo con estrictamente más de 3 visitas queda por debajo para un mismo valor de $z$ y alcanza una misma proporción acumulada en valores más altos, la lectura es coherente con una distribución desplazada hacia mejores posiciones relativas. Para la interpretación institucional, esto hace más transparente que la diferencia observada no proviene solo de unos pocos casos extremos, sino de un patrón acumulado que atraviesa buena parte de la distribución estudiantil. Aun así, la lectura sigue siendo observacional y debe integrarse con las comparaciones formales de medias, medianas y tamaños de efecto.
 
 \subsection{\texorpdfstring{Comparación de medias con Welch $t$}{Comparacion de medias con Welch t}}
 La comparación formal se repite ahora a nivel estudiante. La pregunta es si, una vez colapsado el desempeño de cada alumno en una sola medida promedio estandarizada, el grupo con estrictamente más de 3 visitas continúa mostrando un desplazamiento favorable respecto del grupo con 3 visitas o menos.

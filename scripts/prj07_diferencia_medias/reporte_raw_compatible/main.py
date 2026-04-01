@@ -32,6 +32,8 @@ from .figures_professors import (
     plot_yearly_professor_variance,
 )
 from .figures_tests import (
+    plot_ecdf_salon,
+    plot_ecdf_student,
     plot_nonparametric_salon,
     plot_nonparametric_student,
     plot_parametric_salon,
@@ -104,6 +106,8 @@ def main() -> int:
 
     plot_salon_scatter(ultramerge_corrected, layout)
     plot_student_scatter(ultramerge_means_legacy, layout)
+    plot_ecdf_salon(ultramerge_corrected, layout)
+    plot_ecdf_student(ultramerge_means_legacy, layout)
     plot_parametric_student(ultramerge_means_legacy, layout)
     plot_parametric_salon(ultramerge_corrected, layout)
     plot_nonparametric_student(ultramerge_means_legacy, layout)

@@ -8,6 +8,27 @@ from .kde_safe import plot_filled_kde
 from .plot_helpers import save_figure, OutputLayout
 
 
+def _plot_ecdf(ax, values, *, label: str, color: str) -> None:
+    values = np.sort(np.asarray(values, dtype=float))
+    if values.size == 0:
+        return
+    y = np.arange(1, values.size + 1, dtype=float) / values.size
+    ax.step(values, y, where="post", label=label, color=color, linewidth=2)
+
+
+def _plot_ecdf_comparison(group1, group2, *, title: str, xlabel: str, output_name: str, layout: OutputLayout) -> None:
+    fig, ax = plt.subplots(figsize=(10, 6))
+    _plot_ecdf(ax, group1, label="Más de 3 visitas", color="C0")
+    _plot_ecdf(ax, group2, label="3 o menos visitas", color="C1")
+    ax.axhline(0.5, color="0.75", linestyle="--", linewidth=1, alpha=0.8)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel("Proporción acumulada")
+    ax.set_ylim(0, 1)
+    ax.legend(loc="lower right")
+    save_figure(fig, layout.pdf_dir / output_name)
+
+
 def _bootstrap_diff_median(x, y, B=10000, seed=0):
     rng = np.random.default_rng(seed)
     diffs = np.empty(B, float)
@@ -76,6 +97,19 @@ def plot_parametric_student(ultramerge_means, layout: OutputLayout) -> None:
     save_figure(fig, layout.pdf_dir / "08_01.pdf")
 
 
+def plot_ecdf_student(ultramerge_means, layout: OutputLayout) -> None:
+    group1 = ultramerge_means[ultramerge_means["VISITAS"] > 3]["MEAN_IMPKDE_Z"].dropna().to_numpy()
+    group2 = ultramerge_means[ultramerge_means["VISITAS"] <= 3]["MEAN_IMPKDE_Z"].dropna().to_numpy()
+    _plot_ecdf_comparison(
+        group1,
+        group2,
+        title="ECDF de calificaciones por estudiante",
+        xlabel="Calificación estandarizada promedio por estudiante (KDE, Z-score)",
+        output_name="08_00_ecdf.pdf",
+        layout=layout,
+    )
+
+
 def plot_parametric_salon(ultramerge, layout: OutputLayout) -> None:
     group1 = ultramerge[ultramerge["VISITAS"] > 3]["IMPKDE_Z"]
     group2 = ultramerge[ultramerge["VISITAS"] <= 3]["IMPKDE_Z"]
@@ -90,6 +124,19 @@ def plot_parametric_salon(ultramerge, layout: OutputLayout) -> None:
     ax.legend()
     ax.text(0.05, 0.95, f"T-estad\u00edstico: {t_stat:.2f}, P-valor: {p_value:.4f}", transform=ax.transAxes, fontsize=12, verticalalignment="top")
     save_figure(fig, layout.pdf_dir / "07_01.pdf")
+
+
+def plot_ecdf_salon(ultramerge, layout: OutputLayout) -> None:
+    group1 = ultramerge[ultramerge["VISITAS"] > 3]["IMPKDE_Z"].dropna().to_numpy()
+    group2 = ultramerge[ultramerge["VISITAS"] <= 3]["IMPKDE_Z"].dropna().to_numpy()
+    _plot_ecdf_comparison(
+        group1,
+        group2,
+        title="ECDF de calificaciones por salón",
+        xlabel="Calificación estandarizada (KDE, Z-score)",
+        output_name="07_00_ecdf.pdf",
+        layout=layout,
+    )
 
 
 def plot_nonparametric_student(ultramerge_means, layout: OutputLayout) -> None:

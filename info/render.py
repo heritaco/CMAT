@@ -102,11 +102,11 @@ def write_tex_snippets(
     core_counts["metric"] = core_counts["metric"].map(
         {
             "raw_rows_materias": "Filas crudas de materias",
-            "raw_rows_asesorias": "Filas crudas de asesorias",
+            "raw_rows_asesorias": "Filas crudas de asesorías",
             "cleaned_student_classroom_rows": "Observaciones estudiante-aula tras limpieza",
-            "unique_students_cleaned": "Estudiantes unicos",
-            "unique_professors_cleaned": "Profesores unicos",
-            "unique_classroom_units": "Aulas unicas",
+            "unique_students_cleaned": "Estudiantes únicos",
+            "unique_professors_cleaned": "Profesores únicos",
+            "unique_classroom_units": "Aulas únicas",
         }
     )
     core_counts["value"] = core_counts["value"].map(_format_value)
@@ -165,13 +165,13 @@ def write_tex_snippets(
     year_table["student_mean_visits_report_variable"] = year_table["student_mean_visits_report_variable"].map(_format_value)
     year_table["student_prop_zero_visits_report_variable"] = year_table["student_prop_zero_visits_report_variable"].map(_format_tex_pct)
     year_table.columns = [
-        "Anio",
+        "Año",
         "Estudiantes",
         "Profesores",
         "Aulas",
         "Media de VISITAS",
-        "Proporcion con 0 visitas",
-        "Eventos crudos de asesoria",
+        "Proporción con 0 visitas",
+        "Eventos crudos de asesoría",
     ]
     year_path = output_dir / "year_summary_table.tex"
     year_path.write_text(year_table.to_latex(index=False, escape=False), encoding="utf-8")
@@ -183,7 +183,7 @@ def write_tex_snippets(
     cleaning_table["step"] = cleaning_table["step"].map(
         {
             "raw_input": "Entrada cruda",
-            "drop_duplicate_student_subject_grade_rows": "Eliminar duplicados estudiante-materia-calificacion",
+            "drop_duplicate_student_subject_grade_rows": "Eliminar duplicados estudiante-materia-calificación",
             "drop_NUMORDEN_column": "Eliminar columna NUMORDEN",
             "drop_missing_professor_id": "Eliminar filas sin profesor",
             "cast_professor_id_to_int": "Normalizar ID de profesor",
@@ -216,11 +216,11 @@ def write_tex_snippets(
     ][["metric", "value", "unit"]].copy()
     concentration_table["metric"] = concentration_table["metric"].map(
         {
-            "gini_visits": "Gini de visitas",
-            "top_1pct_visit_share": "Participacion del top 1\\%",
-            "top_5pct_visit_share": "Participacion del top 5\\%",
-            "top_10pct_visit_share": "Participacion del top 10\\%",
-            "prop_students_multiple_classroom_units": "Estudiantes en multiples aulas",
+            "gini_visits": "Índice de Gini de visitas",
+            "top_1pct_visit_share": "Participación del top 1\\%",
+            "top_5pct_visit_share": "Participación del top 5\\%",
+            "top_10pct_visit_share": "Participación del top 10\\%",
+            "prop_students_multiple_classroom_units": "Estudiantes en múltiples aulas",
             "mean_classroom_units_per_student": "Media de aulas por estudiante",
             "median_classroom_units_per_student": "Mediana de aulas por estudiante",
         }
@@ -233,8 +233,8 @@ def write_tex_snippets(
     )
     concentration_table["unit"] = concentration_table["unit"].map(
         {
-            "gini": "indice",
-            "share": "proporcion",
+            "gini": "índice",
+            "share": "proporción",
             "classroom_units": "aulas",
         }
     )
@@ -248,9 +248,9 @@ def write_tex_snippets(
     ][["variable", "analysis_unit", "missing_prop", "mean", "median", "std"]].copy()
     grade_table["variable"] = grade_table["variable"].map(
         {
-            "CALIFICACION_NUM": "Calificacion cruda numerica",
-            "IMPMEAN": "Imputacion por media",
-            "IMPKDE": "Imputacion por KDE",
+            "CALIFICACION_NUM": "Calificación cruda numérica",
+            "IMPMEAN": "Imputación por media",
+            "IMPKDE": "Imputación por KDE",
             "IMPKDE_Z": "KDE estandarizada por aula",
             "MEAN_IMPKDE_Z": "Promedio estudiantil de Z-KDE",
         }
@@ -273,7 +273,7 @@ def write_tex_snippets(
     tokens_table = non_numeric_grade_tokens.copy()
     if not tokens_table.empty:
         tokens_table["row_prop"] = tokens_table["row_prop"].map(_format_tex_pct)
-    tokens_table.columns = ["Token", "Conteo", "Proporcion"]
+    tokens_table.columns = ["Token", "Conteo", "Proporción"]
     tokens_path = output_dir / "grade_tokens_table.tex"
     tokens_path.write_text(tokens_table.to_latex(index=False, escape=False), encoding="utf-8")
     created.append(tokens_path)
