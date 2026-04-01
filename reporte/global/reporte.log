@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (MiKTeX 26.2) (format=lualatex 2026.3.31)  31 MAR 2026 20:45
+This is LuaHBTeX, Version 1.24.0 (MiKTeX 26.2) (format=lualatex 2026.3.31)  1 APR 2026 01:10
  restricted system commands enabled.
 **reporte.tex
 (./reporte.tex
@@ -1093,354 +1093,356 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 6.6pt on input line 1.
 )
 (../../info/tex/cleaning_summary_table.tex)
-(../../info/tex/visits_distribution_table.tex)
-LaTeX Info: Redefining \. on input line 170.
-LaTeX Info: Redefining \% on input line 170.
+LaTeX Info: Redefining \. on input line 164.
+LaTeX Info: Redefining \% on input line 164.
  [7]
-<../../info/figures/visits_histogram.pdf, id=313, page=1, 611.45pt x 348.49573p
+(../../info/tex/visits_distribution_table.tex)
+<../../info/figures/visits_histogram.pdf, id=323, page=1, 611.45pt x 348.49573p
 t>
 File: ../../info/figures/visits_histogram.pdf Graphic file (type pdf)
 <use ../../info/figures/visits_histogram.pdf, page 1>
 Package luatex.def Info: ../../info/figures/visits_histogram.pdf , page1 used o
-n input line 176.
+n input line 178.
 (luatex.def)             Requested size: 186.54404pt x 106.32028pt.
-<../../info/figures/visits_histogram_low_counts.pdf, id=314, page=1, 555.44075p
+<../../info/figures/visits_histogram_low_counts.pdf, id=324, page=1, 555.44075p
 t x 348.49573pt>
 File: ../../info/figures/visits_histogram_low_counts.pdf Graphic file (type pdf
 )
 <use ../../info/figures/visits_histogram_low_counts.pdf, page 1>
 Package luatex.def Info: ../../info/figures/visits_histogram_low_counts.pdf , p
-age1 used on input line 181.
+age1 used on input line 183.
 (luatex.def)             Requested size: 186.54404pt x 117.04059pt.
-<../../info/figures/visits_ecdf.pdf, id=315, page=1, 555.36234pt x 348.49573pt>
+<../../info/figures/visits_ecdf.pdf, id=325, page=1, 555.36234pt x 348.49573pt>
 
 File: ../../info/figures/visits_ecdf.pdf Graphic file (type pdf)
 <use ../../info/figures/visits_ecdf.pdf, page 1>
 Package luatex.def Info: ../../info/figures/visits_ecdf.pdf , page1 used on inp
-ut line 188.
+ut line 190.
 (luatex.def)             Requested size: 186.54404pt x 117.05653pt.
-<../../info/figures/visits_tail_curve.pdf, id=316, page=1, 555.36234pt x 348.49
+<../../info/figures/visits_tail_curve.pdf, id=326, page=1, 555.36234pt x 348.49
 573pt>
 File: ../../info/figures/visits_tail_curve.pdf Graphic file (type pdf)
 <use ../../info/figures/visits_tail_curve.pdf, page 1>
 Package luatex.def Info: ../../info/figures/visits_tail_curve.pdf , page1 used 
-on input line 193.
+on input line 195.
 (luatex.def)             Requested size: 186.54404pt x 117.05653pt.
-<../../info/figures/visits_continuation_curve.pdf, id=317, page=1, 555.42506pt 
+LaTeX Info: Redefining \. on input line 202.
+LaTeX Info: Redefining \% on input line 202.
+ [8<../../info/figures/visits_histogram.pdf><../../info/figures/visits_histogram
+_low_counts.pdf><../../info/figures/visits_ecdf.pdf><../../info/figures/visits_t
+ail_curve.pdf>]
+<../../info/figures/visits_continuation_curve.pdf, id=487, page=1, 555.42506pt 
 x 348.49573pt>
 File: ../../info/figures/visits_continuation_curve.pdf Graphic file (type pdf)
 <use ../../info/figures/visits_continuation_curve.pdf, page 1>
 Package luatex.def Info: ../../info/figures/visits_continuation_curve.pdf , pag
-e1 used on input line 203.
+e1 used on input line 209.
 (luatex.def)             Requested size: 186.54404pt x 117.04059pt.
-<../../info/figures/visits_lorenz_curve.pdf, id=318, page=1, 414.33545pt x 431.
+<../../info/figures/visits_lorenz_curve.pdf, id=488, page=1, 414.33545pt x 431.
 96758pt>
 File: ../../info/figures/visits_lorenz_curve.pdf Graphic file (type pdf)
 <use ../../info/figures/visits_lorenz_curve.pdf, page 1>
 Package luatex.def Info: ../../info/figures/visits_lorenz_curve.pdf , page1 use
-d on input line 208.
+d on input line 214.
 (luatex.def)             Requested size: 186.54404pt x 194.48247pt.
-
-(../../info/tex/concentration_table.tex) (../../info/tex/year_summary_table.tex
-)
-LaTeX Info: Redefining \. on input line 233.
-LaTeX Info: Redefining \% on input line 233.
- [8<../../info/figures/visits_histogram.pdf><../../info/figures/visits_histogram
-_low_counts.pdf><../../info/figures/visits_ecdf.pdf><../../info/figures/visits_t
-ail_curve.pdf>]
-LaTeX Info: Redefining \. on input line 233.
-LaTeX Info: Redefining \% on input line 233.
+LaTeX Info: Redefining \. on input line 223.
+LaTeX Info: Redefining \% on input line 223.
  [9<../../info/figures/visits_continuation_curve.pdf><../../info/figures/visits_
-lorenz_curve.pdf>]
-<../../info/figures/visits_by_year.pdf, id=560, page=1, 599.8755pt x 348.49573p
+lorenz_curve.pdf>] (../../info/tex/concentration_table.tex)
+(../../info/tex/year_summary_table.tex)
+<../../info/figures/visits_by_year.pdf, id=574, page=1, 599.8755pt x 348.49573p
 t>
 File: ../../info/figures/visits_by_year.pdf Graphic file (type pdf)
 <use ../../info/figures/visits_by_year.pdf, page 1>
 Package luatex.def Info: ../../info/figures/visits_by_year.pdf , page1 used on 
-input line 239.
+input line 249.
 (luatex.def)             Requested size: 186.54404pt x 108.37288pt.
-<../../info/figures/classroom_size_distribution.pdf, id=561, page=1, 609.52092p
+<../../info/figures/classroom_size_distribution.pdf, id=575, page=1, 609.52092p
 t x 348.49573pt>
 File: ../../info/figures/classroom_size_distribution.pdf Graphic file (type pdf
 )
 <use ../../info/figures/classroom_size_distribution.pdf, page 1>
 Package luatex.def Info: ../../info/figures/classroom_size_distribution.pdf , p
-age1 used on input line 244.
+age1 used on input line 254.
 (luatex.def)             Requested size: 186.54404pt x 106.65529pt.
- (../../info/tex/grade_overview_table.tex) (../../info/tex/grade_tokens_table.t
-ex)
-LaTeX Info: Redefining \. on input line 272.
-LaTeX Info: Redefining \% on input line 272.
- [10<../../info/figures/visits_by_year.pdf><../../info/figures/classroom_size_di
+LaTeX Info: Redefining \. on input line 262.
+LaTeX Info: Redefining \% on input line 262.
+ [10]
+(../../info/tex/grade_overview_table.tex)
+(../../info/tex/grade_tokens_table.tex)
+LaTeX Info: Redefining \. on input line 287.
+LaTeX Info: Redefining \% on input line 287.
+ [11<../../info/figures/visits_by_year.pdf><../../info/figures/classroom_size_di
 stribution.pdf>]
-LaTeX Info: Redefining \. on input line 274.
-LaTeX Info: Redefining \% on input line 274.
- [11]
-<../../visualizations/nb_04reportes_raw/03_01.pdf, id=659, page=1, 617.23724pt 
+<../../visualizations/nb_04reportes_raw/03_01.pdf, id=675, page=1, 617.23724pt 
 x 404.14363pt>
 File: ../../visualizations/nb_04reportes_raw/03_01.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/03_01.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/03_01.pdf , pag
-e1 used on input line 288.
+e1 used on input line 300.
 (luatex.def)             Requested size: 266.48735pt x 174.48753pt.
-<../../visualizations/nb_04reportes_raw/03_02.pdf, id=662, page=1, 613.37907pt 
+LaTeX Info: Redefining \. on input line 308.
+LaTeX Info: Redefining \% on input line 308.
+ [12]
+<../../visualizations/nb_04reportes_raw/03_02.pdf, id=686, page=1, 613.37907pt 
 x 404.14363pt>
 File: ../../visualizations/nb_04reportes_raw/03_02.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/03_02.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/03_02.pdf , pag
-e1 used on input line 299.
+e1 used on input line 311.
 (luatex.def)             Requested size: 266.48735pt x 175.57906pt.
-LaTeX Info: Redefining \. on input line 306.
-LaTeX Info: Redefining \% on input line 306.
- [12<../../visualizations/nb_04reportes_raw/03_01.pdf>]
-LaTeX Info: Redefining \. on input line 320.
-LaTeX Info: Redefining \% on input line 320.
- [13<../../visualizations/nb_04reportes_raw/03_02.pdf>]
-LaTeX Info: Redefining \. on input line 326.
-LaTeX Info: Redefining \% on input line 326.
+LaTeX Info: Redefining \. on input line 321.
+LaTeX Info: Redefining \% on input line 321.
+ [13<../../visualizations/nb_04reportes_raw/03_01.pdf><../../visualizations/nb_0
+4reportes_raw/03_02.pdf>]
+LaTeX Info: Redefining \. on input line 340.
+LaTeX Info: Redefining \% on input line 340.
  [14]
-<../../visualizations/nb_04reportes_raw/05_01.pdf, id=769, page=1, 501.28217pt 
+<../../visualizations/nb_04reportes_raw/05_01.pdf, id=786, page=1, 501.28217pt 
 x 320.68745pt>
 File: ../../visualizations/nb_04reportes_raw/05_01.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_01.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_01.pdf , pag
-e1 used on input line 351.
+e1 used on input line 365.
 (luatex.def)             Requested size: 266.48735pt x 170.4871pt.
-LaTeX Info: Redefining \. on input line 358.
-LaTeX Info: Redefining \% on input line 358.
+LaTeX Info: Redefining \. on input line 371.
+LaTeX Info: Redefining \% on input line 371.
  [15]
-<../../visualizations/nb_04reportes_raw/05_03.pdf, id=784, page=1, 500.27841pt 
+<../../visualizations/nb_04reportes_raw/05_03.pdf, id=801, page=1, 500.27841pt 
 x 320.68745pt>
 File: ../../visualizations/nb_04reportes_raw/05_03.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_03.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_03.pdf , pag
-e1 used on input line 363.
+e1 used on input line 379.
 (luatex.def)             Requested size: 190.34894pt x 122.01907pt.
-<../../visualizations/nb_04reportes_raw/05_04.pdf, id=787, page=1, 497.424pt x 
+<../../visualizations/nb_04reportes_raw/05_04.pdf, id=804, page=1, 497.424pt x 
 320.68745pt>
 File: ../../visualizations/nb_04reportes_raw/05_04.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_04.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_04.pdf , pag
-e1 used on input line 372.
+e1 used on input line 390.
 (luatex.def)             Requested size: 190.34894pt x 122.71393pt.
-LaTeX Info: Redefining \. on input line 380.
-LaTeX Info: Redefining \% on input line 380.
- [16<../../visualizations/nb_04reportes_raw/05_01.pdf><../../visualizations/nb_0
-4reportes_raw/05_03.pdf>]
-<../../visualizations/nb_04reportes_raw/05_05.pdf, id=878, page=1, 497.424pt x 
+LaTeX Info: Redefining \. on input line 396.
+LaTeX Info: Redefining \% on input line 396.
+ [16<../../visualizations/nb_04reportes_raw/05_01.pdf>]
+LaTeX Info: Redefining \. on input line 396.
+LaTeX Info: Redefining \% on input line 396.
+
+[17<../../visualizations/nb_04reportes_raw/05_03.pdf><../../visualizations/nb_04
+reportes_raw/05_04.pdf>]
+<../../visualizations/nb_04reportes_raw/05_05.pdf, id=936, page=1, 497.424pt x 
 320.68745pt>
 File: ../../visualizations/nb_04reportes_raw/05_05.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_05.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_05.pdf , pag
-e1 used on input line 384.
+e1 used on input line 404.
 (luatex.def)             Requested size: 266.48735pt x 171.8083pt.
-<../../visualizations/nb_04reportes_raw/05_06.pdf, id=883, page=1, 777.93523pt 
+LaTeX Info: Redefining \. on input line 413.
+LaTeX Info: Redefining \% on input line 413.
+ [18<../../visualizations/nb_04reportes_raw/05_05.pdf>]
+<../../visualizations/nb_04reportes_raw/05_06.pdf, id=990, page=1, 777.93523pt 
 x 553.02924pt>
 File: ../../visualizations/nb_04reportes_raw/05_06.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_06.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_06.pdf , pag
-e1 used on input line 396.
+e1 used on input line 418.
 (luatex.def)             Requested size: 266.48735pt x 189.44511pt.
-LaTeX Info: Redefining \. on input line 402.
-LaTeX Info: Redefining \% on input line 402.
- [17<../../visualizations/nb_04reportes_raw/05_04.pdf><../../visualizations/nb_0
-4reportes_raw/05_05.pdf>]
-<../../visualizations/nb_04reportes_raw/05_07.pdf, id=974, page=1, 777.93523pt 
+<../../visualizations/nb_04reportes_raw/05_07.pdf, id=993, page=1, 777.93523pt 
 x 553.02924pt>
 File: ../../visualizations/nb_04reportes_raw/05_07.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_07.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_07.pdf , pag
-e1 used on input line 405.
+e1 used on input line 427.
 (luatex.def)             Requested size: 266.48735pt x 189.44511pt.
-LaTeX Info: Redefining \. on input line 414.
-LaTeX Info: Redefining \% on input line 414.
-
-[18<../../visualizations/nb_04reportes_raw/05_06.pdf><../../visualizations/nb_04
-reportes_raw/05_07.pdf>]
-<../../visualizations/nb_04reportes_raw/05_08.pdf, id=1078, page=1, 1420.44615p
+LaTeX Info: Redefining \. on input line 433.
+LaTeX Info: Redefining \% on input line 433.
+ [19<../../visualizations/nb_04reportes_raw/05_06.pdf>]
+<../../visualizations/nb_04reportes_raw/05_08.pdf, id=1051, page=1, 1420.44615p
 t x 1133.39284pt>
 File: ../../visualizations/nb_04reportes_raw/05_08.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_08.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_08.pdf , pag
-e1 used on input line 419.
+e1 used on input line 441.
 (luatex.def)             Requested size: 266.48735pt x 212.63168pt.
-<../../visualizations/nb_04reportes_raw/05_09.pdf, id=1079, page=1, 842.2071pt 
+<../../visualizations/nb_04reportes_raw/05_09.pdf, id=1052, page=1, 842.2071pt 
 x 335.9777pt>
 File: ../../visualizations/nb_04reportes_raw/05_09.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_09.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_09.pdf , pag
-e1 used on input line 428.
+e1 used on input line 450.
 (luatex.def)             Requested size: 266.48735pt x 106.3103pt.
-<../../visualizations/nb_04reportes_raw/05_10.pdf, id=1086, page=1, 1525.51901p
+LaTeX Info: Redefining \. on input line 453.
+LaTeX Info: Redefining \% on input line 453.
+ [20<../../visualizations/nb_04reportes_raw/05_07.pdf>]
+<../../visualizations/nb_04reportes_raw/05_10.pdf, id=1114, page=1, 1525.51901p
 t x 442.05103pt>
 File: ../../visualizations/nb_04reportes_raw/05_10.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_10.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_10.pdf , pag
-e1 used on input line 440.
+e1 used on input line 462.
 (luatex.def)             Requested size: 380.69788pt x 110.31012pt.
-<../../visualizations/nb_04reportes_raw/05_11.pdf, id=1087, page=1, 1525.51901p
+LaTeX Info: Redefining \. on input line 468.
+LaTeX Info: Redefining \% on input line 468.
+ [21<../../visualizations/nb_04reportes_raw/05_08.pdf><../../visualizations/nb_0
+4reportes_raw/05_09.pdf>]
+<../../visualizations/nb_04reportes_raw/05_11.pdf, id=1225, page=1, 1525.51901p
 t x 442.05103pt>
 File: ../../visualizations/nb_04reportes_raw/05_11.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/05_11.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/05_11.pdf , pag
-e1 used on input line 447.
+e1 used on input line 471.
 (luatex.def)             Requested size: 380.69788pt x 110.31012pt.
-LaTeX Info: Redefining \. on input line 453.
-LaTeX Info: Redefining \% on input line 453.
- [19<../../visualizations/nb_04reportes_raw/05_08.pdf>]
-LaTeX Info: Redefining \. on input line 453.
-LaTeX Info: Redefining \% on input line 453.
- [20<../../visualizations/nb_04reportes_raw/05_09.pdf><../../visualizations/nb_0
-4reportes_raw/05_10.pdf><../../visualizations/nb_04reportes_raw/05_11.pdf>]
-LaTeX Info: Redefining \. on input line 457.
-LaTeX Info: Redefining \% on input line 457.
-
-[21]
-<../../visualizations/nb_04reportes_raw/06_00.pdf, id=1309, page=1, 553.235pt x
+LaTeX Info: Redefining \. on input line 479.
+LaTeX Info: Redefining \% on input line 479.
+ [22<../../visualizations/nb_04reportes_raw/05_10.pdf><../../visualizations/nb_0
+4reportes_raw/05_11.pdf>]
+LaTeX Info: Redefining \. on input line 485.
+LaTeX Info: Redefining \% on input line 485.
+ [23]
+<../../visualizations/nb_04reportes_raw/06_00.pdf, id=1337, page=1, 553.235pt x
  300.08424pt>
 File: ../../visualizations/nb_04reportes_raw/06_00.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/06_00.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/06_00.pdf , pag
-e1 used on input line 463.
+e1 used on input line 491.
 (luatex.def)             Requested size: 266.48735pt x 144.54706pt.
-LaTeX Info: Redefining \. on input line 475.
-LaTeX Info: Redefining \% on input line 475.
- [22<../../visualizations/nb_04reportes_raw/06_00.pdf>]
-<../../visualizations/nb_04reportes_raw/07_00.pdf, id=1356, page=1, 610.47762pt
+LaTeX Info: Redefining \. on input line 503.
+LaTeX Info: Redefining \% on input line 503.
+ [24<../../visualizations/nb_04reportes_raw/06_00.pdf>]
+<../../visualizations/nb_04reportes_raw/07_00.pdf, id=1386, page=1, 610.47762pt
  x 404.15932pt>
 File: ../../visualizations/nb_04reportes_raw/07_00.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/07_00.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/07_00.pdf , pag
-e1 used on input line 483.
+e1 used on input line 513.
 (luatex.def)             Requested size: 266.48735pt x 176.42456pt.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 14.4pt on input line 492.
+(Font)              scaled to size 14.4pt on input line 522.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 10.5pt on input line 492.
+(Font)              scaled to size 10.5pt on input line 522.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 7.9pt on input line 492.
+(Font)              scaled to size 7.9pt on input line 522.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 14.4pt on input line 492.
+(Font)              scaled to size 14.4pt on input line 522.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 10.5pt on input line 492.
+(Font)              scaled to size 10.5pt on input line 522.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 7.9pt on input line 492.
+(Font)              scaled to size 7.9pt on input line 522.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 14.4pt on input line 492.
+(Font)              scaled to size 14.4pt on input line 522.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 10.5pt on input line 492.
+(Font)              scaled to size 10.5pt on input line 522.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 7.9pt on input line 492.
+(Font)              scaled to size 7.9pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 14.4pt on input line 492.
+(Font)              scaled to size 14.4pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 10.5pt on input line 492.
+(Font)              scaled to size 10.5pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 7.9pt on input line 492.
+(Font)              scaled to size 7.9pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 14.4pt on input line 492.
+(Font)              scaled to size 14.4pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 10.5pt on input line 492.
+(Font)              scaled to size 10.5pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 7.9pt on input line 492.
+(Font)              scaled to size 7.9pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 14.4pt on input line 492.
+(Font)              scaled to size 14.4pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 10.5pt on input line 492.
+(Font)              scaled to size 10.5pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 7.9pt on input line 492.
+(Font)              scaled to size 7.9pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 14.4pt on input line 492.
+(Font)              scaled to size 14.4pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 10.5pt on input line 492.
+(Font)              scaled to size 10.5pt on input line 522.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 7.9pt on input line 492.
-<../../visualizations/nb_04reportes_raw/07_01.pdf, id=1359, page=1, 607.51341pt
+(Font)              scaled to size 7.9pt on input line 522.
+LaTeX Info: Redefining \. on input line 524.
+LaTeX Info: Redefining \% on input line 524.
+ [25<../../visualizations/nb_04reportes_raw/07_00.pdf>]
+<../../visualizations/nb_04reportes_raw/07_01.pdf, id=1446, page=1, 607.51341pt
  x 404.15932pt>
 File: ../../visualizations/nb_04reportes_raw/07_01.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/07_01.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/07_01.pdf , pag
-e1 used on input line 495.
+e1 used on input line 527.
 (luatex.def)             Requested size: 266.48735pt x 177.28795pt.
-LaTeX Info: Redefining \. on input line 504.
-LaTeX Info: Redefining \% on input line 504.
- [23<../../visualizations/nb_04reportes_raw/07_00.pdf>]
-<../../visualizations/nb_04reportes_raw/07_02.pdf, id=1422, page=1, 607.51341pt
+<../../visualizations/nb_04reportes_raw/07_02.pdf, id=1451, page=1, 607.51341pt
  x 404.15932pt>
 File: ../../visualizations/nb_04reportes_raw/07_02.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/07_02.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/07_02.pdf , pag
-e1 used on input line 507.
+e1 used on input line 541.
 (luatex.def)             Requested size: 266.48735pt x 177.28795pt.
-LaTeX Info: Redefining \. on input line 515.
-LaTeX Info: Redefining \% on input line 515.
- [24<../../visualizations/nb_04reportes_raw/07_01.pdf><../../visualizations/nb_0
-4reportes_raw/07_02.pdf>]
-LaTeX Info: Redefining \. on input line 519.
-LaTeX Info: Redefining \% on input line 519.
- [25]
-<../../visualizations/nb_04reportes_raw/08_00.pdf, id=1554, page=1, 610.47762pt
+LaTeX Info: Redefining \. on input line 547.
+LaTeX Info: Redefining \% on input line 547.
+ [26<../../visualizations/nb_04reportes_raw/07_01.pdf>]
+LaTeX Info: Redefining \. on input line 553.
+LaTeX Info: Redefining \% on input line 553.
+ [27<../../visualizations/nb_04reportes_raw/07_02.pdf>]
+<../../visualizations/nb_04reportes_raw/08_00.pdf, id=1584, page=1, 610.47762pt
  x 404.15932pt>
 File: ../../visualizations/nb_04reportes_raw/08_00.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/08_00.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/08_00.pdf , pag
-e1 used on input line 527.
+e1 used on input line 563.
 (luatex.def)             Requested size: 266.48735pt x 176.42456pt.
-<../../visualizations/nb_04reportes_raw/08_01.pdf, id=1557, page=1, 657.57858pt
+<../../visualizations/nb_04reportes_raw/08_01.pdf, id=1587, page=1, 657.57858pt
  x 404.15932pt>
 File: ../../visualizations/nb_04reportes_raw/08_01.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/08_01.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/08_01.pdf , pag
-e1 used on input line 539.
+e1 used on input line 577.
 (luatex.def)             Requested size: 266.48735pt x 163.78845pt.
-<../../visualizations/nb_04reportes_raw/08_02.pdf, id=1560, page=1, 607.51341pt
+LaTeX Info: Redefining \. on input line 580.
+LaTeX Info: Redefining \% on input line 580.
+
+[28<../../visualizations/nb_04reportes_raw/08_00.pdf>]
+<../../visualizations/nb_04reportes_raw/08_02.pdf, id=1652, page=1, 607.51341pt
  x 404.14363pt>
 File: ../../visualizations/nb_04reportes_raw/08_02.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/08_02.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/08_02.pdf , pag
-e1 used on input line 551.
+e1 used on input line 591.
 (luatex.def)             Requested size: 266.48735pt x 177.28107pt.
-LaTeX Info: Redefining \. on input line 557.
-LaTeX Info: Redefining \% on input line 557.
- [26<../../visualizations/nb_04reportes_raw/08_00.pdf>]
-LaTeX Info: Redefining \. on input line 557.
-LaTeX Info: Redefining \% on input line 557.
- [27<../../visualizations/nb_04reportes_raw/08_01.pdf><../../visualizations/nb_0
-4reportes_raw/08_02.pdf>]
-LaTeX Info: Redefining \. on input line 563.
-LaTeX Info: Redefining \% on input line 563.
- [28]
-<../../visualizations/nb_04reportes_raw/09_01.pdf, id=1759, page=1, 691.98274pt
+LaTeX Info: Redefining \. on input line 599.
+LaTeX Info: Redefining \% on input line 599.
+ [29<../../visualizations/nb_04reportes_raw/08_01.pdf>]
+LaTeX Info: Redefining \. on input line 603.
+LaTeX Info: Redefining \% on input line 603.
+ [30<../../visualizations/nb_04reportes_raw/08_02.pdf>]
+<../../visualizations/nb_04reportes_raw/09_01.pdf, id=1792, page=1, 691.98274pt
  x 408.47356pt>
 File: ../../visualizations/nb_04reportes_raw/09_01.pdf Graphic file (type pdf)
 <use ../../visualizations/nb_04reportes_raw/09_01.pdf, page 1>
 Package luatex.def Info: ../../visualizations/nb_04reportes_raw/09_01.pdf , pag
-e1 used on input line 571.
+e1 used on input line 613.
 (luatex.def)             Requested size: 266.48735pt x 157.30331pt.
-LaTeX Info: Redefining \. on input line 583.
-LaTeX Info: Redefining \% on input line 583.
-
-[29<../../visualizations/nb_04reportes_raw/09_01.pdf>]
-LaTeX Info: Redefining \. on input line 597.
-LaTeX Info: Redefining \% on input line 597.
- [30]
-LaTeX Info: Redefining \. on input line 628.
-LaTeX Info: Redefining \% on input line 628.
- [31]
-LaTeX Info: Redefining \. on input line 665.
-LaTeX Info: Redefining \% on input line 665.
+LaTeX Info: Redefining \. on input line 625.
+LaTeX Info: Redefining \% on input line 625.
+ [31<../../visualizations/nb_04reportes_raw/09_01.pdf>]
+LaTeX Info: Redefining \. on input line 639.
+LaTeX Info: Redefining \% on input line 639.
  [32]
-Overfull \hbox (1.12193pt too wide) in paragraph at lines 684--685
+LaTeX Info: Redefining \. on input line 670.
+LaTeX Info: Redefining \% on input line 670.
+ [33]
+LaTeX Info: Redefining \. on input line 711.
+LaTeX Info: Redefining \% on input line 711.
+
+[34]
+LaTeX Info: Redefining \. on input line 748.
+LaTeX Info: Redefining \% on input line 748.
+ [35]
+Overfull \hbox (1.12193pt too wide) in paragraph at lines 750--751
 []\TU/EBGaramond(0)/m/n/10 La he-te-ro-ge-nei-dad en-tre pa-tro-nes de ca-li-fi-
 ca-ción se re-su-me me-dian-te el es-ta-dís-ti-co de Kolmogorov--
  []
 
-LaTeX Info: Redefining \. on input line 699.
-LaTeX Info: Redefining \% on input line 699.
-[33]
-LaTeX Info: Redefining \. on input line 707.
-LaTeX Info: Redefining \% on input line 707.
- [34] (./reporte.aux
+LaTeX Info: Redefining \. on input line 773.
+LaTeX Info: Redefining \% on input line 773.
+[36] (./reporte.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -1449,20 +1451,20 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `reporte.out' has not changed.
-(rerunfilecheck)             Checksum: AF58F06FF318EEC0FA58A79395236679;13784.
+(rerunfilecheck)             Checksum: 873E3420B66539C6E11C07C94309CBAC;14559.
 )
 
 Here is how much of LuaTeX's memory you used:
- 20721 strings out of 476076
+ 20730 strings out of 476076
  125007,953878 words of node,token memory allocated
- 816 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 4 glue, 4 kern, 1 glyph, 49 attribute, 89 glue_spec
-, 25 attribute_list, 1 write nodes
-   avail lists: 1:1,2:1746,3:430,4:40,5:634,6:128,7:9732,8:43,9:702,10:13,11:144
-6
- 42405 multiletter control sequences out of 65536+600000
- 178 fonts using 22786463 bytes
- 73i,13n,92p,852b,689s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 840 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 4 glue, 4 kern, 1 glyph, 57 attribute, 89 glue_spec
+, 29 attribute_list, 1 write nodes
+   avail lists: 1:1,2:1734,3:430,4:43,5:740,6:128,7:10926,8:43,9:702,10:21,11:15
+29
+ 42410 multiletter control sequences out of 65536+600000
+ 181 fonts using 23034503 bytes
+ 73i,13n,92p,1175b,689s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}<C:/U
 sers/herie/AppData/Local/Microsoft/Windows/Fonts/ebgaramond-italic.ttf><c:/users
 /herie/appdata/local/programs/miktex/fonts/opentype/public/lm/lmmono10-regular.o
@@ -1471,16 +1473,17 @@ tf><C:/Users/herie/AppData/Local/Microsoft/Windows/Fonts/ebgaramond-regular.ttf>
 :/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewTXMI.pfb
 ><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewTXMI5
 .pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewT
-XMI7.pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr
-10.pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.
-pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb
-><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txexs.pf
-b><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txmiaX.
-pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys
-.pfb>
-Output written on reporte.pdf (35 pages, 2093859 bytes).
+XMI7.pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb
+10.pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10
+.pfb><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pf
+b><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><
+C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txexs.pfb>
+<C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txmiaX.pf
+b><C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.p
+fb>
+Output written on reporte.pdf (37 pages, 2147349 bytes).
 
-PDF statistics: 1906 PDF objects out of 2073 (max. 8388607)
- 118 named destinations out of 1000 (max. 1048576)
- 425 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 1942 PDF objects out of 2073 (max. 8388607)
+ 122 named destinations out of 1000 (max. 1048576)
+ 441 words of extra memory for PDF output out of 10000 (max. 100000000)
 
