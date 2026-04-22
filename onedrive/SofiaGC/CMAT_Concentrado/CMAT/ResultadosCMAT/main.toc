@@ -1,0 +1,16 @@
+\babel@toc {nil}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Objetivos}{2}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Datos y criterios de trabajo}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Base y nivel de análisis}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Depuración previa a las gráficas}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Gráficas por materia}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Matemáticas Universitarias}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Álgebra Lineal}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Cálculo I}{13}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Cálculo II}{17}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Estadística Inferencial}{21}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Estadística para Ciencias de la Salud}{24}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Estadística para Ciencias Sociales}{26}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Estadística para Negocios}{30}{subsection.3.8}%
+\contentsline {section}{\numberline {4}Conclusiones generales}{34}{section.4}%

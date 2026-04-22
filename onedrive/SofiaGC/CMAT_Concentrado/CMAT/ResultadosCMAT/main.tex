@@ -1,0 +1,300 @@
+\documentclass[12pt]{article}
+
+% -------------------------------
+% Paquetes
+% -------------------------------
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=3pt}
+\usepackage{placeins}
+
+\usepackage{setspace}
+\setstretch{1.2}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\newcommand{\annualfigurebymatter}[3]{%
+  \subsubsection*{#2}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{#1}
+    \caption{Relación entre asesorías y calificación en #3 durante #2.}
+  \end{figure}
+  \par\medskip
+}
+
+\newcommand{\periodfigurebymatter}[2]{%
+  \subsubsection*{Promedio 2020--2024}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{#1}
+    \caption{Promedio anual de calificación en #2 para el periodo 2020--2024, con comparación entre estudiantes con asesoría y sin asesoría.}
+  \end{figure}
+  \par\medskip
+}
+% -------------------------------
+% Datos del documento
+% -------------------------------
+\begin{document}
+
+\begin{titlepage}
+    \centering
+
+    \vspace*{.8cm}
+
+    % Logo
+    \includegraphics[width=0.4\textwidth]{logo.jpg}\par
+    \vspace{1.5cm}
+
+    {\Large \textbf{Universidad de las Américas Puebla}\par}
+    \vspace{1.5cm}
+
+    {\large \textbf{Coordinadora:}\par}
+    \vspace{0.2cm}
+    {\large Dra. Luz María García Ávila\par}
+    \vspace{1.2cm}
+
+
+    {\large \textbf{Reporte de resultados}\par}
+    \vspace{0.8cm}
+
+    {\Large \textbf{Análisis de asesorías CMAT}\par}
+    \vspace{0.3cm}
+    {\large Compilación de gráficos de resultados\par}
+    \vspace{0.3cm}
+
+    \vspace{1.5cm}
+
+    {\large \textbf{Autor:}\par}
+    \vspace{0.2cm}
+    {\large
+    Sofía Graham Coello\\
+    \par}
+
+    \vfill
+
+    {\large \textbf{Fecha de actualización:}13 de marzo 2026.\par}
+
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ==========================================================
+
+\section{Introducción}
+
+Este reporte presenta un conjunto de gráficas que describen, de manera visual y directa, la relación entre el número de asesorías registradas y la calificación final obtenida por los alumnos en distintas materias. El propósito es documentar de forma clara los patrones que aparecen en los datos del Centro de Aprendizaje de Matemáticas (CMAT) y su relación con los resultados de calificación por materia.
+
+Para construir estas gráficas se parte de dos fuentes principales de información: los registros de asesorías del CMAT y las calificaciones finales registradas en CalificacionesP24. A partir de ambas se generó un \textbf{concentrado} que integra la información necesaria en una sola tabla (incluyendo, además, variables de contexto como carrera, materia, año y estatus). En este reporte se trabaja directamente con ese concentrado, ya que permite analizar de forma consistente la relación entre asesorías y calificaciones sin tener que consultar las fuentes por separado.
+
+Las gráficas del reporte se organizan en dos grupos. El primer grupo son gráficas de dispersión (puntos) que muestran, para una materia en un año y periodo específicos, el número de asesorías en el eje horizontal y la calificación en el eje vertical; cada punto representa a un alumno dentro de esa combinación. Estas figuras ayudan a identificar concentraciones típicas (por ejemplo, muchos alumnos con cero o pocas asesorías), así como posibles casos atípicos. El segundo grupo son gráficas de líneas que muestran promedios anuales de calificación, comparando dos grupos: alumnos con al menos una asesoría contra alumnos con cero asesorías. Estas figuras permiten observar tendencias a través del tiempo y diferencias consistentes entre ambos grupos cuando las hay.
+
+Es importante señalar que este documento es principalmente descriptivo. Las figuras permiten observar patrones y asociaciones, pero no están diseñadas para demostrar causalidad. Por ejemplo, si un grupo presenta promedios distintos al otro, eso no necesariamente implica que la asesoría sea la causa; también pueden influir otros factores (como diferencias en características o en decisiones de los alumnos). Aun así, este tipo de visualizaciones es un primer paso útil para resumir el comportamiento general de los datos, identificar materias o periodos relevantes y orientar análisis posteriores con mayor detalle.
+
+\subsection{Objetivos}
+
+El objetivo general de este reporte es presentar de forma estructurada los resultados gráficos derivados del procesamiento de la base consolidada del CMAT, con el propósito de explorar descriptivamente la relación entre las asesorías registradas y el desempeño académico de los alumnos en distintas materias. Como objetivos específicos, se plantean los siguientes:
+
+\begin{itemize}
+    \item Reunir en un solo documento las gráficas generadas por el notebook de análisis.
+    \item Mostrar el comportamiento de la relación entre asesorías y calificación para cada materia y año disponible.
+    \item Comparar el promedio anual de calificación entre alumnos con asesoría y alumnos sin asesoría.
+\end{itemize}
+
+Este reporte tiene un alcance exploratorio y descriptivo, por ello, su función principal es resumir y comunicar visualmente los patrones en la base analizada.
+
+% ==========================================================
+\newpage
+\section{Datos y criterios de trabajo}
+
+\subsection{Base y nivel de análisis}
+El reporte se construye a partir de una base concentrada que integra, en un mismo archivo, la información necesaria para generar las gráficas: identificador del alumno, carrera, materia, año, número de asesorías registradas por materia, calificación numérica y estatus. Para maximizar el tamaño de muestra y facilitar comparaciones, el análisis se realiza a nivel \textbf{anual}, es decir, sin separar por periodo. Bajo este enfoque, un alumno puede aparecer en múltiples materias dentro del mismo año y también en años distintos si cursó materias en diferentes momentos.
+
+\subsection{Depuración previa a las gráficas}
+Antes de generar las gráficas se aplican criterios de depuración para mantener comparabilidad. Se excluyen registros cuyo estatus no represente un resultado académico final comparable (por ejemplo, \textit{baja voluntaria} y \textit{retiro}). Adicionalmente, se verifica que la calificación esté registrada en formato numérico y que los campos clave (materia, año y asesorías) sean consistentes para evitar duplicidades por diferencias de escritura o formato.
+
+% ==========================================================
+
+\section{Gráficas por materia}
+
+\subsection*{Criterio de lectura}
+
+El análisis de la base se apoya en dos visualizaciones principales, la primera explora la relación entre el número de asesorías y la calificación final a nivel individual mientras la segunda compara, por materia y por año, el promedio de calificaciones entre alumnos con asesoría y alumnos sin asesoría. En ambos casos, el enfoque es descriptivo y gráfico, por lo que los resultados permiten identificar patrones, concentraciones y diferencias entre grupos sin plantear relaciones causales.
+
+En cada figura anual de las gráficas de dispersión, el eje horizontal representa el número de asesorías y el eje vertical la calificación obtenida. Una concentración de puntos cerca de cero asesorías indica que buena parte de los registros corresponde a estudiantes que no asistieron o asistieron poco; la dispersión vertical permite ver si, aun con un mismo nivel de asesoría, hubo resultados académicos muy distintos.
+
+En las gráficas de promedio 2020--2024 (gráficos de lineas), se comparan dos series de promedio anual: estudiantes con asesoría y estudiantes sin asesoría. La lectura principal consiste en observar la separación entre ambas líneas, su estabilidad a través del tiempo y los años donde la diferencia parece ampliarse o reducirse.
+
+\subsection{Matemáticas Universitarias}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Matemáticas_Universitarias_2019.png}{2019}{Matemáticas Universitarias}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Matemáticas_Universitarias_2020.png}{2020}{Matemáticas Universitarias}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Matemáticas_Universitarias_2021.png}{2021}{Matemáticas Universitarias}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Matemáticas_Universitarias_2022.png}{2022}{Matemáticas Universitarias}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2023/Matemáticas_Universitarias_2023.png}{2023}{Matemáticas Universitarias}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2024/Matemáticas_Universitarias_2024.png}{2024}{Matemáticas Universitarias}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2025/Matemáticas_Universitarias_2025.png}{2025}{Matemáticas Universitarias}
+
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Matemáticas_Universitarias_2020_2024.png}{Matemáticas Universitarias}
+
+\FloatBarrier
+
+\subsection{Álgebra Lineal}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Álgebra_Lineal_2019.png}{2019}{Álgebra Lineal}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Álgebra_Lineal_2020.png}{2020}{Álgebra Lineal}
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Álgebra_Lineal_2021.png}{2021}{Álgebra Lineal}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Álgebra_Lineal_2022.png}{2022}{Álgebra Lineal}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2023/Álgebra_Lineal_2023.png}{2023}{Álgebra Lineal}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2024/Álgebra_Lineal_2024.png}{2024}{Álgebra Lineal}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2025/Álgebra_Lineal_2025.png}{2025}{Álgebra Lineal}
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Álgebra_Lineal_2020_2024.png}{Álgebra Lineal}
+
+\FloatBarrier
+
+\subsection{Cálculo I}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Cálculo_I_2019.png}{2019}{Cálculo I}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Cálculo_I_2020.png}{2020}{Cálculo I}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Cálculo_I_2021.png}{2021}{Cálculo I}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Cálculo_I_2022.png}{2022}{Cálculo I}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2023/Cálculo_I_2023.png}{2023}{Cálculo I}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2024/Cálculo_I_2024.png}{2024}{Cálculo I}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2025/Cálculo_I_2025.png}{2025}{Cálculo I}
+
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Cálculo_I_2020_2024.png}{Cálculo I}
+
+\FloatBarrier
+
+\subsection{Cálculo II}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Cálculo_II_2019.png}{2019}{Cálculo II}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Cálculo_II_2020.png}{2020}{Cálculo II}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Cálculo_II_2021.png}{2021}{Cálculo II}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Cálculo_II_2022.png}{2022}{Cálculo II}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2023/Cálculo_II_2023.png}{2023}{Cálculo II}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2024/Cálculo_II_2024.png}{2024}{Cálculo II}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2025/Cálculo_II_2025.png}{2025}{Cálculo II}
+
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Cálculo_II_2020_2024.png}{Cálculo II}
+\FloatBarrier
+
+\subsection{Estadística Inferencial}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Estadística_Inferencial_2019.png}{2019}{Estadística Inferencial}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Estadística_Inferencial_2020.png}{2020}{Estadística Inferencial}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Estadística_Inferencial_2021.png}{2021}{Estadística Inferencial}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Estadística_Inferencial_2022.png}{2022}{Estadística Inferencial}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2023/Estadística_Inferencial_2023.png}{2023}{Estadística Inferencial}
+
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Estadística_Inferencial_2020_2024.png}{Estadística Inferencial}
+\FloatBarrier
+
+\subsection{Estadística para Ciencias de la Salud}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Estadística_Para_Ciencias_De_La_Salud_2019.png}{2019}{Estadística para Ciencias de la Salud}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Estadística_Para_Ciencias_De_La_Salud_2020.png}{2020}{Estadística para Ciencias de la Salud}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Estadística_Para_Ciencias_De_La_Salud_2021.png}{2021}{Estadística para Ciencias de la Salud}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Estadística_Para_Ciencias_De_La_Salud_2022.png}{2022}{Estadística para Ciencias de la Salud}
+
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Estadística_Para_Ciencias_De_La_Salud_2020_2024.png}{Estadística para Ciencias de la Salud}
+
+\FloatBarrier
+
+\subsection{Estadística para Ciencias Sociales}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Estadística_Para_Ciencias_Sociales_2019.png}{2019}{Estadística para Ciencias Sociales}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Estadística_Para_Ciencias_Sociales_2020.png}{2020}{Estadística para Ciencias Sociales}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Estadística_Para_Ciencias_Sociales_2021.png}{2021}{Estadística para Ciencias Sociales}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Estadística_Para_Ciencias_Sociales_2022.png}{2022}{Estadística para Ciencias Sociales}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2023/Estadística_Para_Ciencias_Sociales_2023.png}{2023}{Estadística para Ciencias Sociales}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2024/Estadística_Para_Ciencias_Sociales_2024.png}{2024}{Estadística para Ciencias Sociales}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2025/Estadística_Para_Ciencias_Sociales_2025.png}{2025}{Estadística para Ciencias Sociales}
+
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Estadística_Para_Ciencias_Sociales_2020_2024.png}{Estadística para Ciencias Sociales}
+
+\FloatBarrier
+
+\subsection{Estadística para Negocios}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2019/Estadística_Para_Negocios_2019.png}{2019}{Estadística para Negocios}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2020/Estadística_Para_Negocios_2020.png}{2020}{Estadística para Negocios}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2021/Estadística_Para_Negocios_2021.png}{2021}{Estadística para Negocios}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2022/Estadística_Para_Negocios_2022.png}{2022}{Estadística para Negocios}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2023/Estadística_Para_Negocios_2023.png}{2023}{Estadística para Negocios}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2024/Estadística_Para_Negocios_2024.png}{2024}{Estadística para Negocios}
+
+\annualfigurebymatter{graficos CMAT/graficos CMAT/2025/Estadística_Para_Negocios_2025.png}{2025}{Estadística para Negocios}
+
+\periodfigurebymatter{graficos de lineas/graficos de lineas/Promedio_Estadística_Para_Negocios_2020_2024.png}{Estadística para Negocios}
+
+\FloatBarrier
+
+
+\section{Conclusiones generales}
+
+El presente reporte permitió reunir y organizar de manera sistemática las visualizaciones generadas a partir de la base consolidada del CMAT, ofreciendo una lectura clara de la relación entre el número de asesorías registradas y la calificación final en distintas materias y años. En conjunto, las gráficas muestran que el comportamiento de los datos no sigue un patrón único ni lineal, sino que varía según la materia, el periodo analizado y la distribución particular de los alumnos dentro de cada caso.
+
+De manera general, los gráficos de dispersión permiten observar que una parte importante de los registros se concentra en niveles bajos de asesoría, especialmente en cero asesorías, mientras que las calificaciones presentan amplitud y heterogeneidad incluso dentro de esos mismos segmentos. Por su parte, las gráficas de líneas aportan una visión más agregada del comportamiento anual, permitiendo comparar de forma directa los promedios de alumnos con asesoría y sin asesoría a lo largo del tiempo.
+
+En varias de las materias revisadas, los promedios del grupo con asesoría se ubican por encima de los del grupo sin asesoría durante los años observados. Sin embargo, este resultado debe interpretarse con cautela. El alcance del análisis es descriptivo y exploratorio, por lo que las diferencias identificadas no constituyen evidencia causal sobre el efecto de las asesorías, sino una señal de patrones presentes en la base que merecen atención y análisis posterior.
+
+Más allá de los resultados puntuales, una aportación central de este trabajo consiste en dejar estructurado un reporte gráfico amplio y ordenado, útil tanto para consulta como para seguimiento institucional. La compilación de estas visualizaciones facilita detectar materias de interés, observar cambios entre años y contar con una base documental que complementa el manual técnico y el notebook de procesamiento.
+
+En este sentido, el valor del reporte no radica únicamente en las figuras incluidas, sino también en su función como herramienta de apoyo para futuras etapas de análisis. A partir de esta base, será posible profundizar en comparaciones más específicas, incorporar medidas adicionales de contexto y desarrollar metodologías más robustas para estudiar con mayor precisión la relación entre el uso de asesorías y el desempeño académico de los estudiantes.
+
+\end{document}
+
