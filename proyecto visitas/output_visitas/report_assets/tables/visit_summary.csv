@@ -1,0 +1,32 @@
+metric,value,unit,definition
+total_students,10413,students,Unique students in the cleaned analytical sample.
+students_exactly_0_visits,7488,students,Students with exactly zero advisory visits in the report VISITAS variable.
+prop_students_exactly_0_visits,0.7191011235955056,share,Share of students with exactly zero advisory visits.
+students_at_least_1_visits,2925,students,Students with at least 1 visits.
+prop_students_at_least_1_visits,0.2808988764044944,share,Share of students with at least 1 visits.
+students_at_least_2_visits,1880,students,Students with at least 2 visits.
+prop_students_at_least_2_visits,0.1805435513300682,share,Share of students with at least 2 visits.
+students_at_least_3_visits,1386,students,Students with at least 3 visits.
+prop_students_at_least_3_visits,0.1331028522039758,share,Share of students with at least 3 visits.
+students_at_least_4_visits,1036,students,Students with at least 4 visits.
+prop_students_at_least_4_visits,0.09949102083933545,share,Share of students with at least 4 visits.
+students_at_least_5_visits,828,students,Students with at least 5 visits.
+prop_students_at_least_5_visits,0.07951598962834917,share,Share of students with at least 5 visits.
+students_at_least_10_visits,325,students,Students with at least 10 visits.
+prop_students_at_least_10_visits,0.031210986267166042,share,Share of students with at least 10 visits.
+students_at_least_20_visits,82,students,Students with at least 20 visits.
+prop_students_at_least_20_visits,0.00787477191971574,share,Share of students with at least 20 visits.
+students_more_than_3_visits,1036,students,Students with more than 3 visits.
+prop_students_more_than_3_visits,0.09949102083933545,share,Share of students with more than 3 visits.
+mean_visits,1.2343224815134928,visits,Mean student-level visits.
+median_visits,0.0,visits,Median student-level visits.
+std_visits,3.8706051273134787,visits,Standard deviation of student-level visits.
+min_visits,0.0,visits,Minimum student-level visits.
+q1_visits,0.0,visits,First quartile of student-level visits.
+q3_visits,1.0,visits,Third quartile of student-level visits.
+p90_visits,3.0,visits,90th percentile of student-level visits.
+p95_visits,7.0,visits,95th percentile of student-level visits.
+p99_visits,17.0,visits,99th percentile of student-level visits.
+max_visits,116.0,visits,Maximum student-level visits.
+skewness_visits,9.449315527019113,skewness,Skewness of the student visit distribution.
+top_visit_counts_observed,"116, 114, 70, 49, 48, 44, 43, 42, 39, 37",visit_values,Largest visit counts observed in the student-level distribution.

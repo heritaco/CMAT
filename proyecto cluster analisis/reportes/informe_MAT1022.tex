@@ -1,0 +1,271 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\geometry{margin=2.25cm}
+\graphicspath{
+    {../output_cluster_analisis/plots_2d_ica/}
+    {output_cluster_analisis/plots_2d_ica/}
+    {../output_cluster_analisis/paradoxical_analysis/figures/by_subject/}
+    {output_cluster_analisis/paradoxical_analysis/figures/by_subject/}
+}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\pct}[1]{#1\%}
+
+\title{\textbf{Informe especializado: MAT1022}\\
+\large Calculo I}
+\author{Proyecto Cluster Analisis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Este informe presenta una lectura especializada de los resultados para \code{MAT1022}. El objetivo es identificar alumnos con porcentajes bajos en \code{Porcentaje\_DMU} y \code{Porcentaje\_GA\_GB}, pero con calificaciones altas en la materia, y despues localizar los profesores asociados. En esta materia los resultados requieren mas cautela que en \code{MAT1012}: el cluster original encuentra un grupo muy pequeno y el analisis binario GMM selecciona un grupo demasiado amplio.
+\end{abstract}
+
+\section{Objetivo de la materia}
+
+Para cada alumno de \code{MAT1022} con datos completos se construyo el vector:
+
+\[
+X_i =
+\left(
+\text{Porcentaje\_DMU}_i,\,
+\text{Porcentaje\_GA\_GB}_i,\,
+\text{CALIFICACION}_i
+\right).
+\]
+
+El patron de interes es:
+
+\begin{center}
+\textbf{porcentajes bajos en examenes de referencia, junto con calificacion alta en la materia.}
+\end{center}
+
+Se aplicaron dos lecturas complementarias. La primera es el clustering original, que filtra alumnos con \code{CALIFICACION < 7.5}. La segunda es el analisis binario/paradojico, que trabaja con todos los casos completos y compara el GMM binario, el score de discrepancia y el benchmark manual \code{40/40/8}.
+
+\section{Clustering original con filtro de calificacion}
+
+El clustering original usa solo observaciones completas y excluye alumnos con \code{CALIFICACION < 7.5}. Luego estandariza las variables y ajusta una mezcla gaussiana. El cluster objetivo se selecciona maximizando:
+
+\[
+S_c =
+z(\text{CALIFICACION})_c
+- z(\text{Porcentaje\_DMU})_c
+- z(\text{Porcentaje\_GA\_GB})_c.
+\]
+
+\begin{table}[H]
+\centering
+\caption{Resumen del clustering original para MAT1022.}
+\begin{tabular}{lr}
+\toprule
+Indicador & Valor \\
+\midrule
+Registros totales de la materia & 6,946 \\
+Casos completos en $R^3$ & 2,510 \\
+Casos excluidos por \code{CALIFICACION < 7.5} & 134 \\
+Casos usados para clustering & 2,376 \\
+Metodo & GMM \\
+Numero de clusters seleccionado & 11 \\
+Cluster objetivo & 6 \\
+Alumnos en cluster objetivo & 71 \\
+Proporcion del cluster objetivo & 2.99 \\
+Score del cluster objetivo & 2.617 \\
+Silhouette & 0.092 \\
+Calinski-Harabasz & 438.387 \\
+Davies-Bouldin & 2.094 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Centroide del cluster objetivo de MAT1022 en escala original.}
+\begin{tabular}{lrr}
+\toprule
+Variable & Media materia filtrada & Centroide cluster objetivo \\
+\midrule
+\code{Porcentaje\_DMU} & 65.31 & 42.63 \\
+\code{Porcentaje\_GA\_GB} & 67.29 & 24.54 \\
+\code{CALIFICACION} & 9.21 & 8.72 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Interpretacion}
+
+En \code{MAT1022}, el cluster objetivo del analisis original tiene porcentajes muy bajos, especialmente en \code{GA-GB}, pero su centroide de \code{CALIFICACION} queda por debajo de la media filtrada de la materia. Por esta razon, el propio pipeline marca una advertencia metodologica: el cluster seleccionado maximiza el score por tener porcentajes muy bajos, pero no satisface claramente la condicion de calificacion por encima de la media.
+
+Esto no significa que el resultado no sirva. Significa que, para \code{MAT1022}, el patron encontrado es mas bien ``porcentajes muy bajos con calificacion aprobatoria/relativamente alta'', no necesariamente ``calificacion alta respecto al promedio de la materia''. La presentacion de resultados debe incluir esa salvedad.
+
+\section{Profesores asociados al cluster objetivo}
+
+La siguiente tabla lista los profesores con mayor proporcion de alumnos en el cluster objetivo del clustering original. La proporcion se calcula como:
+
+\[
+\text{share}_{p} =
+\frac{\#\text{ alumnos del profesor }p\text{ en cluster objetivo}}
+{\#\text{ alumnos clusterizados del profesor }p}.
+\]
+
+\begin{table}[H]
+\centering
+\caption{Top profesores MAT1022 segun cluster objetivo original.}
+\begin{tabular}{lrrrrrr}
+\toprule
+\code{CLAVEPROFESOR} & Total & Objetivo & Share & Cal. obj. & DMU obj. & GA-GB obj. \\
+\midrule
+23823 & 41 & 4 & 9.76 & 8.50 & 41.67 & 18.75 \\
+22114 & 41 & 4 & 9.76 & 8.90 & 46.67 & 25.00 \\
+23442 & 23 & 2 & 8.70 & 8.45 & 36.67 & 29.17 \\
+23837 & 26 & 2 & 7.69 & 8.25 & 53.33 & 16.67 \\
+21192 & 56 & 4 & 7.14 & 8.93 & 36.67 & 23.44 \\
+23453 & 32 & 2 & 6.25 & 7.90 & 56.67 & 9.38 \\
+23897 & 115 & 7 & 6.09 & 9.33 & 39.05 & 23.81 \\
+12516 & 18 & 1 & 5.56 & 9.00 & 60.00 & 16.67 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Los shares son mucho menores que en \code{MAT1012}. Esto es esperable porque el cluster objetivo de \code{MAT1022} es pequeno: solo 71 alumnos. Por lo tanto, cualquier ranking de profesores es sensible a pocos casos y debe revisarse junto con los tamanos muestrales.
+
+\section{Analisis binario/paradojico}
+
+El segundo analisis trabaja con todos los alumnos completos de \code{MAT1022}, sin filtrar previamente por \code{CALIFICACION > 7.5}. El metodo principal ajusta una mezcla gaussiana de dos componentes sobre las variables estandarizadas dentro de la materia. Tambien se compara contra un score individual de discrepancia y contra el benchmark manual:
+
+\[
+\text{DMU} < 40,\quad \text{GA-GB} < 40,\quad \text{CALIFICACION} > 8.
+\]
+
+\begin{table}[H]
+\centering
+\caption{Tamano de grupo objetivo por metodo en MAT1022.}
+\begin{tabular}{lrr}
+\toprule
+Metodo & Alumnos seleccionados & Proporcion \\
+\midrule
+GMM binario principal & 2,362 & 94.10 \\
+Score de discrepancia & 2,445 & 97.41 \\
+Benchmark 40/40/8 & 39 & 1.55 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Medias del grupo principal GMM contra el resto en MAT1022.}
+\begin{tabular}{lrrr}
+\toprule
+Variable & Grupo GMM & Resto & Diferencia \\
+\midrule
+\code{Porcentaje\_DMU} & 65.31 & 53.74 & 11.58 \\
+\code{Porcentaje\_GA\_GB} & 68.11 & 43.19 & 24.92 \\
+\code{CALIFICACION} & 9.20 & 4.96 & 4.24 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Lectura del analisis binario}
+
+En \code{MAT1022}, el GMM binario principal selecciona 94.10\% de los casos completos. Esta es una senal de que la particion binaria no esta encontrando un grupo objetivo pequeno y sustantivamente especifico. Aunque el grupo seleccionado tiene calificaciones mucho mas altas que el resto, tambien tiene porcentajes promedio mas altos en \code{DMU} y \code{GA-GB}. Por lo tanto, no representa el patron buscado de ``porcentajes bajos y calificacion alta''.
+
+El benchmark \code{40/40/8} selecciona 39 alumnos, equivalente al 1.55\% de los casos completos. Aunque este criterio es arbitrario y no debe ser el metodo principal, en \code{MAT1022} funciona como una referencia estricta para localizar casos extremos de porcentajes bajos y calificacion mayor a 8.
+
+\begin{table}[H]
+\centering
+\caption{Solapamiento entre metodos en MAT1022.}
+\begin{tabular}{lrrr}
+\toprule
+Comparacion & Interseccion & Jaccard & Coincidencia \\
+\midrule
+GMM vs. score & 2,362 & 0.966 & 0.967 \\
+GMM vs. benchmark & 32 & 0.014 & 0.069 \\
+Score vs. benchmark & 39 & 0.016 & 0.041 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El alto solapamiento entre GMM y score se debe a que ambos metodos seleccionan casi toda la materia. El bajisimo Jaccard contra el benchmark confirma que el grupo estadistico amplio y el grupo extremo \code{40/40/8} no estan midiendo lo mismo.
+
+\section{Profesores bajo el analisis binario}
+
+\begin{table}[H]
+\centering
+\caption{Top profesores MAT1022 segun grupo principal GMM binario.}
+\begin{tabular}{lrrrrr}
+\toprule
+\code{CLAVEPROFESOR} & Total & Grupo GMM & Share GMM & Benchmark & Share bench. \\
+\midrule
+23425 & 63 & 63 & 100.00 & 3 & 4.76 \\
+25503 & 22 & 22 & 100.00 & 0 & 0.00 \\
+25531 & 10 & 10 & 100.00 & 0 & 0.00 \\
+23885 & 125 & 124 & 99.20 & 2 & 1.60 \\
+24097 & 64 & 63 & 98.44 & 0 & 0.00 \\
+23978 & 49 & 48 & 97.96 & 0 & 0.00 \\
+23153 & 37 & 36 & 97.30 & 0 & 0.00 \\
+23434 & 33 & 32 & 96.97 & 0 & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Esta tabla no debe usarse como ranking fuerte de profesores para el patron buscado, porque el grupo GMM binario incluye casi todos los alumnos. Para \code{MAT1022}, es mas informativo revisar el cluster original pequeno y el benchmark estricto como sensibilidad, siempre reportando los tamanos pequenos y la advertencia de que el centroide del cluster original no supera la media de calificacion de la materia filtrada.
+
+\section{Figuras}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{MAT1022_ica.png}
+\caption{Proyeccion ICA del clustering original para MAT1022. Los puntos estan coloreados por cluster. La figura ayuda a ubicar visualmente el cluster objetivo, pero la interpretacion debe recordar que el centroide de calificacion del cluster objetivo no queda por encima de la media filtrada.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{subject_MAT1022_binary_scatter.png}
+\caption{Scatter de \code{Porcentaje\_DMU} contra \code{Porcentaje\_GA\_GB} para MAT1022. El analisis binario principal no separa un grupo pequeno de bajos porcentajes; mas bien deja a la gran mayoria en el grupo GMM seleccionado.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{subject_MAT1022_pca_scatter.png}
+\caption{Proyeccion PCA del analisis binario para MAT1022. La figura muestra que la particion de dos componentes esta dominada por la separacion entre un grupo mayoritario de calificaciones altas y un resto pequeno, no por el patron especifico de bajos porcentajes con calificacion alta.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{subject_MAT1022_group_boxplots.png}
+\caption{Boxplots por grupo binario en MAT1022. El grupo GMM tiene calificaciones mucho mayores que el resto, pero tambien porcentajes mayores en \code{DMU} y \code{GA-GB}. Esta figura explica por que el grupo binario no debe interpretarse como el grupo objetivo sustantivo de bajos porcentajes y calificacion alta.}
+\end{figure}
+
+El grafico 3D interactivo de esta materia esta disponible en:
+
+\begin{center}
+\parbox{0.9\textwidth}{\centering\footnotesize\path{output_cluster_analisis/paradoxical_analysis/figures/by_subject/subject_MAT1022_binary_3d.html}}
+\end{center}
+
+\section{Conclusion especifica para MAT1022}
+
+Para \code{MAT1022}, los resultados son mas delicados que para \code{MAT1012}. El clustering original encuentra un grupo pequeno de 71 alumnos con porcentajes muy bajos, especialmente en \code{GA-GB}, pero su calificacion media queda por debajo de la media filtrada de la materia. El analisis binario GMM, por otro lado, selecciona casi toda la materia y por eso no es util como grupo objetivo estrecho.
+
+La recomendacion para presentar \code{MAT1022} es enfatizar que el patron existe de forma mas debil y menos estable. Los profesores listados deben considerarse puntos de revision descriptiva, no conclusiones. Para esta materia conviene complementar con inspeccion manual de alumnos, sesiones, cohortes y el benchmark \code{40/40/8}.
+
+\end{document}
