@@ -24,6 +24,12 @@ from student_cluster_analysis.analytics.professor_stats import (
     build_global_professor_ranking,
     build_subject_professor_report,
 )
+from student_cluster_analysis.analytics.processed_data import (
+    build_analysis_dataset,
+    build_professor_appendix_tables,
+    build_subject_period_summary,
+    build_subject_summary_dataset,
+)
 from student_cluster_analysis.analytics.summaries import (
     build_centroids_table,
     build_cluster_metrics_table,
@@ -49,11 +55,17 @@ from student_cluster_analysis.io.writers import (
     ensure_output_structure,
     save_matplotlib_figure,
     save_plotly_figure,
+    write_dataframe_csv_and_excel,
     write_dataframe,
 )
 from student_cluster_analysis.preprocessing.cleaning import clean_exam_dataframe, clean_materias_dataframe
 from student_cluster_analysis.preprocessing.merging import build_merged_dataset
-from student_cluster_analysis.reporting.latex_report import write_paradoxical_latex_section
+from student_cluster_analysis.reporting.data_documentation import write_processed_data_documentation
+from student_cluster_analysis.reporting.latex_report import (
+    write_paradoxical_latex_section,
+    write_professor_appendix_latex,
+    write_subject_professor_appendix_latex,
+)
 from student_cluster_analysis.visualization.plots_2d import create_ica_plot
 from student_cluster_analysis.visualization.plots_3d import create_plotly_3d
 from student_cluster_analysis.visualization.paradoxical_plots import create_paradoxical_figures
@@ -114,6 +126,7 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         merged_df,
         minimum_grade=settings.minimum_grade_for_clustering,
     )
+    merged_base_df = merged_df.copy()
 
     paradoxical_metadata = []
     if settings.enable_paradoxical_analysis:
@@ -283,6 +296,12 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
 
     paradoxical_artifacts: dict[str, Path] = {}
     paradoxical_plot_paths: list[Path] = []
+    binary_summary_df = pd.DataFrame()
+    method_comparison_df = pd.DataFrame()
+    overlap_df = pd.DataFrame()
+    professor_paradoxical_df = pd.DataFrame()
+    professor_paradoxical_global_df = pd.DataFrame()
+    ranking_stability_df = pd.DataFrame()
     if settings.enable_paradoxical_analysis:
         logger.info("Building binary paradoxical-group tables.")
         binary_summary_df = build_binary_group_summary_by_subject(merged_df, settings)
@@ -360,6 +379,17 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
             except Exception as exc:  # pragma: no cover - reporting fallback
                 logger.exception("Paradoxical LaTeX section generation failed: %s", exc)
 
+    analysis_dataset_df = build_analysis_dataset(subject_results)
+    subject_summary_df = build_subject_summary_dataset(
+        target_cluster_df,
+        binary_summary_df if not binary_summary_df.empty else None,
+    )
+    subject_period_summary_df = build_subject_period_summary(merged_df)
+    professor_appendix_all_years_df, professor_appendix_by_period_df = build_professor_appendix_tables(
+        merged_df,
+        settings,
+    )
+
     data_quality_path = settings.output_diagnostics_dir / settings.data_quality_filename
     missingness_path = settings.output_diagnostics_dir / settings.missingness_filename
     cluster_metrics_path = settings.output_metrics_dir / settings.cluster_metrics_filename
@@ -381,6 +411,46 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
     write_dataframe(target_professor_roster_df, target_professor_roster_path)
     write_dataframe(target_professor_students_df, target_professor_students_path)
     write_dataframe(global_ranking_df, global_ranking_path)
+
+    processed_dataframes = {
+        "merged_dataset": select_merged_output_columns(merged_base_df),
+        "analysis_dataset": analysis_dataset_df,
+        "paradoxical_group_dataset": select_merged_output_columns(merged_df),
+        "subject_summary": subject_summary_df,
+        "subject_period_summary": subject_period_summary_df,
+        "professor_summary_all_years": professor_appendix_all_years_df,
+        "professor_summary_by_period": professor_appendix_by_period_df,
+        "professor_appendix_all_years": professor_appendix_all_years_df,
+        "professor_appendix_by_period": professor_appendix_by_period_df,
+    }
+    processed_artifacts: dict[str, Path] = {}
+    logger.info("Writing processed dataframes to %s.", settings.processed_data_dir)
+    for dataframe_name, dataframe in processed_dataframes.items():
+        csv_path = settings.processed_data_dir / f"{dataframe_name}.csv"
+        xlsx_path = settings.processed_data_dir / f"{dataframe_name}.xlsx"
+        write_dataframe_csv_and_excel(dataframe, csv_path, xlsx_path, sheet_name=dataframe_name)
+        processed_artifacts[f"{dataframe_name}_csv_path"] = csv_path
+        processed_artifacts[f"{dataframe_name}_xlsx_path"] = xlsx_path
+    processed_artifacts.update(write_processed_data_documentation(settings, processed_dataframes))
+
+    if settings.update_latex_report:
+        try:
+            processed_artifacts["professor_appendix_latex_path"] = write_professor_appendix_latex(
+                all_years_df=professor_appendix_all_years_df,
+                by_period_df=professor_appendix_by_period_df,
+                settings=settings,
+            )
+            for subject_code in ("MAT1012", "MAT1022"):
+                processed_artifacts[f"professor_appendix_{subject_code}_latex_path"] = (
+                    write_subject_professor_appendix_latex(
+                        all_years_df=professor_appendix_all_years_df,
+                        by_period_df=professor_appendix_by_period_df,
+                        subject_code=subject_code,
+                        settings=settings,
+                    )
+                )
+        except Exception as exc:  # pragma: no cover - reporting fallback
+            logger.exception("Professor appendix LaTeX generation failed: %s", exc)
 
     presentation_plot_paths: list[Path] = []
     if settings.make_presentation_plots:
@@ -417,4 +487,6 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         "paradoxical_analysis_dir": settings.output_paradoxical_root_dir,
         "paradoxical_plot_paths": paradoxical_plot_paths,
         **paradoxical_artifacts,
+        "processed_data_dir": settings.processed_data_dir,
+        **processed_artifacts,
     }

@@ -5,6 +5,7 @@
 \usepackage[spanish,es-tabla]{babel}
 \usepackage{geometry}
 \usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{float}
@@ -267,5 +268,7 @@ El grafico 3D interactivo de esta materia esta disponible en:
 Para \code{MAT1022}, los resultados son mas delicados que para \code{MAT1012}. El clustering original encuentra un grupo pequeno de 71 alumnos con porcentajes muy bajos, especialmente en \code{GA-GB}, pero su calificacion media queda por debajo de la media filtrada de la materia. El analisis binario GMM, por otro lado, selecciona casi toda la materia y por eso no es util como grupo objetivo estrecho.
 
 La recomendacion para presentar \code{MAT1022} es enfatizar que el patron existe de forma mas debil y menos estable. Los profesores listados deben considerarse puntos de revision descriptiva, no conclusiones. Para esta materia conviene complementar con inspeccion manual de alumnos, sesiones, cohortes y el benchmark \code{40/40/8}.
+
+\IfFileExists{reportes/apendice_tablas_profesores_MAT1022.tex}{\input{reportes/apendice_tablas_profesores_MAT1022.tex}}{\IfFileExists{apendice_tablas_profesores_MAT1022.tex}{\input{apendice_tablas_profesores_MAT1022.tex}}{}}
 
 \end{document}

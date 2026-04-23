@@ -31,6 +31,8 @@ Desde la ultima extension existen dos analisis:
 - Analisis original de clustering por materia, con filtro `CALIFICACION >= 7.5`.
 - Analisis binario/paradojico paralelo, usando todos los casos completos sin prefiltro de calificacion y comparando GMM binario, score de discrepancia y benchmark 40/40/8.
 
+Tambien existe una capa estable de datos procesados en `data/datos_procesados/` con CSV/XLSX, README, diccionario de variables y tablas canonicas para los apendices LaTeX de profesores.
+
 ## Estado Actual Del Metodo
 
 La version actual del pipeline:
@@ -93,14 +95,38 @@ Nota: en ejecuciones previas, Python recibio `PermissionError` al leer el Excel 
 7. `analytics/professor_stats.py`: calcula reportes por profesor.
 8. `analytics/target_details.py`: genera archivos accionables de alumnos/profesores objetivo.
 9. `visualization/`: genera plots tecnicos y plots de presentacion.
-10. `pipeline/main_pipeline.py`: orquesta todo.
+10. `analytics/processed_data.py`: construye dataframes procesados, resumenes por periodo y tablas de apendice.
+11. `reporting/data_documentation.py`: escribe `data/datos_procesados/README.md` y `data_dictionary.md`.
+12. `reporting/latex_report.py`: escribe seccion paradojica y apendice completo de profesores.
+13. `pipeline/main_pipeline.py`: orquesta todo.
 
 Modulos nuevos relevantes:
 
 - `analytics/paradoxical_group.py`: calcula z-scores por materia, GMM binario, score y benchmark.
 - `analytics/method_comparison.py`: crea resumenes por materia, overlaps, rankings por profesor y estabilidad.
+- `analytics/processed_data.py`: crea `analysis_dataset`, `subject_period_summary`, `professor_appendix_all_years` y `professor_appendix_by_period`.
 - `visualization/paradoxical_plots.py`: genera figuras del analisis binario.
-- `reporting/latex_report.py`: genera `reportes/seccion_analisis_paradojico.tex`.
+- `reporting/data_documentation.py`: genera README y diccionario de datos procesados.
+- `reporting/latex_report.py`: genera `reportes/seccion_analisis_paradojico.tex` y `reportes/apendice_tablas_profesores.tex`.
+
+## Trazabilidad De Dataframes
+
+```text
+archivo de materias -> materias_df -> materias_clean_df
+archivo de examenes DMU -> dmu_df -> dmu_clean_df
+archivo de examenes GA-GB -> gagb_df -> gagb_clean_df
+materias_clean_df + dmu_clean_df + gagb_clean_df -> merged_dataset
+merged_dataset -> analysis_dataset
+merged_dataset -> paradoxical_group_dataset
+analysis_dataset -> metricas, centroides, target_cluster, alumnos objetivo
+paradoxical_group_dataset -> subject_summary + subject_period_summary
+paradoxical_group_dataset -> professor_summary_all_years
+paradoxical_group_dataset -> professor_summary_by_period
+professor_summary_all_years -> professor_appendix_all_years -> Apendice A LaTeX
+professor_summary_by_period -> professor_appendix_by_period -> Apendice B LaTeX
+```
+
+El desglose temporal siempre usa el par observado `(anio, CLAVESESION)`. No hay lista hardcodeada de periodos.
 
 ## Resultados Actuales
 
@@ -137,6 +163,27 @@ output_cluster_analisis/paradoxical_analysis/tables/professor_ranking_stability.
 output_cluster_analisis/paradoxical_analysis/diagnostics/paradoxical_group_diagnostics.csv
 output_cluster_analisis/paradoxical_analysis/figures/
 reportes/seccion_analisis_paradojico.tex
+reportes/apendice_tablas_profesores.tex
+data/datos_procesados/merged_dataset.csv
+data/datos_procesados/merged_dataset.xlsx
+data/datos_procesados/analysis_dataset.csv
+data/datos_procesados/analysis_dataset.xlsx
+data/datos_procesados/paradoxical_group_dataset.csv
+data/datos_procesados/paradoxical_group_dataset.xlsx
+data/datos_procesados/subject_summary.csv
+data/datos_procesados/subject_summary.xlsx
+data/datos_procesados/subject_period_summary.csv
+data/datos_procesados/subject_period_summary.xlsx
+data/datos_procesados/professor_summary_all_years.csv
+data/datos_procesados/professor_summary_all_years.xlsx
+data/datos_procesados/professor_summary_by_period.csv
+data/datos_procesados/professor_summary_by_period.xlsx
+data/datos_procesados/professor_appendix_all_years.csv
+data/datos_procesados/professor_appendix_all_years.xlsx
+data/datos_procesados/professor_appendix_by_period.csv
+data/datos_procesados/professor_appendix_by_period.xlsx
+data/datos_procesados/README.md
+data/datos_procesados/data_dictionary.md
 ```
 
 Conteos actuales:
@@ -215,6 +262,13 @@ $env:SCA_ENABLE_PARADOXICAL_ANALYSIS = "false"
 python run_analysis.py
 ```
 
+Cambiar carpeta de datos procesados:
+
+```powershell
+$env:SCA_PROCESSED_DATA_DIR = "C:\ruta\datos_procesados"
+python run_analysis.py
+```
+
 Cambiar benchmark manual:
 
 ```powershell
@@ -256,6 +310,8 @@ Target:
 - En el nuevo analisis binario, el metodo GMM puede seleccionar grupos muy grandes. No asumir automaticamente que todo el grupo es "sospechoso"; usarlo como particion estadistica descriptiva y revisar sensibilidad.
 - El ranking global mezcla materias, asi que debe usarse solo como vista descriptiva.
 - Revisar siempre denominadores como `total_observaciones_clusterizadas_profesor`.
+- Revisar tambien `total_alumnos` en las tablas de apendice; ahi el denominador son observaciones completas R3 del profesor.
+- Las tablas completas de profesores para LaTeX salen de `professor_appendix_all_years` y `professor_appendix_by_period`, no de tablas escritas a mano.
 - No modificar carpetas fuera de `proyecto cluster analisis/` salvo que el usuario lo pida.
 - No asumir que outputs son versionados; pueden regenerarse con `python run_analysis.py`.
 
@@ -264,11 +320,10 @@ Target:
 1. Revisar si conviene exigir `validation_grade_above_mean == True` estrictamente para seleccionar cluster objetivo.
 2. Probar umbrales `CALIFICACION >= 8.0` o `>= 8.5` y comparar estabilidad de profesores.
 3. Generar un reporte HTML o PDF consolidado para presentacion.
-4. Agregar tablas por profesor con distribuciones por `anio` y `CLAVESESION`.
-5. Comparar GMM vs KMeans para ver si los profesores destacados son robustos.
-6. Agregar bootstrap o sensibilidad por cohorte para evaluar estabilidad.
-7. Probar alternativas al GMM binario para evitar grupos objetivo excesivamente grandes, por ejemplo cortes por colas del `discrepancy_score`, modelos semisupervisados o reglas por cuantiles dentro de materia.
-8. Comparar estabilidad de profesores entre analisis original y analisis binario/paradojico.
+4. Comparar GMM vs KMeans para ver si los profesores destacados son robustos.
+5. Agregar bootstrap o sensibilidad por cohorte para evaluar estabilidad.
+6. Probar alternativas al GMM binario para evitar grupos objetivo excesivamente grandes, por ejemplo cortes por colas del `discrepancy_score`, modelos semisupervisados o reglas por cuantiles dentro de materia.
+7. Comparar estabilidad de profesores entre analisis original y analisis binario/paradojico.
 
 ## Si Una IA Continúa
 
@@ -284,5 +339,5 @@ Despues de editar:
 
 1. Ejecutar `python -m pytest`.
 2. Ejecutar `python run_analysis.py` si el cambio afecta pipeline o outputs.
-3. Verificar que se regeneren los CSV clave.
+3. Verificar que se regeneren los CSV/XLSX clave en `output_cluster_analisis/` y `data/datos_procesados/`.
 4. Actualizar este archivo si cambia una decision metodologica.

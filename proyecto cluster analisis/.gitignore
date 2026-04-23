@@ -8,6 +8,10 @@ __pycache__/
 
 data/*
 !data/.gitkeep
+!data/datos_procesados/
+data/datos_procesados/*
+!data/datos_procesados/README.md
+!data/datos_procesados/data_dictionary.md
 
 output_cluster_analisis/*
 !output_cluster_analisis/.gitkeep

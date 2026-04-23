@@ -5,6 +5,7 @@
 \usepackage[spanish,es-tabla]{babel}
 \usepackage{geometry}
 \usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{float}
@@ -276,5 +277,7 @@ El grafico 3D interactivo de esta materia esta disponible en:
 Para \code{MAT1012}, el resultado mas alineado con el objetivo del proyecto es el clustering original con filtro de calificacion. Ese analisis encuentra un grupo de 272 alumnos con \code{CALIFICACION} alta y \code{Porcentaje\_DMU} bajo, junto con \code{Porcentaje\_GA\_GB} ligeramente bajo. Los profesores destacados por ese enfoque son los candidatos principales para revision descriptiva posterior.
 
 El analisis binario agrega una lectura de sensibilidad: confirma que existen patrones de bajo desempeno relativo en porcentajes, pero el grupo GMM resultante es amplio y no tiene calificacion media superior al resto. Por ello, debe usarse como complemento metodologico, no como sustituto directo del cluster objetivo original.
+
+\IfFileExists{reportes/apendice_tablas_profesores_MAT1012.tex}{\input{reportes/apendice_tablas_profesores_MAT1012.tex}}{\IfFileExists{apendice_tablas_profesores_MAT1012.tex}{\input{apendice_tablas_profesores_MAT1012.tex}}{}}
 
 \end{document}

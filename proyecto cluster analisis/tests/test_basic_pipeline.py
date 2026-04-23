@@ -184,10 +184,12 @@ def test_paradoxical_gmm_and_baseline_identify_expected_synthetic_group() -> Non
 def test_pipeline_smoke_run_with_synthetic_inputs(tmp_path: Path) -> None:
     materias_path, examenes_path = _build_temp_inputs(tmp_path)
     output_root = tmp_path / "output_cluster_analisis"
+    processed_data_root = tmp_path / "data" / "datos_procesados"
     settings = get_settings().with_overrides(
         materias_input_path=materias_path,
         examenes_input_path=examenes_path,
         output_root=output_root,
+        processed_data_root=processed_data_root,
         subjects=("MAT1012",),
         k_values=(2, 3),
         make_ica_plots=False,
@@ -203,14 +205,25 @@ def test_pipeline_smoke_run_with_synthetic_inputs(tmp_path: Path) -> None:
     assert artifacts["target_professor_roster_path"].exists()
     assert artifacts["target_professor_students_path"].exists()
     assert artifacts["binary_group_summary_by_subject_path"].exists()
+    assert artifacts["merged_dataset_csv_path"].exists()
+    assert artifacts["merged_dataset_xlsx_path"].exists()
+    assert artifacts["analysis_dataset_csv_path"].exists()
+    assert artifacts["paradoxical_group_dataset_xlsx_path"].exists()
+    assert artifacts["professor_appendix_all_years_csv_path"].exists()
+    assert artifacts["professor_appendix_by_period_xlsx_path"].exists()
+    assert artifacts["processed_data_readme_path"].exists()
+    assert artifacts["processed_data_dictionary_path"].exists()
     report_df = pd.read_csv(artifacts["professor_report_path"])
     merged_df = pd.read_csv(artifacts["merged_dataset_path"])
+    period_appendix_df = pd.read_csv(artifacts["professor_appendix_by_period_csv_path"])
     target_students_df = pd.read_csv(artifacts["target_students_path"])
     target_professors_df = pd.read_csv(artifacts["target_professor_roster_path"])
     assert not report_df.empty
+    assert not period_appendix_df.empty
     assert not target_students_df.empty
     assert not target_professors_df.empty
     assert {"CLAVEPROFESOR", "share_cluster_objetivo"}.issubset(report_df.columns)
     assert {"binary_group_gmm", "discrepancy_score", "is_paradoxical_group_main"}.issubset(merged_df.columns)
+    assert {"anio", "CLAVESESION", "alumnos_benchmark_manual", "ranking_position"}.issubset(period_appendix_df.columns)
     assert {"CLAVEALUMNO", "CLAVEPROFESOR", "target_cluster_score"}.issubset(target_students_df.columns)
     assert {"CLAVEPROFESOR", "alumnos_cluster_objetivo_ids"}.issubset(target_professors_df.columns)

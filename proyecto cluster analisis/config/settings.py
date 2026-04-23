@@ -33,6 +33,7 @@ class Settings:
     examenes_dmu_sheet: str
     examenes_gagb_sheet: str
     output_root: Path
+    processed_data_root: Path
     subjects: tuple[str, ...]
     feature_columns: tuple[str, ...]
     clustering_method: str
@@ -141,6 +142,10 @@ class Settings:
         return self.project_root / "reportes"
 
     @property
+    def processed_data_dir(self) -> Path:
+        return self.processed_data_root
+
+    @property
     def output_summaries_dir(self) -> Path:
         return self.output_root / "summaries"
 
@@ -172,6 +177,7 @@ class Settings:
             self.output_diagnostics_dir,
             self.output_logs_dir,
             self.output_reports_dir,
+            self.processed_data_dir,
         )
 
     def with_overrides(self, **overrides: object) -> "Settings":
@@ -196,6 +202,7 @@ def get_settings() -> Settings:
         examenes_dmu_sheet=os.environ.get("SCA_DMU_SHEET", "DMU"),
         examenes_gagb_sheet=os.environ.get("SCA_GAGB_SHEET", "GA-GB"),
         output_root=_env_path("SCA_OUTPUT_ROOT", project_root / "output_cluster_analisis"),
+        processed_data_root=_env_path("SCA_PROCESSED_DATA_DIR", project_root / "data" / "datos_procesados"),
         subjects=(
             "MAT1012",
             "MAT1022",

@@ -101,6 +101,34 @@ Salidas nuevas:
 
 Hallazgo importante de la corrida actual: el GMM binario selecciona grupos muy grandes en algunas materias, especialmente `MAT1022`, `MAT1032` y `MAT2012`. Esto queda marcado con advertencias de tamano grande y debe interpretarse como posible inestabilidad de la particion binaria de dos componentes. El benchmark manual selecciona grupos mucho mas pequenos, por lo que el solapamiento entre metodos es bajo.
 
+## Extension Actual: Datos Procesados Y Apendices De Profesores
+
+El pipeline exporta ahora una capa estable de dataframes procesados en:
+
+```text
+data/datos_procesados/
+```
+
+Cada dataframe principal se guarda en CSV y Excel (`.xlsx`). Los archivos mas importantes son:
+
+- `merged_dataset.csv` / `.xlsx`: dataset integrado base despues de limpieza y merge.
+- `analysis_dataset.csv` / `.xlsx`: dataset exacto usado por el clustering principal.
+- `paradoxical_group_dataset.csv` / `.xlsx`: dataset enriquecido con columnas del analisis binario/paradojico.
+- `subject_summary.csv` / `.xlsx`: resumen por materia.
+- `subject_period_summary.csv` / `.xlsx`: resumen por materia y periodo `(anio, CLAVESESION)`.
+- `professor_summary_all_years.csv` / `.xlsx`: tabla por materia y profesor agregando todos los anios.
+- `professor_summary_by_period.csv` / `.xlsx`: tabla por materia, periodo y profesor.
+- `professor_appendix_all_years.csv` / `.xlsx`: tabla canonica que alimenta el Apendice A del reporte LaTeX.
+- `professor_appendix_by_period.csv` / `.xlsx`: tabla canonica que alimenta el Apendice B del reporte LaTeX.
+- `README.md` y `data_dictionary.md`: documentacion de datos procesados, diccionario de variables y trazabilidad.
+
+El reporte LaTeX incluye ahora `reportes/apendice_tablas_profesores.tex`, generado automaticamente desde `professor_appendix_all_years` y `professor_appendix_by_period`. El apendice se organiza en:
+
+- Apendice A: tablas globales por materia.
+- Apendice B: tablas por materia y periodo observado `(anio, CLAVESESION)`.
+
+El desglose temporal no hardcodea sesiones. Si el archivo trae otros valores de `CLAVESESION`, apareceran automaticamente en las subsecciones y en las tablas exportadas.
+
 ## Estructura
 
 ```text
@@ -114,8 +142,10 @@ proyecto cluster analisis/
 │   ├── __init__.py
 │   └── settings.py
 ├── data/
-│   └── .gitkeep
+│   ├── .gitkeep
+│   └── datos_procesados/
 ├── output_cluster_analisis/
+├── reportes/
 ├── src/
 │   └── student_cluster_analysis/
 │       ├── analytics/
@@ -142,9 +172,10 @@ Responsabilidades principales:
 | `src/student_cluster_analysis/analytics/` | Diagnosticos, resumenes, estadisticas por profesor y archivos detalle. |
 | `src/student_cluster_analysis/analytics/paradoxical_group.py` | Etiquetado binario GMM/score/benchmark para el nuevo analisis paradojico. |
 | `src/student_cluster_analysis/analytics/method_comparison.py` | Comparacion entre metodos, overlaps, rankings y diagnosticos del analisis binario. |
+| `src/student_cluster_analysis/analytics/processed_data.py` | Construccion de dataframes procesados, tablas de apendice y resumenes por periodo. |
 | `src/student_cluster_analysis/visualization/` | Plots 2D ICA, plots 3D Plotly y plots explicativos para presentacion. |
 | `src/student_cluster_analysis/visualization/paradoxical_plots.py` | Figuras especificas del analisis binario/paradojico. |
-| `src/student_cluster_analysis/reporting/` | Generacion de secciones LaTeX auxiliares para reportes. |
+| `src/student_cluster_analysis/reporting/` | Generacion de secciones LaTeX auxiliares y documentacion de datos procesados. |
 | `src/student_cluster_analysis/pipeline/main_pipeline.py` | Orquestacion completa del flujo. |
 | `tests/` | Pruebas minimas de columnas, merge, target cluster y smoke test. |
 
@@ -184,7 +215,8 @@ El comando ejecuta el pipeline completo:
 6. ajusta clustering por materia
 7. selecciona el cluster objetivo por materia
 8. identifica profesores asociados
-9. genera CSV, HTML, PNG, diagnosticos y logs
+9. genera CSV, Excel, HTML, PNG, diagnosticos, README de datos, diccionario y logs
+10. genera secciones LaTeX auxiliares, incluido el apendice completo de profesores
 
 Para correr pruebas:
 
@@ -281,6 +313,7 @@ Variables de entorno soportadas:
 - `SCA_MATERIAS_PATH`
 - `SCA_EXAMENES_PATH`
 - `SCA_OUTPUT_ROOT`
+- `SCA_PROCESSED_DATA_DIR`
 - `SCA_CLUSTERING_METHOD`
 - `SCA_K_VALUES`
 - `SCA_SELECTION_STRATEGY`
@@ -505,6 +538,29 @@ Archivos principales:
 | `paradoxical_analysis/diagnostics/paradoxical_group_diagnostics.csv` | Diagnosticos del metodo GMM binario. |
 | `logs/pipeline.log` | Log de ejecucion. |
 
+Datos procesados estables:
+
+| Archivo | Uso |
+|---|---|
+| `data/datos_procesados/merged_dataset.csv` y `.xlsx` | Dataset maestro integrado despues de limpieza y merge. |
+| `data/datos_procesados/analysis_dataset.csv` y `.xlsx` | Filas usadas para clustering principal, con etiquetas de cluster. |
+| `data/datos_procesados/paradoxical_group_dataset.csv` y `.xlsx` | Dataset enriquecido para analisis binario/paradojico. |
+| `data/datos_procesados/subject_summary.csv` y `.xlsx` | Tabla por materia. |
+| `data/datos_procesados/subject_period_summary.csv` y `.xlsx` | Tabla por materia y periodo `(anio, CLAVESESION)`. |
+| `data/datos_procesados/professor_summary_all_years.csv` y `.xlsx` | Profesores por materia agregando todos los anios. |
+| `data/datos_procesados/professor_summary_by_period.csv` y `.xlsx` | Profesores por materia y periodo. |
+| `data/datos_procesados/professor_appendix_all_years.csv` y `.xlsx` | Fuente del Apendice A LaTeX. |
+| `data/datos_procesados/professor_appendix_by_period.csv` y `.xlsx` | Fuente del Apendice B LaTeX. |
+| `data/datos_procesados/README.md` | Trazabilidad, transformaciones y columnas por dataframe. |
+| `data/datos_procesados/data_dictionary.md` | Diccionario de variables. |
+
+Reportes LaTeX auxiliares:
+
+| Archivo | Uso |
+|---|---|
+| `reportes/seccion_analisis_paradojico.tex` | Seccion del analisis binario/paradojico. |
+| `reportes/apendice_tablas_profesores.tex` | Apendices completos de profesores por materia y por periodo. |
+
 Visualizaciones:
 
 | Carpeta | Contenido |
@@ -531,6 +587,8 @@ Para empezar rapido:
 3. Abrir `data_clean/alumnos_cluster_objetivo.csv` para ver los alumnos del grupo.
 4. Abrir `professor_reports/profesores_cluster_objetivo_detalle.csv` para ver los profesores asociados.
 5. Abrir `presentation_plots/04_top_profesores_por_materia.png` para una vista presentable.
+6. Abrir `data/datos_procesados/professor_appendix_all_years.xlsx` y `professor_appendix_by_period.xlsx` para auditoria completa de profesores.
+7. Revisar `data/datos_procesados/README.md` y `data_dictionary.md` para trazabilidad y significado de variables.
 
 Columnas utiles en `profesores_cluster_objetivo_detalle.csv`:
 
@@ -568,6 +626,7 @@ La advertencia `ConvergenceWarning` en el smoke test sintetico puede aparecer po
 - El ranking global mezcla materias distintas y debe leerse solo como resumen descriptivo.
 - El tamano muestral por profesor importa; revisar denominadores antes de interpretar.
 - Los resultados pueden variar por cohorte (`anio`) y por sesion (`CLAVESESION`).
+- Las tablas por periodo usan siempre el par observado `(anio, CLAVESESION)`; no asumen nombres fijos de periodo.
 - El filtro `CALIFICACION >= 7.5` cambia la poblacion de analisis; las conclusiones aplican a alumnos con calificacion aprobatoria/alta segun ese umbral.
 - `MAT1052` tiene muy pocos casos completos y elegibles; interpretar con especial cautela.
 - `MAT1022` y `MAT1052` actualmente no validan calificacion del centroide por encima de la media filtrada, aunque si validan ambos porcentajes bajos.

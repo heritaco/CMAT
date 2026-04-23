@@ -428,6 +428,12 @@ Los resultados principales quedan en:
     \item \code{output\_cluster\_analisis/professor\_reports/profesores\_cluster\_objetivo\_detalle.csv}
     \item \code{output\_cluster\_analisis/professor\_reports/profesores\_por\_materia.csv}
     \item \code{output\_cluster\_analisis/professor\_reports/ranking\_profesores\_global.csv}
+    \item \code{data/datos\_procesados/merged\_dataset.csv} y \code{.xlsx}
+    \item \code{data/datos\_procesados/analysis\_dataset.csv} y \code{.xlsx}
+    \item \code{data/datos\_procesados/paradoxical\_group\_dataset.csv} y \code{.xlsx}
+    \item \code{data/datos\_procesados/professor\_appendix\_all\_years.csv} y \code{.xlsx}
+    \item \code{data/datos\_procesados/professor\_appendix\_by\_period.csv} y \code{.xlsx}
+    \item \code{data/datos\_procesados/README.md} y \code{data/datos\_procesados/data\_dictionary.md}
 \end{itemize}
 
 \section{Interpretacion y Cautelas}
@@ -446,5 +452,7 @@ Los resultados deben leerse como evidencia descriptiva de patrones, no como evid
 \section{Conclusion}
 
 El pipeline identifica un conjunto de 809 alumnos con \code{CALIFICACION >= 7.5} que caen en clusters caracterizados por porcentajes bajos y calificaciones relativamente altas. A partir de esos alumnos, se reportan 140 profesores asociados en \code{profesores\_cluster\_objetivo\_detalle.csv}. Los profesores destacados por materia deben revisarse junto con sus denominadores, distribuciones de calificaciones y distribuciones de porcentajes para evitar interpretaciones apresuradas.
+
+\IfFileExists{reportes/apendice_tablas_profesores.tex}{\input{reportes/apendice_tablas_profesores.tex}}{\IfFileExists{apendice_tablas_profesores.tex}{\input{apendice_tablas_profesores.tex}}{}}
 
 \end{document}

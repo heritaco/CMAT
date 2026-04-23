@@ -38,8 +38,11 @@ def main() -> int:
     print(f"Students from target-cluster professors: {artifacts['target_professor_students_path']}")
     print(f"Global ranking: {artifacts['global_ranking_path']}")
     print(f"Presentation plots: {artifacts['presentation_plots_dir']}")
+    print(f"Processed data: {artifacts['processed_data_dir']}")
     if "paradoxical_analysis_dir" in artifacts:
         print(f"Paradoxical analysis: {artifacts['paradoxical_analysis_dir']}")
+    if "professor_appendix_latex_path" in artifacts:
+        print(f"Professor appendix LaTeX: {artifacts['professor_appendix_latex_path']}")
     return 0
 
 

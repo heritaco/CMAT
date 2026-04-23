@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 import pandas as pd
 
@@ -35,6 +36,17 @@ def _fmt_float(value: object, digits: int = 2) -> str:
 def _fmt_pct(value: object, digits: int = 1) -> str:
     numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
     return "" if pd.isna(numeric) else f"{100 * float(numeric):.{digits}f}"
+
+
+def _fmt_int(value: object) -> str:
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    return "" if pd.isna(numeric) else str(int(numeric))
+
+
+def _latex_label_token(value: object) -> str:
+    token = "" if pd.isna(value) else str(value)
+    token = re.sub(r"[^A-Za-z0-9]+", "-", token).strip("-").lower()
+    return token or "na"
 
 
 def _build_subject_summary_table(summary_df: pd.DataFrame) -> str:
@@ -130,6 +142,224 @@ def _build_professor_table(professor_summary_df: pd.DataFrame, settings: Setting
         )
     lines.extend([r"\bottomrule", r"\end{tabular}", r"\end{table}"])
     return "\n".join(lines)
+
+
+def _professor_appendix_table(
+    df: pd.DataFrame,
+    *,
+    caption: str,
+    label: str,
+) -> str:
+    lines = [
+        r"\begingroup",
+        r"\scriptsize",
+        r"\setlength{\tabcolsep}{3pt}",
+        r"\begin{longtable}{lrrrrrrrrr}",
+        rf"\caption{{{_latex_escape(caption)}}}\label{{{label}}}\\",
+        r"\toprule",
+        r"Profesor & Total & Obj. & Obj. \% & Bench. & Bench. \% & Cal. & DMU & GA-GB & Rank \\",
+        r"\midrule",
+        r"\endfirsthead",
+        r"\toprule",
+        r"Profesor & Total & Obj. & Obj. \% & Bench. & Bench. \% & Cal. & DMU & GA-GB & Rank \\",
+        r"\midrule",
+        r"\endhead",
+    ]
+    sorted_df = df.sort_values(
+        ["included_in_ranking", "ranking_position", "porcentaje_grupo_principal", "alumnos_grupo_principal", "total_alumnos", "CLAVEPROFESOR"],
+        ascending=[False, True, False, False, False, True],
+        na_position="last",
+    )
+    for _, row in sorted_df.iterrows():
+        lines.append(
+            " & ".join(
+                [
+                    _latex_escape(row["CLAVEPROFESOR"]),
+                    _fmt_int(row["total_alumnos"]),
+                    _fmt_int(row["alumnos_grupo_principal"]),
+                    _fmt_pct(row["porcentaje_grupo_principal"]),
+                    _fmt_int(row["alumnos_benchmark_manual"]),
+                    _fmt_pct(row["porcentaje_benchmark_manual"]),
+                    _fmt_float(row["CALIFICACION_mean"]),
+                    _fmt_float(row["Porcentaje_DMU_mean"]),
+                    _fmt_float(row["Porcentaje_GA_GB_mean"]),
+                    _fmt_int(row["ranking_position"]),
+                ]
+            )
+            + r" \\"
+        )
+    lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup"])
+    return "\n".join(lines)
+
+
+def build_professor_appendix_latex(
+    *,
+    all_years_df: pd.DataFrame,
+    by_period_df: pd.DataFrame,
+) -> str:
+    """Build a LaTeX appendix with complete professor tables by subject and period."""
+    sections: list[str] = [
+        r"\clearpage",
+        r"\appendix",
+        r"\section{Tablas globales de profesores por materia}",
+        (
+            "Las tablas de este apendice se generan automaticamente desde los dataframes procesados. "
+            "El denominador es el total de observaciones completas en "
+            r"\code{Porcentaje\_DMU}, \code{Porcentaje\_GA\_GB} y \code{CALIFICACION}. "
+            "La columna Obj. cuenta alumnos en el grupo objetivo principal del analisis binario/paradojico; "
+            "Bench. cuenta alumnos que cumplen el benchmark manual configurado."
+        ),
+    ]
+
+    if all_years_df.empty:
+        sections.append("No hay tablas globales de profesores disponibles para esta corrida.")
+    else:
+        for subject_code, subject_df in all_years_df.groupby("CLAVEVARIANTEMATERIA", sort=True):
+            subject_name = (
+                subject_df["DESCRIBEMATERIA"].dropna().astype(str).iloc[0]
+                if "DESCRIBEMATERIA" in subject_df and not subject_df["DESCRIBEMATERIA"].dropna().empty
+                else ""
+            )
+            sections.append(rf"\subsection{{Materia {_latex_escape(subject_code)}}}")
+            if subject_name:
+                sections.append(_latex_escape(subject_name))
+            label = f"tab:prof-global-{_latex_label_token(subject_code)}"
+            caption = f"Tabla completa de profesores para {subject_code}, todos los anios."
+            sections.append(_professor_appendix_table(subject_df, caption=caption, label=label))
+
+    sections.append(r"\clearpage")
+    sections.append(r"\section{Tablas de profesores por materia y periodo}")
+    sections.append(
+        "El desglose temporal usa exactamente las combinaciones observadas de "
+        r"\code{anio} y \code{CLAVESESION}; no se hardcodean nombres de periodo."
+    )
+
+    if by_period_df.empty:
+        sections.append("No hay tablas por periodo disponibles para esta corrida.")
+    else:
+        sort_columns = ["CLAVEVARIANTEMATERIA", "anio", "CLAVESESION", "CLAVEPROFESOR"]
+        period_df = by_period_df.sort_values(sort_columns, na_position="last")
+        for subject_code, subject_df in period_df.groupby("CLAVEVARIANTEMATERIA", sort=True):
+            sections.append(rf"\subsection{{Materia {_latex_escape(subject_code)}}}")
+            for (year, session), period_group in subject_df.groupby(["anio", "CLAVESESION"], sort=True, dropna=False):
+                year_text = _latex_escape(year)
+                session_text = _latex_escape(session)
+                sections.append(rf"\subsubsection{{Anio {year_text}, sesion {session_text}}}")
+                label = (
+                    "tab:prof-period-"
+                    f"{_latex_label_token(subject_code)}-"
+                    f"{_latex_label_token(year)}-"
+                    f"{_latex_label_token(session)}"
+                )
+                caption = f"Tabla completa de profesores para {subject_code}, anio {year}, sesion {session}."
+                sections.append(_professor_appendix_table(period_group, caption=caption, label=label))
+
+    return "\n\n".join(sections)
+
+
+def build_subject_professor_appendix_latex(
+    *,
+    all_years_df: pd.DataFrame,
+    by_period_df: pd.DataFrame,
+    subject_code: str,
+) -> str:
+    """Build a subject-specific professor appendix for specialized LaTeX reports."""
+    subject_all_years = all_years_df[
+        all_years_df["CLAVEVARIANTEMATERIA"].astype(str) == str(subject_code)
+    ].copy()
+    subject_by_period = by_period_df[
+        by_period_df["CLAVEVARIANTEMATERIA"].astype(str) == str(subject_code)
+    ].copy()
+    subject_name = (
+        subject_all_years["DESCRIBEMATERIA"].dropna().astype(str).iloc[0]
+        if not subject_all_years.empty and not subject_all_years["DESCRIBEMATERIA"].dropna().empty
+        else ""
+    )
+
+    sections: list[str] = [
+        r"\clearpage",
+        r"\appendix",
+        rf"\section{{Tablas completas de profesores para {_latex_escape(subject_code)}}}",
+        (
+            "Este apendice se genera automaticamente desde "
+            r"\code{data/datos\_procesados/professor\_appendix\_all\_years} y "
+            r"\code{data/datos\_procesados/professor\_appendix\_by\_period}. "
+            "El desglose temporal usa exactamente las combinaciones observadas de "
+            r"\code{anio} y \code{CLAVESESION}."
+        ),
+    ]
+    if subject_name:
+        sections.append(_latex_escape(subject_name))
+
+    sections.append(r"\subsection{Apendice A: tabla global de profesores}")
+    if subject_all_years.empty:
+        sections.append(f"No hay tabla global disponible para {subject_code}.")
+    else:
+        sections.append(
+            _professor_appendix_table(
+                subject_all_years,
+                caption=f"Tabla completa de profesores para {subject_code}, todos los anios.",
+                label=f"tab:prof-global-{_latex_label_token(subject_code)}-especializado",
+            )
+        )
+
+    sections.append(r"\clearpage")
+    sections.append(r"\subsection{Apendice B: tablas por periodo}")
+    if subject_by_period.empty:
+        sections.append(f"No hay tablas por periodo disponibles para {subject_code}.")
+    else:
+        period_df = subject_by_period.sort_values(["anio", "CLAVESESION", "CLAVEPROFESOR"], na_position="last")
+        for (year, session), period_group in period_df.groupby(["anio", "CLAVESESION"], sort=True, dropna=False):
+            year_text = _latex_escape(year)
+            session_text = _latex_escape(session)
+            sections.append(rf"\subsubsection{{Anio {year_text}, sesion {session_text}}}")
+            sections.append(
+                _professor_appendix_table(
+                    period_group,
+                    caption=f"Tabla completa de profesores para {subject_code}, anio {year}, sesion {session}.",
+                    label=(
+                        "tab:prof-period-"
+                        f"{_latex_label_token(subject_code)}-"
+                        f"{_latex_label_token(year)}-"
+                        f"{_latex_label_token(session)}-especializado"
+                    ),
+                )
+            )
+
+    return "\n\n".join(sections)
+
+
+def write_professor_appendix_latex(
+    *,
+    all_years_df: pd.DataFrame,
+    by_period_df: pd.DataFrame,
+    settings: Settings,
+) -> Path:
+    appendix_path = settings.output_reports_dir / "apendice_tablas_profesores.tex"
+    write_text(
+        build_professor_appendix_latex(all_years_df=all_years_df, by_period_df=by_period_df),
+        appendix_path,
+    )
+    return appendix_path
+
+
+def write_subject_professor_appendix_latex(
+    *,
+    all_years_df: pd.DataFrame,
+    by_period_df: pd.DataFrame,
+    subject_code: str,
+    settings: Settings,
+) -> Path:
+    appendix_path = settings.output_reports_dir / f"apendice_tablas_profesores_{subject_code}.tex"
+    write_text(
+        build_subject_professor_appendix_latex(
+            all_years_df=all_years_df,
+            by_period_df=by_period_df,
+            subject_code=subject_code,
+        ),
+        appendix_path,
+    )
+    return appendix_path
 
 
 def build_paradoxical_latex_section(
