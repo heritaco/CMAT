@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import warnings
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.decomposition import FastICA
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.preprocessing import StandardScaler
 
 
@@ -20,8 +23,10 @@ def create_ica_plot(
 ):
     scaler = StandardScaler()
     scaled_matrix = scaler.fit_transform(subject_df[list(feature_columns)])
-    ica = FastICA(n_components=2, random_state=random_state, whiten="unit-variance")
-    projected = ica.fit_transform(scaled_matrix)
+    ica = FastICA(n_components=2, random_state=random_state, whiten="unit-variance", max_iter=1000)
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=ConvergenceWarning)
+        projected = ica.fit_transform(scaled_matrix)
 
     plot_df = subject_df.copy()
     plot_df["ICA1"] = projected[:, 0]
@@ -43,7 +48,9 @@ def create_ica_plot(
             linewidth=0.8 if is_target else 0.0,
         )
 
-    centroid_projection = ica.transform(centroids_scaled[list(feature_columns)].to_numpy())
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=ConvergenceWarning)
+        centroid_projection = ica.transform(centroids_scaled[list(feature_columns)].to_numpy())
     ax.scatter(
         centroid_projection[:, 0],
         centroid_projection[:, 1],

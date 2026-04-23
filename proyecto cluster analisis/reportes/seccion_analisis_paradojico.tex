@@ -1,0 +1,81 @@
+\section{Extension: analisis binario estadistico del grupo bajo examen y alta calificacion}
+
+Esta seccion resume un segundo analisis paralelo al clustering original. A diferencia del analisis previo, aqui se usan todos los alumnos con datos completos en las tres variables, sin prefiltrar por calificacion. El objetivo es construir una particion binaria dentro de cada materia: grupo objetivo contra resto.
+
+El metodo principal es una mezcla gaussiana binaria por materia sobre variables estandarizadas dentro de la materia. El componente objetivo se elige maximizando $S_c=z(CAL)_c-z(DMU)_c-z(GAGB)_c$. Asi, el grupo de interes corresponde al componente con calificacion relativamente alta y porcentajes relativamente bajos. El benchmark manual (DMU < 40, GA-GB < 40, CALIFICACION > 8) se mantiene solo como referencia secundaria.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Analisis binario/paradojico: tamano del grupo objetivo por materia y metodo.}
+\begin{tabular}{lrrrrrr}
+\toprule
+Materia & N completo & GMM & Score & Benchmark & GMM \% & Benchmark \% \\
+\midrule
+MAT1012 & 2598 & 1309 & 2060 & 41 & 50.4 & 1.6 \\
+MAT1052 & 16 & 5 & 5 & 0 & 31.2 & 0.0 \\
+MAT1022 & 2510 & 2362 & 2445 & 39 & 94.1 & 1.6 \\
+MAT1032 & 1262 & 1215 & 1231 & 13 & 96.3 & 1.0 \\
+MAT2012 & 1252 & 1212 & 1216 & 20 & 96.8 & 1.6 \\
+MAT2022 & 642 & 221 & 609 & 19 & 34.4 & 3.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Advertencia adicional: en la corrida actual el GMM binario selecciono un grupo objetivo muy grande en MAT1022, MAT1032, MAT2012. Esto indica que la particion de dos componentes puede estar separando un grupo pequeno de excepciones y dejando una mayoria amplia como componente objetivo. Por eso el benchmark y las metricas de solapamiento deben revisarse junto con el resultado principal.
+
+La tabla anterior compara cuantos alumnos selecciona cada enfoque. El metodo GMM es el principal porque evita imponer cortes crudos iguales para todas las materias. El benchmark puede ser util para sensibilidad, pero mezcla escalas y dificultades de materias.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Solapamiento entre metodo principal GMM y benchmark 40/40/8.}
+\begin{tabular}{lrrrr}
+\toprule
+Materia & GMM & Benchmark & Interseccion & Jaccard \\
+\midrule
+MAT1012 & 1309 & 41 & 41 & 0.031 \\
+MAT1052 & 5 & 0 & 0 & 0.000 \\
+MAT1022 & 2362 & 39 & 32 & 0.014 \\
+MAT1032 & 1215 & 13 & 13 & 0.011 \\
+MAT2012 & 1212 & 20 & 20 & 0.017 \\
+MAT2022 & 221 & 19 & 7 & 0.030 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El indice de Jaccard mide el solapamiento entre conjuntos seleccionados. Valores cercanos a 1 indican que ambos metodos seleccionan casi los mismos alumnos; valores bajos indican que el benchmark manual y el metodo estadistico cuentan historias distintas.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Profesores destacados bajo el metodo principal GMM binario.}
+\begin{tabular}{llrrrr}
+\toprule
+Materia & Profesor & Obj. & Total & Share \% & Benchmark \% \\
+\midrule
+MAT2012 & 23885 & 69 & 69 & 100.0 & 1.4 \\
+MAT2012 & 23897 & 68 & 68 & 100.0 & 1.5 \\
+MAT1032 & 23978 & 64 & 64 & 100.0 & 0.0 \\
+MAT1022 & 23425 & 63 & 63 & 100.0 & 4.8 \\
+MAT1032 & 23824 & 53 & 53 & 100.0 & 0.0 \\
+MAT2012 & 23978 & 50 & 50 & 100.0 & 0.0 \\
+MAT2012 & 23148 & 48 & 48 & 100.0 & 0.0 \\
+MAT2012 & 21853 & 31 & 31 & 100.0 & 3.2 \\
+MAT2012 & 25510 & 29 & 29 & 100.0 & 3.4 \\
+MAT2012 & 18269 & 24 & 24 & 100.0 & 0.0 \\
+MAT2012 & 24085 & 24 & 24 & 100.0 & 0.0 \\
+MAT1022 & 25503 & 22 & 22 & 100.0 & 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Los profesores listados son aquellos con mayor proporcion de alumnos en el grupo objetivo principal. Esta proporcion debe interpretarse junto con el denominador, ya que un porcentaje alto con pocos alumnos es metodologicamente fragil.
+
+\begin{figure}[H]\centering\includegraphics[width=\textwidth]{../output_cluster_analisis/paradoxical_analysis/figures/method_group_sizes_by_subject.png}\caption{Tamano del grupo objetivo por metodo y materia.}\end{figure}
+
+\begin{figure}[H]\centering\includegraphics[width=\textwidth]{../output_cluster_analisis/paradoxical_analysis/figures/method_overlap_heatmap.png}\caption{Solapamiento Jaccard entre metodos por materia.}\end{figure}
+
+\begin{figure}[H]\centering\includegraphics[width=\textwidth]{../output_cluster_analisis/paradoxical_analysis/figures/professor_subject_heatmap.png}\caption{Heatmap profesor por materia con porcentaje de alumnos en grupo objetivo.}\end{figure}
+
+Advertencia metodologica: este analisis sigue siendo descriptivo. Encontrar profesores asociados a alumnos con bajo desempeno en porcentajes y alta calificacion no prueba causalidad ni inflacion de calificaciones. Deben revisarse tamano muestral, cohorte, sesion y posibles diferencias de dificultad entre materias.

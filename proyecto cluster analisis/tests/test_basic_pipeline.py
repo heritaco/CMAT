@@ -15,6 +15,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from config.settings import get_settings
+from student_cluster_analysis.analytics.paradoxical_group import compute_discrepancy_score, run_paradoxical_group_analysis
 from student_cluster_analysis.clustering.target_cluster import select_target_cluster
 from student_cluster_analysis.entities import ClusterCandidate
 from student_cluster_analysis.pipeline.main_pipeline import run_student_cluster_pipeline
@@ -142,6 +143,44 @@ def test_target_cluster_selection_prefers_high_grade_low_exam_cluster() -> None:
     assert outcome.validation_low_exam_score is True
 
 
+def test_discrepancy_score_rewards_high_grade_low_percentages() -> None:
+    settings = get_settings()
+    z_df = pd.DataFrame(
+        {
+            "subject_z_calificacion": [1.2, -0.4],
+            "subject_z_dmu": [-1.0, 0.5],
+            "subject_z_gagb": [-0.8, 0.7],
+        }
+    )
+    scores = compute_discrepancy_score(z_df, settings)
+    assert scores.iloc[0] > scores.iloc[1]
+
+
+def test_paradoxical_gmm_and_baseline_identify_expected_synthetic_group() -> None:
+    settings = get_settings().with_overrides(subjects=("MAT1012",), make_paradoxical_plots=False)
+    df = pd.DataFrame(
+        {
+            "CLAVEALUMNO": range(1, 9),
+            "CLAVEVARIANTEMATERIA": ["MAT1012"] * 8,
+            "DESCRIBEMATERIA": ["MATEMATICAS"] * 8,
+            "CLAVEPROFESOR": [111] * 4 + [222] * 4,
+            "anio": [2024] * 8,
+            "CLAVESESION": ["PRIMAVERA"] * 8,
+            "Porcentaje_DMU": [20, 22, 24, 25, 80, 82, 84, 85],
+            "Porcentaje_GA_GB": [18, 20, 22, 24, 78, 80, 82, 84],
+            "CALIFICACION": [9.4, 9.2, 9.5, 9.3, 7.0, 7.2, 7.4, 7.1],
+            "data_complete_r3": [True] * 8,
+        }
+    )
+    result = run_paradoxical_group_analysis(df, settings)
+    enriched = result.enriched_df
+    selected_students = set(enriched.loc[enriched["is_paradoxical_group_main"], "CLAVEALUMNO"])
+    baseline_students = set(enriched.loc[enriched["binary_group_baseline_40_40_8"] == 1, "CLAVEALUMNO"])
+    assert selected_students == {1, 2, 3, 4}
+    assert baseline_students == {1, 2, 3, 4}
+    assert {"subject_z_dmu", "discrepancy_score", "binary_group_gmm"}.issubset(enriched.columns)
+
+
 def test_pipeline_smoke_run_with_synthetic_inputs(tmp_path: Path) -> None:
     materias_path, examenes_path = _build_temp_inputs(tmp_path)
     output_root = tmp_path / "output_cluster_analisis"
@@ -154,6 +193,8 @@ def test_pipeline_smoke_run_with_synthetic_inputs(tmp_path: Path) -> None:
         make_ica_plots=False,
         make_plotly_plots=False,
         make_presentation_plots=False,
+        make_paradoxical_plots=False,
+        update_latex_report=False,
     )
     artifacts = run_student_cluster_pipeline(settings)
     assert artifacts["merged_dataset_path"].exists()
@@ -161,12 +202,15 @@ def test_pipeline_smoke_run_with_synthetic_inputs(tmp_path: Path) -> None:
     assert artifacts["target_students_path"].exists()
     assert artifacts["target_professor_roster_path"].exists()
     assert artifacts["target_professor_students_path"].exists()
+    assert artifacts["binary_group_summary_by_subject_path"].exists()
     report_df = pd.read_csv(artifacts["professor_report_path"])
+    merged_df = pd.read_csv(artifacts["merged_dataset_path"])
     target_students_df = pd.read_csv(artifacts["target_students_path"])
     target_professors_df = pd.read_csv(artifacts["target_professor_roster_path"])
     assert not report_df.empty
     assert not target_students_df.empty
     assert not target_professors_df.empty
     assert {"CLAVEPROFESOR", "share_cluster_objetivo"}.issubset(report_df.columns)
+    assert {"binary_group_gmm", "discrepancy_score", "is_paradoxical_group_main"}.issubset(merged_df.columns)
     assert {"CLAVEALUMNO", "CLAVEPROFESOR", "target_cluster_score"}.issubset(target_students_df.columns)
     assert {"CLAVEPROFESOR", "alumnos_cluster_objetivo_ids"}.issubset(target_professors_df.columns)

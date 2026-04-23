@@ -160,7 +160,8 @@ def select_best_clustering(
         notes.append(
             "Selection strategy: target_oriented. Among valid candidates, prefer k values at or above "
             f"{settings.preferred_min_clusters}, require the high-grade/low-exam validation when available, "
-            "and maximize the target score z(CALIFICACION)-z(Porcentaje_DMU)-z(Porcentaje_GA_GB). "
+            "where low-exam means both DMU and GA-GB below their subject means, and maximize the target "
+            "score z(CALIFICACION)-z(Porcentaje_DMU)-z(Porcentaje_GA_GB). "
             "Quality metrics break remaining ties."
         )
     else:

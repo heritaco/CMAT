@@ -1,0 +1,450 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\geometry{margin=2.3cm}
+\graphicspath{
+    {../output_cluster_analisis/presentation_plots/}
+    {output_cluster_analisis/presentation_plots/}
+    {../output_cluster_analisis/paradoxical_analysis/figures/}
+    {output_cluster_analisis/paradoxical_analysis/figures/}
+}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\yes}{Si}
+\newcommand{\no}{No}
+
+\title{\textbf{Analisis de alumnos con porcentajes bajos y calificaciones altas}\\
+\large Identificacion descriptiva de profesores asociados al cluster objetivo}
+\author{Proyecto Cluster Analisis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Este documento resume el analisis realizado para identificar, por materia, grupos de alumnos con porcentajes bajos en los examenes \code{DMU} y \code{GA-GB}, pero con calificaciones altas en la materia. El objetivo operativo es ubicar a los profesores de esos alumnos y producir reportes que permitan revisar sus distribuciones de \code{Porcentaje\_DMU}, \code{Porcentaje\_GA\_GB} y \code{CALIFICACION}. El analisis es descriptivo: no prueba causalidad ni demuestra inflacion de calificaciones.
+\end{abstract}
+
+\section{Objetivo}
+
+El objetivo del proyecto es analizar seis materias de matematicas y estadistica para encontrar un grupo de alumnos con el siguiente patron:
+
+\begin{center}
+\textbf{porcentajes bajos en \code{Porcentaje\_DMU} y \code{Porcentaje\_GA\_GB}, junto con \code{CALIFICACION} alta.}
+\end{center}
+
+Una vez localizado ese grupo por materia, se identifican los profesores asociados mediante \code{CLAVEPROFESOR}. Despues se calculan estadisticas por profesor para saber que proporcion de sus alumnos cae en el cluster objetivo y como se distribuyen sus calificaciones y porcentajes.
+
+\section{Datos Utilizados}
+
+Se integraron dos fuentes principales:
+
+\begin{itemize}
+    \item Archivo de materias, alumnos, profesores y calificaciones.
+    \item Archivo de examenes con hojas \code{DMU} y \code{GA-GB}.
+\end{itemize}
+
+Las variables usadas para clustering son:
+
+\begin{itemize}
+    \item \code{Porcentaje\_DMU}
+    \item \code{Porcentaje\_GA\_GB}
+    \item \code{CALIFICACION}
+\end{itemize}
+
+Las materias analizadas fueron:
+
+\begin{center}
+\code{MAT1012}, \code{MAT1022}, \code{MAT1032}, \code{MAT1052}, \code{MAT2012}, \code{MAT2022}.
+\end{center}
+
+\section{Integracion y Limpieza}
+
+La union de datos se realizo con una estrategia jerarquica:
+
+\begin{enumerate}
+    \item Match exacto por \code{CLAVEALUMNO == ID} y \code{anio == Año}.
+    \item Si no existe match exacto, se usa el año de examen mas cercano dentro de una tolerancia configurable.
+    \item Como fallback opcional, si un alumno tiene un unico registro de examen, se usa ese registro.
+\end{enumerate}
+
+El dataset final conserva columnas de auditoria como \code{match\_type\_dmu}, \code{matched\_exam\_year\_dmu}, \code{match\_type\_gagb} y \code{matched\_exam\_year\_gagb}. Esto permite distinguir si una observacion fue unida por año exacto, año cercano o fallback.
+
+\section{Filtro Analitico}
+
+El clustering no se ajusto sobre todos los registros. Primero se conservaron solamente observaciones completas en el espacio:
+
+\[
+X_i^{(m)} =
+\left(
+\text{Porcentaje\_DMU}_i,\,
+\text{Porcentaje\_GA\_GB}_i,\,
+\text{CALIFICACION}_i
+\right)
+\in \mathbb{R}^3.
+\]
+
+Despues se excluyeron alumnos con:
+
+\[
+\text{CALIFICACION} < 7.5.
+\]
+
+La razon de este filtro es que el objetivo no es buscar alumnos con calificaciones bajas, sino alumnos que, aun teniendo porcentajes bajos en los examenes, obtienen calificaciones relativamente altas en la materia.
+
+\section{Metodo de Clustering}
+
+Para cada materia se aplico clustering en el espacio tridimensional estandarizado con \code{StandardScaler}. El metodo principal configurado fue \code{GaussianMixture}, evaluando valores de:
+
+\[
+k \in \{2,3,\ldots,12\}.
+\]
+
+Para cada candidato se calcularon metricas de calidad:
+
+\begin{itemize}
+    \item \code{silhouette\_score}
+    \item \code{calinski\_harabasz\_score}
+    \item \code{davies\_bouldin\_score}
+    \item AIC y BIC para modelos GMM
+\end{itemize}
+
+La seleccion actual usa la estrategia \code{target\_oriented}: prioriza soluciones que permitan identificar mejor el patron sustantivo de interes, no solamente la solucion con mejor metrica geometrica.
+
+\subsection{Interpretacion intuitiva del clustering}
+
+La idea central puede pensarse de forma geometrica. Cada alumno elegible se representa como un punto en un espacio de tres dimensiones. Una dimension mide su porcentaje en \code{DMU}, otra su porcentaje en \code{GA-GB} y la tercera su calificacion final en la materia. Si dos alumnos tienen valores parecidos en estas tres variables, sus puntos quedan cerca. Si difieren mucho, quedan lejos.
+
+El clustering busca formar grupos de puntos parecidos. En este analisis, cada cluster representa un perfil tipico de alumno dentro de una materia. Por ejemplo, un cluster puede representar alumnos con porcentajes altos y calificaciones altas; otro puede representar porcentajes bajos y calificaciones medias; otro puede representar porcentajes bajos pero calificaciones altas. Este ultimo perfil es el que interesa principalmente.
+
+Antes de ajustar el modelo se estandarizan las tres variables. Esto es importante porque \code{Porcentaje\_DMU} y \code{Porcentaje\_GA\_GB} estan en escala porcentual, mientras que \code{CALIFICACION} esta en escala de calificacion. Estandarizar evita que una variable domine artificialmente la distancia o la forma de los clusters solo por su escala numerica.
+
+El uso de \code{GaussianMixture} permite que los grupos no sean necesariamente esfericos. Intuitivamente, el modelo busca varias ``nubes'' de alumnos en el espacio tridimensional. Cada nube tiene un centroide que resume el perfil promedio del cluster. La interpretacion final se hace usando esos centroides en la escala original para saber si un cluster tiene porcentajes bajos y calificaciones altas.
+
+\section{Definicion del Cluster Objetivo}
+
+Para cada cluster \(c\), se calcula el score:
+
+\[
+S_c =
+z(\text{CALIFICACION})_c
+- z(\text{Porcentaje\_DMU})_c
+- z(\text{Porcentaje\_GA\_GB})_c.
+\]
+
+El cluster objetivo se define como:
+
+\[
+c^\star = \arg\max_c S_c.
+\]
+
+Este score premia clusters con calificacion alta y penaliza clusters con porcentajes altos. Por lo tanto, favorece el patron buscado: calificacion alta con porcentajes bajos.
+
+Una forma intuitiva de leer el score es la siguiente:
+
+\begin{itemize}
+    \item Si un cluster tiene calificaciones por encima del promedio de la materia, el primer termino aumenta.
+    \item Si un cluster tiene \code{Porcentaje\_DMU} alto, el segundo termino resta y reduce el score.
+    \item Si un cluster tiene \code{Porcentaje\_GA\_GB} alto, el tercer termino tambien resta y reduce el score.
+    \item Por lo tanto, el score es mayor cuando el cluster combina calificacion alta con ambos porcentajes bajos.
+\end{itemize}
+
+Es importante notar que ``bajo'' y ``alto'' se interpretan de manera relativa dentro de cada materia y despues del filtro de calificacion. Es decir, un porcentaje se considera bajo si el centroide del cluster esta por debajo de la media de esa misma materia, no necesariamente por debajo de un umbral universal fijo.
+
+Ademas, para interpretar el resultado se validan dos condiciones:
+
+\begin{itemize}
+    \item \code{validation\_grade\_above\_mean}: el centroide de calificacion del cluster objetivo esta por encima de la media de la materia filtrada.
+    \item \code{validation\_low\_exam\_score}: los centroides de \code{Porcentaje\_DMU} y \code{Porcentaje\_GA\_GB} estan ambos por debajo de sus medias de materia filtrada.
+\end{itemize}
+
+\section{Resultados por Materia}
+
+La Tabla \ref{tab:resumen-materias} resume los clusters objetivo encontrados en la ultima corrida del pipeline.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Resumen del cluster objetivo por materia.}
+\label{tab:resumen-materias}
+\begin{tabular}{lrrrrrrcc}
+\toprule
+Materia & R3 comp. & Excl. $<7.5$ & Elegibles & Obj. & Obj. \% & Score & Cal. alta & DMU/GA bajos \\
+\midrule
+MAT1012 & 2598 & 28  & 2570 & 272 & 10.58 & 1.539 & \yes & \yes \\
+MAT1022 & 2510 & 134 & 2376 & 71  & 2.99  & 2.617 & \no  & \yes \\
+MAT1032 & 1262 & 47  & 1215 & 278 & 22.88 & 1.545 & \yes & \yes \\
+MAT1052 & 16   & 0   & 16   & 5   & 31.25 & 1.182 & \no  & \yes \\
+MAT2012 & 1252 & 44  & 1208 & 171 & 14.16 & 1.234 & \yes & \yes \\
+MAT2022 & 642  & 17  & 625  & 12  & 1.92  & 2.834 & \yes & \yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+En total, el archivo \code{alumnos\_cluster\_objetivo.csv} contiene 809 alumnos en el cluster objetivo. Ninguno de ellos tiene \code{CALIFICACION < 7.5}.
+
+\subsection{Calidad del clustering seleccionado}
+
+La Tabla \ref{tab:metricas} muestra el numero de clusters seleccionado y algunas metricas de calidad. Estas metricas son utiles para diagnostico, pero la seleccion final esta orientada al patron sustantivo de interes.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Metricas del modelo seleccionado por materia.}
+\label{tab:metricas}
+\begin{tabular}{lrrrr}
+\toprule
+Materia & \(k\) & Silhouette & Calinski-Harabasz & Davies-Bouldin \\
+\midrule
+MAT1012 & 5  & 0.134  & 653.92 & 1.983 \\
+MAT1022 & 11 & 0.092  & 438.39 & 2.094 \\
+MAT1032 & 4  & 0.257  & 465.43 & 1.242 \\
+MAT1052 & 2  & 0.301  & 8.87   & 1.176 \\
+MAT2012 & 5  & 0.095  & 264.02 & 1.949 \\
+MAT2022 & 12 & -0.026 & 83.98  & 1.917 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Profesores Asociados al Cluster Objetivo}
+
+Para cada par \((\text{materia}, \text{profesor})\), se calculo:
+
+\[
+\text{share}_{p,m}
+=
+\frac{\#\text{ alumnos del profesor }p\text{ en el cluster objetivo}}
+{\#\text{ alumnos clusterizados del profesor }p\text{ en la materia }m}.
+\]
+
+La Tabla \ref{tab:top-profesores-materia} muestra los profesores con mayor proporcion de alumnos en el cluster objetivo por materia, usando el ranking configurado en el pipeline. La columna ``Obj./Total'' indica el numero de alumnos del profesor en el cluster objetivo sobre el total de alumnos clusterizados del profesor en esa materia.
+
+\begin{longtable}{llrrrrr}
+\caption{Profesores destacados por materia.}\label{tab:top-profesores-materia}\\
+\toprule
+Materia & Profesor & Obj./Total & Share \% & Cal. obj. & DMU obj. & GA-GB obj. \\
+\midrule
+\endfirsthead
+\toprule
+Materia & Profesor & Obj./Total & Share \% & Cal. obj. & DMU obj. & GA-GB obj. \\
+\midrule
+\endhead
+MAT1012 & 23897 & 14/57  & 24.56 & 9.49 & 30.48 & 52.98 \\
+MAT1012 & 23824 & 9/40   & 22.50 & 9.54 & 44.44 & 55.09 \\
+MAT1012 & 23835 & 11/51  & 21.57 & 9.43 & 41.21 & 68.56 \\
+MAT1012 & 23836 & 19/101 & 18.81 & 9.55 & 38.25 & 64.47 \\
+MAT1012 & 21779 & 11/62  & 17.74 & 9.47 & 31.52 & 69.70 \\
+\midrule
+MAT1022 & 23823 & 4/41 & 9.76 & 8.50 & 41.67 & 18.75 \\
+MAT1022 & 22114 & 4/41 & 9.76 & 8.90 & 46.67 & 25.00 \\
+MAT1022 & 23442 & 2/23 & 8.70 & 8.45 & 36.67 & 29.17 \\
+MAT1022 & 23837 & 2/26 & 7.69 & 8.25 & 53.33 & 16.67 \\
+MAT1022 & 21192 & 4/56 & 7.14 & 8.93 & 36.67 & 23.44 \\
+\midrule
+MAT1032 & 23824 & 30/53 & 56.60 & 9.73 & 49.56 & 55.00 \\
+MAT1032 & 23425 & 9/20  & 45.00 & 9.62 & 44.44 & 61.11 \\
+MAT1032 & 24086 & 17/42 & 40.48 & 9.69 & 54.12 & 59.31 \\
+MAT1032 & 23148 & 21/68 & 30.88 & 9.81 & 53.65 & 55.16 \\
+MAT1032 & 22473 & 23/76 & 30.26 & 9.89 & 45.80 & 63.77 \\
+\midrule
+MAT1052 & 21852 & 2/6 & 33.33 & 8.95 & 40.00 & 50.00 \\
+\midrule
+MAT2012 & 22473 & 9/24 & 37.50 & 9.80 & 54.81 & 60.19 \\
+MAT2012 & 23452 & 5/16 & 31.25 & 9.80 & 61.33 & 76.67 \\
+MAT2012 & 23148 & 13/48 & 27.08 & 9.79 & 55.38 & 61.54 \\
+MAT2012 & 23897 & 18/68 & 26.47 & 9.73 & 51.85 & 66.20 \\
+MAT2012 & 23835 & 4/18  & 22.22 & 9.78 & 66.67 & 62.50 \\
+\midrule
+MAT2022 & 24013 & 2/26 & 7.69 & 9.50 & 50.00 & 28.13 \\
+MAT2022 & 22115 & 2/28 & 7.14 & 9.55 & 53.33 & 18.75 \\
+MAT2022 & 23887 & 2/69 & 2.90 & 9.45 & 56.67 & 12.50 \\
+MAT2022 & 21815 & 1/35 & 2.86 & 9.60 & 40.00 & 25.00 \\
+MAT2022 & 22091 & 1/44 & 2.27 & 9.70 & 26.67 & 25.00 \\
+\bottomrule
+\end{longtable}
+
+\section{Ranking Global Descriptivo}
+
+El ranking global agrega materias distintas. Por ello debe interpretarse solamente como una vista descriptiva, no como una comparacion causal entre profesores. La Tabla \ref{tab:ranking-global} muestra los primeros profesores del ranking global.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Ranking global descriptivo de profesores.}
+\label{tab:ranking-global}
+\begin{tabular}{lrrrl}
+\toprule
+Profesor & Obj. & Total & Share \% & Materias observadas \\
+\midrule
+23824 & 40 & 96  & 41.67 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+22473 & 46 & 239 & 19.25 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+23148 & 39 & 212 & 18.40 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+21192 & 37 & 212 & 17.45 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+23897 & 39 & 240 & 16.25 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+25496 & 4  & 25  & 16.00 & MAT1012, MAT1052 \\
+23133 & 6  & 38  & 15.79 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+25494 & 4  & 26  & 15.38 & MAT1012 \\
+23978 & 41 & 267 & 15.36 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+22114 & 23 & 151 & 15.23 & MAT1012, MAT1022, MAT1032, MAT2012 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Visualizaciones}
+
+El pipeline genera graficos explicativos en \code{output\_cluster\_analisis/presentation\_plots/}. Estas figuras no sustituyen a los archivos CSV, pero ayudan a comunicar el resultado de manera visual. La lectura recomendada es ir de lo general a lo particular: primero entender el tamano del cluster objetivo por materia, despues revisar si el centroide realmente corresponde al patron buscado, luego comparar distribuciones y finalmente observar los profesores asociados.
+
+\subsection{Figura 1: resumen del cluster objetivo por materia}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{01_resumen_cluster_objetivo_por_materia.png}
+\caption{Tamano, proporcion y score del cluster objetivo por materia.}
+\label{fig:resumen-cluster}
+\end{figure}
+
+La Figura \ref{fig:resumen-cluster} resume tres elementos clave por materia. Primero muestra cuantos alumnos elegibles caen en el cluster objetivo. Segundo muestra que porcentaje representan respecto al total de alumnos elegibles de esa materia. Tercero muestra el score objetivo \(S_c\), que mide que tan fuerte es el patron de calificacion alta con porcentajes bajos.
+
+La interpretacion intuitiva es directa: una barra mas grande en proporcion indica que el perfil objetivo es mas frecuente dentro de la materia; un score mas alto indica que el centroide del cluster se aleja mas en la direccion que interesa, es decir, sube en calificacion y baja en porcentajes. Por ejemplo, \code{MAT1032} tiene un cluster objetivo relativamente grande, mientras que \code{MAT2022} tiene un grupo objetivo pequeno pero con un score alto. Esto sugiere que en \code{MAT2022} el patron existe, pero aparece en pocos alumnos.
+
+Esta figura tambien ayuda a detectar materias que requieren cautela. \code{MAT1052} aparece con una proporcion alta, pero el numero absoluto de alumnos elegibles es muy pequeno. Por lo tanto, aunque visualmente parezca relevante, su interpretacion debe depender mas del tamano muestral que del porcentaje.
+
+\subsection{Figura 2: contraste entre centroide objetivo y media de la materia}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{02_contraste_centroide_objetivo_vs_media.png}
+\caption{Diferencia entre el centroide del cluster objetivo y la media de su materia.}
+\label{fig:contraste-centroide}
+\end{figure}
+
+La Figura \ref{fig:contraste-centroide} muestra, para cada materia, cuanto se separa el centroide del cluster objetivo respecto a la media filtrada de la misma materia. Cada panel corresponde a una variable: \code{Porcentaje\_DMU}, \code{Porcentaje\_GA\_GB} y \code{CALIFICACION}.
+
+La lectura es la siguiente:
+
+\begin{itemize}
+    \item En los paneles de \code{Porcentaje\_DMU} y \code{Porcentaje\_GA\_GB}, valores negativos son consistentes con el objetivo, porque indican porcentajes por debajo de la media.
+    \item En el panel de \code{CALIFICACION}, valores positivos son consistentes con el objetivo, porque indican calificaciones por encima de la media.
+    \item El patron ideal seria: barras negativas en DMU, barras negativas en GA-GB y barra positiva en calificacion.
+\end{itemize}
+
+Esta figura es una de las mas importantes del informe porque valida si el cluster elegido corresponde a la historia que se quiere contar. En varias materias se observa claramente la reduccion en porcentajes. Sin embargo, \code{MAT1022} y \code{MAT1052} no validan que la calificacion del centroide este por encima de la media filtrada. Esto no significa que no haya alumnos con calificacion alta, sino que el centroide promedio del cluster objetivo no supera la media de calificacion de su materia. Por eso esos dos casos deben presentarse con cautela.
+
+\subsection{Figura 3: distribuciones del cluster objetivo contra el resto}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{03_distribuciones_cluster_objetivo_vs_resto.png}
+\caption{Distribuciones del cluster objetivo contra el resto de alumnos elegibles.}
+\label{fig:distribuciones-target-resto}
+\end{figure}
+
+La Figura \ref{fig:distribuciones-target-resto} compara, por materia, la distribucion de las tres variables entre el cluster objetivo y el resto de alumnos elegibles. Esta visualizacion es util porque no solo mira centroides, sino la distribucion completa: medianas, dispersion y rango intercuartil.
+
+Intuitivamente, si el metodo esta encontrando el grupo buscado, deberiamos ver que el cluster objetivo se desplaza hacia porcentajes mas bajos en \code{DMU} y \code{GA-GB}. En calificacion, el grupo objetivo deberia estar concentrado en valores altos debido al filtro \code{CALIFICACION >= 7.5} y a la definicion del score.
+
+Esta figura sirve para verificar si el cluster objetivo es un grupo separado o si se traslapa demasiado con el resto. Si las cajas del cluster objetivo y del resto se enciman mucho, entonces el patron existe pero no esta muy separado. Si las cajas estan claramente desplazadas, el patron es mas facil de defender en una presentacion.
+
+\subsection{Figura 4: profesores con mayor concentracion por materia}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{04_top_profesores_por_materia.png}
+\caption{Profesores con mayor concentracion de alumnos en el cluster objetivo por materia.}
+\label{fig:top-profesores-materia}
+\end{figure}
+
+La Figura \ref{fig:top-profesores-materia} cambia el foco de los alumnos a los profesores. Para cada materia, muestra los profesores con mayor proporcion de alumnos en el cluster objetivo. La etiqueta al final de cada barra muestra el cociente ``alumnos objetivo / alumnos clusterizados del profesor''.
+
+Esta distincion es fundamental. Un profesor con 2 de 4 alumnos en el cluster objetivo tendria 50\%, pero su evidencia es mucho mas debil que un profesor con 30 de 53. Por eso la grafica debe leerse siempre considerando tanto la longitud de la barra como el denominador mostrado en la etiqueta.
+
+En esta figura destacan, por ejemplo, \code{23824} en \code{MAT1032}, \code{22473} en \code{MAT2012} y \code{23897} en \code{MAT1012}. Estos profesores no deben interpretarse como casos de causalidad o irregularidad; simplemente son profesores cuyos alumnos aparecen con mayor frecuencia en el perfil descriptivo de porcentajes bajos y calificaciones altas.
+
+\subsection{Figura 5: ranking global descriptivo}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{05_ranking_global_profesores.png}
+\caption{Ranking global descriptivo de profesores agregando materias.}
+\label{fig:ranking-global}
+\end{figure}
+
+La Figura \ref{fig:ranking-global} agrega la informacion de profesores a traves de materias. Es util como resumen ejecutivo porque permite ver rapidamente que profesores aparecen con mayor frecuencia en el cluster objetivo considerando todas las materias analizadas.
+
+Sin embargo, esta figura debe interpretarse con mas cautela que la Figura \ref{fig:top-profesores-materia}. El motivo es que mezcla materias distintas. Las materias pueden tener dificultad, poblaciones, semestres y estructuras de evaluacion diferentes. Por lo tanto, el ranking global no debe usarse como comparacion directa entre profesores sin revisar primero los resultados por materia.
+
+La utilidad principal de esta figura es priorizar revision. Por ejemplo, si un profesor aparece alto en el ranking global y tambien aparece en varias materias, puede ser un candidato para una revision descriptiva mas profunda de sus distribuciones, años y sesiones.
+
+\subsection{Figura 6: distribuciones de alumnos de profesores destacados}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{06_distribuciones_alumnos_profesores_destacados.png}
+\caption{Distribuciones de alumnos de profesores destacados. Los puntos rojos indican alumnos en el cluster objetivo.}
+\label{fig:dist-profesores-destacados}
+\end{figure}
+
+La Figura \ref{fig:dist-profesores-destacados} muestra, para profesores destacados, la distribucion de todos sus alumnos clusterizados y resalta con puntos rojos a los alumnos que pertenecen al cluster objetivo. La caja representa la distribucion general de alumnos del profesor; los puntos rojos permiten ver donde se ubican los alumnos objetivo dentro de esa distribucion.
+
+Esta figura ayuda a responder una pregunta mas fina: los alumnos del cluster objetivo, dentro de cada profesor, son casos aislados o forman un patron visible dentro de sus distribuciones? Si los puntos rojos aparecen consistentemente en la zona de porcentajes bajos y calificaciones altas, el patron es mas claro. Si estan dispersos o si hay muy pocos puntos, conviene no sobreinterpretar.
+
+Tambien permite comparar la concentracion visual de alumnos objetivo por profesor. Un profesor puede tener una proporcion alta porque tiene pocos alumnos clusterizados; otro puede tener una proporcion menor pero muchos mas casos. Por eso esta figura complementa la tabla de profesores y evita que el analisis dependa solamente de porcentajes.
+
+\subsection{Resumen visual}
+
+En conjunto, las figuras cuentan una historia en cuatro niveles. Primero, las Figuras \ref{fig:resumen-cluster} y \ref{fig:contraste-centroide} muestran si el cluster objetivo existe y si se parece al perfil buscado. Segundo, la Figura \ref{fig:distribuciones-target-resto} muestra si el grupo objetivo se distingue del resto de alumnos. Tercero, las Figuras \ref{fig:top-profesores-materia} y \ref{fig:ranking-global} identifican profesores asociados. Finalmente, la Figura \ref{fig:dist-profesores-destacados} revisa las distribuciones internas de los profesores destacados.
+
+La conclusion visual principal es que el patron de porcentajes bajos y calificaciones altas aparece de manera mas clara en algunas materias que en otras. Los resultados mas solidos son aquellos donde coinciden tres elementos: un cluster objetivo con validaciones positivas, un numero razonable de alumnos y profesores con denominadores suficientes.
+
+\IfFileExists{reportes/seccion_analisis_paradojico.tex}{\input{reportes/seccion_analisis_paradojico.tex}}{}
+
+\section{Archivos Generados}
+
+Los resultados principales quedan en:
+
+\begin{itemize}
+    \item \code{output\_cluster\_analisis/data\_clean/merged\_dataset.csv}
+    \item \code{output\_cluster\_analisis/data\_clean/alumnos\_cluster\_objetivo.csv}
+    \item \code{output\_cluster\_analisis/summaries/cluster\_objetivo\_por\_materia.csv}
+    \item \code{output\_cluster\_analisis/professor\_reports/profesores\_cluster\_objetivo\_detalle.csv}
+    \item \code{output\_cluster\_analisis/professor\_reports/profesores\_por\_materia.csv}
+    \item \code{output\_cluster\_analisis/professor\_reports/ranking\_profesores\_global.csv}
+\end{itemize}
+
+\section{Interpretacion y Cautelas}
+
+Los resultados deben leerse como evidencia descriptiva de patrones, no como evidencia causal.
+
+\begin{itemize}
+    \item Una proporcion alta de alumnos en el cluster objetivo no demuestra inflacion de calificaciones.
+    \item El tamano muestral por profesor es importante. Siempre debe revisarse la columna Obj./Total.
+    \item \code{MAT1052} tiene muy pocos casos elegibles, por lo que cualquier interpretacion debe tratarse con cautela.
+    \item \code{MAT1022} y \code{MAT1052} validan ambos porcentajes bajos, pero no validan que el centroide de calificacion este por encima de la media filtrada de la materia.
+    \item El ranking global mezcla materias distintas y debe usarse solamente como resumen descriptivo.
+    \item Las diferencias por \code{anio} y \code{CLAVESESION} pueden cambiar la interpretacion y deben revisarse en analisis posteriores.
+\end{itemize}
+
+\section{Conclusion}
+
+El pipeline identifica un conjunto de 809 alumnos con \code{CALIFICACION >= 7.5} que caen en clusters caracterizados por porcentajes bajos y calificaciones relativamente altas. A partir de esos alumnos, se reportan 140 profesores asociados en \code{profesores\_cluster\_objetivo\_detalle.csv}. Los profesores destacados por materia deben revisarse junto con sus denominadores, distribuciones de calificaciones y distribuciones de porcentajes para evitar interpretaciones apresuradas.
+
+\end{document}

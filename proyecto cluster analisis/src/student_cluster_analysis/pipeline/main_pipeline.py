@@ -10,6 +10,16 @@ from student_cluster_analysis.analytics.diagnostics import (
     build_data_quality_report,
     build_missingness_by_subject,
 )
+from student_cluster_analysis.analytics.method_comparison import (
+    build_binary_group_summary_by_subject,
+    build_method_comparison_by_subject,
+    build_overlap_between_methods,
+    build_paradoxical_diagnostics,
+    build_professor_paradoxical_global_ranking,
+    build_professor_paradoxical_summary,
+    build_professor_ranking_stability,
+)
+from student_cluster_analysis.analytics.paradoxical_group import run_paradoxical_group_analysis
 from student_cluster_analysis.analytics.professor_stats import (
     build_global_professor_ranking,
     build_subject_professor_report,
@@ -43,8 +53,10 @@ from student_cluster_analysis.io.writers import (
 )
 from student_cluster_analysis.preprocessing.cleaning import clean_exam_dataframe, clean_materias_dataframe
 from student_cluster_analysis.preprocessing.merging import build_merged_dataset
+from student_cluster_analysis.reporting.latex_report import write_paradoxical_latex_section
 from student_cluster_analysis.visualization.plots_2d import create_ica_plot
 from student_cluster_analysis.visualization.plots_3d import create_plotly_3d
+from student_cluster_analysis.visualization.paradoxical_plots import create_paradoxical_figures
 from student_cluster_analysis.visualization.presentation_plots import create_presentation_plots
 
 
@@ -102,6 +114,13 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         merged_df,
         minimum_grade=settings.minimum_grade_for_clustering,
     )
+
+    paradoxical_metadata = []
+    if settings.enable_paradoxical_analysis:
+        logger.info("Running binary paradoxical-group analysis on complete R^3 rows.")
+        paradoxical_result = run_paradoxical_group_analysis(merged_df, settings)
+        merged_df = paradoxical_result.enriched_df
+        paradoxical_metadata = paradoxical_result.subject_metadata
 
     merged_output_df = select_merged_output_columns(merged_df)
     merged_dataset_path = settings.output_data_clean_dir / settings.merged_dataset_filename
@@ -262,6 +281,85 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
     target_professor_students_df = build_students_for_target_professors(subject_results)
     global_ranking_df = build_global_professor_ranking(subject_results, settings)
 
+    paradoxical_artifacts: dict[str, Path] = {}
+    paradoxical_plot_paths: list[Path] = []
+    if settings.enable_paradoxical_analysis:
+        logger.info("Building binary paradoxical-group tables.")
+        binary_summary_df = build_binary_group_summary_by_subject(merged_df, settings)
+        method_comparison_df = build_method_comparison_by_subject(merged_df)
+        overlap_df = build_overlap_between_methods(merged_df)
+        paradoxical_diagnostics_df = build_paradoxical_diagnostics(merged_df, paradoxical_metadata, settings)
+        professor_paradoxical_df = build_professor_paradoxical_summary(merged_df, settings)
+        professor_paradoxical_global_df = build_professor_paradoxical_global_ranking(
+            professor_paradoxical_df,
+            settings,
+        )
+        ranking_stability_df = build_professor_ranking_stability(
+            professor_paradoxical_df,
+            professor_paradoxical_global_df,
+            settings,
+        )
+
+        paradoxical_tables = {
+            "binary_group_summary_by_subject_path": (
+                settings.output_paradoxical_tables_dir / "binary_group_summary_by_subject.csv",
+                binary_summary_df,
+            ),
+            "method_comparison_by_subject_path": (
+                settings.output_paradoxical_tables_dir / "method_comparison_by_subject.csv",
+                method_comparison_df,
+            ),
+            "overlap_between_methods_path": (
+                settings.output_paradoxical_tables_dir / "overlap_between_methods.csv",
+                overlap_df,
+            ),
+            "professor_paradoxical_summary_path": (
+                settings.output_paradoxical_tables_dir / "professor_paradoxical_summary.csv",
+                professor_paradoxical_df,
+            ),
+            "professor_paradoxical_global_ranking_path": (
+                settings.output_paradoxical_tables_dir / "professor_paradoxical_global_ranking.csv",
+                professor_paradoxical_global_df,
+            ),
+            "professor_ranking_stability_path": (
+                settings.output_paradoxical_tables_dir / "professor_ranking_stability.csv",
+                ranking_stability_df,
+            ),
+            "paradoxical_group_diagnostics_path": (
+                settings.output_paradoxical_diagnostics_dir / "paradoxical_group_diagnostics.csv",
+                paradoxical_diagnostics_df,
+            ),
+        }
+        for artifact_name, (path, dataframe) in paradoxical_tables.items():
+            write_dataframe(dataframe, path)
+            paradoxical_artifacts[artifact_name] = path
+
+        if settings.make_paradoxical_plots:
+            logger.info("Creating binary paradoxical-group figures.")
+            try:
+                paradoxical_plot_paths = create_paradoxical_figures(
+                    enriched_df=merged_df,
+                    summary_df=binary_summary_df,
+                    overlap_df=overlap_df,
+                    professor_summary_df=professor_paradoxical_df,
+                    ranking_stability_df=ranking_stability_df,
+                    settings=settings,
+                )
+            except Exception as exc:  # pragma: no cover - visualization fallback
+                logger.exception("Paradoxical analysis figures failed: %s", exc)
+
+        if settings.update_latex_report:
+            try:
+                paradoxical_artifacts["paradoxical_latex_section_path"] = write_paradoxical_latex_section(
+                    summary_df=binary_summary_df,
+                    overlap_df=overlap_df,
+                    professor_summary_df=professor_paradoxical_df,
+                    stability_df=ranking_stability_df,
+                    settings=settings,
+                )
+            except Exception as exc:  # pragma: no cover - reporting fallback
+                logger.exception("Paradoxical LaTeX section generation failed: %s", exc)
+
     data_quality_path = settings.output_diagnostics_dir / settings.data_quality_filename
     missingness_path = settings.output_diagnostics_dir / settings.missingness_filename
     cluster_metrics_path = settings.output_metrics_dir / settings.cluster_metrics_filename
@@ -316,4 +414,7 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         "global_ranking_path": global_ranking_path,
         "presentation_plots_dir": settings.output_presentation_plots_dir,
         "presentation_plot_paths": presentation_plot_paths,
+        "paradoxical_analysis_dir": settings.output_paradoxical_root_dir,
+        "paradoxical_plot_paths": paradoxical_plot_paths,
+        **paradoxical_artifacts,
     }

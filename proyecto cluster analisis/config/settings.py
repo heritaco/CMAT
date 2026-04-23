@@ -54,6 +54,23 @@ class Settings:
     make_ica_plots: bool
     make_plotly_plots: bool
     make_presentation_plots: bool
+    enable_paradoxical_analysis: bool
+    paradoxical_main_method: str
+    compare_paradoxical_methods: bool
+    make_paradoxical_plots: bool
+    update_latex_report: bool
+    paradoxical_score_cal_weight: float
+    paradoxical_score_dmu_weight: float
+    paradoxical_score_gagb_weight: float
+    paradoxical_baseline_dmu_threshold: float
+    paradoxical_baseline_gagb_threshold: float
+    paradoxical_baseline_grade_threshold: float
+    paradoxical_min_subject_rows: int
+    paradoxical_min_group_size: int
+    paradoxical_min_group_fraction: float
+    paradoxical_max_group_fraction_warning: float
+    paradoxical_top_n_professors: int
+    paradoxical_top_k_overlap: int
     save_intermediate_files: bool
     figure_dpi: int
     presentation_top_n_professors: int
@@ -100,6 +117,30 @@ class Settings:
         return self.output_root / "presentation_plots"
 
     @property
+    def output_paradoxical_root_dir(self) -> Path:
+        return self.output_root / "paradoxical_analysis"
+
+    @property
+    def output_paradoxical_tables_dir(self) -> Path:
+        return self.output_paradoxical_root_dir / "tables"
+
+    @property
+    def output_paradoxical_figures_dir(self) -> Path:
+        return self.output_paradoxical_root_dir / "figures"
+
+    @property
+    def output_paradoxical_subject_figures_dir(self) -> Path:
+        return self.output_paradoxical_figures_dir / "by_subject"
+
+    @property
+    def output_paradoxical_diagnostics_dir(self) -> Path:
+        return self.output_paradoxical_root_dir / "diagnostics"
+
+    @property
+    def output_reports_dir(self) -> Path:
+        return self.project_root / "reportes"
+
+    @property
     def output_summaries_dir(self) -> Path:
         return self.output_root / "summaries"
 
@@ -122,9 +163,15 @@ class Settings:
             self.output_plots_2d_dir,
             self.output_plots_3d_dir,
             self.output_presentation_plots_dir,
+            self.output_paradoxical_root_dir,
+            self.output_paradoxical_tables_dir,
+            self.output_paradoxical_figures_dir,
+            self.output_paradoxical_subject_figures_dir,
+            self.output_paradoxical_diagnostics_dir,
             self.output_summaries_dir,
             self.output_diagnostics_dir,
             self.output_logs_dir,
+            self.output_reports_dir,
         )
 
     def with_overrides(self, **overrides: object) -> "Settings":
@@ -177,6 +224,23 @@ def get_settings() -> Settings:
         make_ica_plots=_env_bool("SCA_MAKE_ICA_PLOTS", True),
         make_plotly_plots=_env_bool("SCA_MAKE_PLOTLY_PLOTS", True),
         make_presentation_plots=_env_bool("SCA_MAKE_PRESENTATION_PLOTS", True),
+        enable_paradoxical_analysis=_env_bool("SCA_ENABLE_PARADOXICAL_ANALYSIS", True),
+        paradoxical_main_method=os.environ.get("SCA_PARADOXICAL_MAIN_METHOD", "gmm").strip().lower(),
+        compare_paradoxical_methods=_env_bool("SCA_COMPARE_PARADOXICAL_METHODS", True),
+        make_paradoxical_plots=_env_bool("SCA_MAKE_PARADOXICAL_PLOTS", True),
+        update_latex_report=_env_bool("SCA_UPDATE_LATEX_REPORT", True),
+        paradoxical_score_cal_weight=float(os.environ.get("SCA_PARADOXICAL_SCORE_CAL_WEIGHT", "1.0")),
+        paradoxical_score_dmu_weight=float(os.environ.get("SCA_PARADOXICAL_SCORE_DMU_WEIGHT", "0.5")),
+        paradoxical_score_gagb_weight=float(os.environ.get("SCA_PARADOXICAL_SCORE_GAGB_WEIGHT", "0.5")),
+        paradoxical_baseline_dmu_threshold=float(os.environ.get("SCA_PARADOXICAL_BASELINE_DMU_THRESHOLD", "40")),
+        paradoxical_baseline_gagb_threshold=float(os.environ.get("SCA_PARADOXICAL_BASELINE_GAGB_THRESHOLD", "40")),
+        paradoxical_baseline_grade_threshold=float(os.environ.get("SCA_PARADOXICAL_BASELINE_GRADE_THRESHOLD", "8")),
+        paradoxical_min_subject_rows=int(os.environ.get("SCA_PARADOXICAL_MIN_SUBJECT_ROWS", "6")),
+        paradoxical_min_group_size=int(os.environ.get("SCA_PARADOXICAL_MIN_GROUP_SIZE", "5")),
+        paradoxical_min_group_fraction=float(os.environ.get("SCA_PARADOXICAL_MIN_GROUP_FRACTION", "0.01")),
+        paradoxical_max_group_fraction_warning=float(os.environ.get("SCA_PARADOXICAL_MAX_GROUP_FRACTION_WARNING", "0.80")),
+        paradoxical_top_n_professors=int(os.environ.get("SCA_PARADOXICAL_TOP_N_PROFESSORS", "12")),
+        paradoxical_top_k_overlap=int(os.environ.get("SCA_PARADOXICAL_TOP_K_OVERLAP", "10")),
         save_intermediate_files=_env_bool("SCA_SAVE_INTERMEDIATE_FILES", True),
         figure_dpi=int(os.environ.get("SCA_FIGURE_DPI", "160")),
         presentation_top_n_professors=int(os.environ.get("SCA_PRESENTATION_TOP_N_PROFESSORS", "12")),

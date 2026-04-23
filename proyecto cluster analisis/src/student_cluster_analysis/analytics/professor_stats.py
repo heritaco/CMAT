@@ -111,6 +111,7 @@ def build_subject_professor_report(
                 "CLAVEVARIANTEMATERIA": subject_code,
                 "DESCRIBEMATERIA": subject_name,
                 "CLAVEPROFESOR": professor_id,
+                "minimum_grade_for_clustering": settings.minimum_grade_for_clustering,
                 "total_observaciones_fuente_profesor": len(full_group),
                 "total_observaciones_clusterizadas_profesor": total_clustered,
                 "total_alumnos_unicos_clusterizados_profesor": clustered_group["CLAVEALUMNO"].nunique(),
@@ -167,6 +168,7 @@ def build_global_professor_ranking(subject_results: list[SubjectAnalysisResult],
         rows.append(
             {
                 "CLAVEPROFESOR": professor_id,
+                "minimum_grade_for_clustering": settings.minimum_grade_for_clustering,
                 "total_observaciones_fuente_profesor": len(full_group),
                 "total_observaciones_clusterizadas_profesor": total_clustered,
                 "total_alumnos_unicos_clusterizados_profesor": clustered_group["CLAVEALUMNO"].nunique(),
