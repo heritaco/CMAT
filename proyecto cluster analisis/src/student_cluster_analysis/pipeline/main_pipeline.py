@@ -19,6 +19,7 @@ from student_cluster_analysis.analytics.method_comparison import (
     build_professor_paradoxical_summary,
     build_professor_ranking_stability,
 )
+from student_cluster_analysis.analytics.manual_threshold_group import run_manual_threshold_analysis
 from student_cluster_analysis.analytics.paradoxical_group import run_paradoxical_group_analysis
 from student_cluster_analysis.analytics.professor_stats import (
     build_global_professor_ranking,
@@ -62,6 +63,7 @@ from student_cluster_analysis.preprocessing.cleaning import clean_exam_dataframe
 from student_cluster_analysis.preprocessing.merging import build_merged_dataset
 from student_cluster_analysis.reporting.data_documentation import write_processed_data_documentation
 from student_cluster_analysis.reporting.latex_report import (
+    write_manual_mat1012_latex_report,
     write_paradoxical_latex_section,
     write_professor_appendix_latex,
     write_subject_professor_appendix_latex,
@@ -134,6 +136,10 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         paradoxical_result = run_paradoxical_group_analysis(merged_df, settings)
         merged_df = paradoxical_result.enriched_df
         paradoxical_metadata = paradoxical_result.subject_metadata
+
+    logger.info("Running strict manual 50/50/8 analysis on complete R^3 rows.")
+    manual_result = run_manual_threshold_analysis(merged_df, settings)
+    merged_df = manual_result.enriched_df
 
     merged_output_df = select_merged_output_columns(merged_df)
     merged_dataset_path = settings.output_data_clean_dir / settings.merged_dataset_filename
@@ -422,6 +428,10 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         "professor_summary_by_period": professor_appendix_by_period_df,
         "professor_appendix_all_years": professor_appendix_all_years_df,
         "professor_appendix_by_period": professor_appendix_by_period_df,
+        "manual_50_50_8_students": manual_result.students_df,
+        "manual_50_50_8_subject_period_summary": manual_result.subject_period_summary_df,
+        "manual_50_50_8_professor_summary_by_period": manual_result.professor_summary_by_period_df,
+        "manual_50_50_8_professor_summary_all_years": manual_result.professor_summary_all_years_df,
     }
     processed_artifacts: dict[str, Path] = {}
     logger.info("Writing processed dataframes to %s.", settings.processed_data_dir)
@@ -432,6 +442,19 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         processed_artifacts[f"{dataframe_name}_csv_path"] = csv_path
         processed_artifacts[f"{dataframe_name}_xlsx_path"] = xlsx_path
     processed_artifacts.update(write_processed_data_documentation(settings, processed_dataframes))
+
+    manual_copy_dataframes = {
+        "manual_50_50_8_students": manual_result.students_df,
+        "manual_50_50_8_subject_period_summary": manual_result.subject_period_summary_df,
+        "manual_50_50_8_professor_summary_by_period": manual_result.professor_summary_by_period_df,
+        "manual_50_50_8_professor_summary_all_years": manual_result.professor_summary_all_years_df,
+    }
+    for dataframe_name, dataframe in manual_copy_dataframes.items():
+        csv_path = settings.output_manual_tables_dir / f"{dataframe_name}.csv"
+        xlsx_path = settings.output_manual_tables_dir / f"{dataframe_name}.xlsx"
+        write_dataframe_csv_and_excel(dataframe, csv_path, xlsx_path, sheet_name=dataframe_name)
+        processed_artifacts[f"{dataframe_name}_copy_csv_path"] = csv_path
+        processed_artifacts[f"{dataframe_name}_copy_xlsx_path"] = xlsx_path
 
     if settings.update_latex_report:
         try:
@@ -449,6 +472,12 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
                         settings=settings,
                     )
                 )
+            processed_artifacts["manual_50_50_8_mat1012_latex_path"] = write_manual_mat1012_latex_report(
+                students_df=manual_result.students_df,
+                subject_period_summary_df=manual_result.subject_period_summary_df,
+                professor_summary_by_period_df=manual_result.professor_summary_by_period_df,
+                settings=settings,
+            )
         except Exception as exc:  # pragma: no cover - reporting fallback
             logger.exception("Professor appendix LaTeX generation failed: %s", exc)
 
@@ -486,6 +515,7 @@ def run_student_cluster_pipeline(settings: Settings) -> dict[str, Path]:
         "presentation_plot_paths": presentation_plot_paths,
         "paradoxical_analysis_dir": settings.output_paradoxical_root_dir,
         "paradoxical_plot_paths": paradoxical_plot_paths,
+        "manual_50_50_8_dir": settings.output_manual_root_dir,
         **paradoxical_artifacts,
         "processed_data_dir": settings.processed_data_dir,
         **processed_artifacts,

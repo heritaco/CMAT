@@ -138,6 +138,14 @@ class Settings:
         return self.output_paradoxical_root_dir / "diagnostics"
 
     @property
+    def output_manual_root_dir(self) -> Path:
+        return self.output_root / "manual_50_50_8"
+
+    @property
+    def output_manual_tables_dir(self) -> Path:
+        return self.output_manual_root_dir / "tables"
+
+    @property
     def output_reports_dir(self) -> Path:
         return self.project_root / "reportes"
 
@@ -173,6 +181,8 @@ class Settings:
             self.output_paradoxical_figures_dir,
             self.output_paradoxical_subject_figures_dir,
             self.output_paradoxical_diagnostics_dir,
+            self.output_manual_root_dir,
+            self.output_manual_tables_dir,
             self.output_summaries_dir,
             self.output_diagnostics_dir,
             self.output_logs_dir,

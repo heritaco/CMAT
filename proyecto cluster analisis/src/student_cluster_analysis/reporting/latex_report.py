@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import math
 import re
 
 import pandas as pd
@@ -360,6 +361,232 @@ def write_subject_professor_appendix_latex(
         appendix_path,
     )
     return appendix_path
+
+
+def _build_manual_period_table(subject_period_df: pd.DataFrame) -> str:
+    lines = [
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\small",
+        r"\caption{Conteo y porcentaje del criterio manual por periodo observado.}",
+        r"\begin{tabular}{llrrr}",
+        r"\toprule",
+        r"Anio & Sesion & Completo $R^3$ & Manual & Manual \% \\",
+        r"\midrule",
+    ]
+    for _, row in subject_period_df.iterrows():
+        lines.append(
+            " & ".join(
+                [
+                    _latex_escape(row["anio"]),
+                    _latex_escape(row["CLAVESESION"]),
+                    _fmt_int(row["total_completo_r3"]),
+                    _fmt_int(row["alumnos_manual_50_50_8"]),
+                    _fmt_pct(row["porcentaje_manual_50_50_8"]),
+                ]
+            )
+            + r" \\"
+        )
+    lines.extend([r"\bottomrule", r"\end{tabular}", r"\end{table}"])
+    return "\n".join(lines)
+
+
+def _build_manual_professor_period_table(professor_df: pd.DataFrame) -> str:
+    lines = [
+        r"\begingroup",
+        r"\scriptsize",
+        r"\setlength{\tabcolsep}{3pt}",
+        r"\begin{longtable}{llrrrrrrr}",
+        r"\caption{Ranking de profesores por periodo bajo el criterio manual.}\\",
+        r"\toprule",
+        r"Anio & Sesion & Profesor & Manual & Total & Prof. \% & Base \% & Lift & $z$ \\",
+        r"\midrule",
+        r"\endfirsthead",
+        r"\toprule",
+        r"Anio & Sesion & Profesor & Manual & Total & Prof. \% & Base \% & Lift & $z$ \\",
+        r"\midrule",
+        r"\endhead",
+    ]
+    if not professor_df.empty:
+        ranked = professor_df[professor_df["included_in_ranking"]].copy()
+        if ranked.empty:
+            ranked = professor_df.copy()
+        ranked = ranked.sort_values(
+            [
+                "anio",
+                "CLAVESESION",
+                "ranking_position_periodo",
+                "porcentaje_manual_50_50_8_profesor",
+                "alumnos_manual_50_50_8_profesor",
+            ],
+            ascending=[True, True, True, False, False],
+            na_position="last",
+        )
+        ranked = ranked.groupby(["anio", "CLAVESESION"], dropna=False, sort=True).head(8)
+        for _, row in ranked.iterrows():
+            lines.append(
+                " & ".join(
+                    [
+                        _latex_escape(row["anio"]),
+                        _latex_escape(row["CLAVESESION"]),
+                        _latex_escape(row["CLAVEPROFESOR"]),
+                        _fmt_int(row["alumnos_manual_50_50_8_profesor"]),
+                        _fmt_int(row["total_alumnos_profesor_completo_r3"]),
+                        _fmt_pct(row["porcentaje_manual_50_50_8_profesor"]),
+                        _fmt_pct(row["porcentaje_manual_50_50_8_materia_periodo"]),
+                        _fmt_float(row["lift_vs_materia_periodo"], 2),
+                        _fmt_float(row["binomial_z_score"], 2),
+                    ]
+                )
+                + r" \\"
+            )
+    lines.extend([r"\bottomrule", r"\end{longtable}", r"\endgroup"])
+    return "\n".join(lines)
+
+
+def build_manual_mat1012_latex_report(
+    *,
+    students_df: pd.DataFrame,
+    subject_period_summary_df: pd.DataFrame,
+    professor_summary_by_period_df: pd.DataFrame,
+) -> str:
+    subject_code = "MAT1012"
+    subject_students = students_df[
+        students_df.get("CLAVEVARIANTEMATERIA", pd.Series(dtype=object)).astype(str) == subject_code
+    ].copy()
+    subject_period = subject_period_summary_df[
+        subject_period_summary_df.get("CLAVEVARIANTEMATERIA", pd.Series(dtype=object)).astype(str) == subject_code
+    ].copy()
+    subject_professors = professor_summary_by_period_df[
+        professor_summary_by_period_df.get("CLAVEVARIANTEMATERIA", pd.Series(dtype=object)).astype(str) == subject_code
+    ].copy()
+    total_detected = len(subject_students)
+    total_complete = int(subject_period["total_completo_r3"].sum()) if not subject_period.empty else 0
+    total_rate = total_detected / total_complete if total_complete else math.nan
+
+    period_table = (
+        _build_manual_period_table(subject_period)
+        if not subject_period.empty
+        else "No hay periodos observados con datos completos para MAT1012."
+    )
+    professor_table = (
+        _build_manual_professor_period_table(subject_professors)
+        if not subject_professors.empty
+        else "No hay resumen de profesores por periodo para MAT1012."
+    )
+
+    return "\n\n".join(
+        [
+            r"\documentclass[11pt,letterpaper]{article}",
+            r"\usepackage[utf8]{inputenc}",
+            r"\usepackage[T1]{fontenc}",
+            r"\usepackage[spanish,es-tabla]{babel}",
+            r"\usepackage{geometry}",
+            r"\usepackage{booktabs}",
+            r"\usepackage{longtable}",
+            r"\usepackage{float}",
+            r"\usepackage{hyperref}",
+            r"\usepackage{amsmath}",
+            r"\geometry{margin=2.25cm}",
+            r"\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}",
+            r"\newcommand{\code}[1]{\texttt{#1}}",
+            r"\title{\textbf{Informe especializado: MAT1012}\\\large Criterio manual 50/50/8}",
+            r"\author{Proyecto Cluster Analisis}",
+            r"\date{\today}",
+            r"\begin{document}",
+            r"\maketitle",
+            (
+                r"\begin{abstract}"
+                "Este informe reporta un analisis manual paralelo al clustering y al analisis binario previo. "
+                "No reemplaza el benchmark 40/40/8 ni modifica los outputs anteriores. "
+                "El objetivo es describir alumnos de MAT1012 con porcentajes bajos en DMU y GA-GB, "
+                r"pero calificacion alta en la materia. El analisis es descriptivo, no causal."
+                r"\end{abstract}"
+            ),
+            r"\section{Definicion formal del criterio}",
+            (
+                "Para cada estudiante con datos completos en "
+                r"\code{Porcentaje\_DMU}, \code{Porcentaje\_GA\_GB} y \code{CALIFICACION}, "
+                r"se define la bandera \code{is\_manual\_50\_50\_8\_group} como:"
+            ),
+            (
+                r"\["
+                r"\mathbb{1}\{\text{Porcentaje\_DMU}<50,\ "
+                r"\text{Porcentaje\_GA\_GB}<50,\ "
+                r"\text{CALIFICACION}>8\}."
+                r"\]"
+            ),
+            (
+                "Las desigualdades son estrictas: DMU exactamente 50 no entra, GA-GB exactamente 50 no entra, "
+                "y CALIFICACION exactamente 8 no entra. El denominador de todos los porcentajes es el numero de "
+                "casos completos en las tres variables, tambien llamado completo $R^3$."
+            ),
+            r"\section{Conteo total en MAT1012}",
+            (
+                "En la corrida actual se detectaron "
+                f"{_fmt_int(total_detected)} estudiantes de MAT1012 bajo el criterio manual, "
+                f"de {_fmt_int(total_complete)} casos completos $R^3$ "
+                f"({_fmt_pct(total_rate)}\\%)."
+            ),
+            (
+                "La tabla completa de estudiantes detectados se guarda en "
+                r"\code{data/datos\_procesados/manual\_50\_50\_8\_students.csv} "
+                "y tambien como XLSX. Una copia queda en "
+                r"\code{output\_cluster\_analisis/manual\_50\_50\_8/tables/}."
+            ),
+            r"\section{Conteo por periodo}",
+            (
+                "El periodo se define exclusivamente como la combinacion observada "
+                r"\code{(anio, CLAVESESION)}; no se hardcodean periodos."
+            ),
+            period_table,
+            r"\section{Ranking de profesores por periodo}",
+            (
+                "Para cada profesor dentro de cada materia-periodo se compara su tasa contra la tasa base de "
+                "MAT1012 en ese mismo periodo. La diferencia es la tasa del profesor menos la tasa base; "
+                "el lift es el cociente entre ambas tasas; y el z-score binomial estandariza el exceso observado "
+                r"contra $n p$ usando $\sqrt{n p(1-p)}$."
+            ),
+            professor_table,
+            r"\section{Interpretacion y cautelas}",
+            (
+                "Un valor positivo de diferencia indica que el profesor tiene una proporcion mayor al promedio "
+                "de la materia-periodo. Un lift mayor que 1 indica una tasa relativa mayor que la tasa base. "
+                "Un z-score binomial alto indica que el conteo observado esta por encima de lo esperado bajo una "
+                "referencia binomial simple con probabilidad igual a la tasa de la materia-periodo."
+            ),
+            (
+                "Cuando la tasa base es 0, el lift se deja como NaN porque el cociente no esta definido. "
+                "Cuando $n p(1-p)=0$, el z-score binomial se deja como NaN porque no hay varianza binomial "
+                "positiva para estandarizar."
+            ),
+            (
+                "Advertencia explicita: este analisis es descriptivo, no causal. Los rankings identifican "
+                "concentraciones observadas de estudiantes que cumplen el criterio manual; no prueban inflacion "
+                "de calificaciones, diferencias de dificultad, ni efecto atribuible al profesor."
+            ),
+            r"\end{document}",
+        ]
+    )
+
+
+def write_manual_mat1012_latex_report(
+    *,
+    students_df: pd.DataFrame,
+    subject_period_summary_df: pd.DataFrame,
+    professor_summary_by_period_df: pd.DataFrame,
+    settings: Settings,
+) -> Path:
+    report_path = settings.output_reports_dir / "informe_MAT1012_manual_50_50_8.tex"
+    write_text(
+        build_manual_mat1012_latex_report(
+            students_df=students_df,
+            subject_period_summary_df=subject_period_summary_df,
+            professor_summary_by_period_df=professor_summary_by_period_df,
+        ),
+        report_path,
+    )
+    return report_path
 
 
 def build_paradoxical_latex_section(
