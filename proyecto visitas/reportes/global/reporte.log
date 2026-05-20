@@ -1,22 +1,22 @@
-This is LuaHBTeX, Version 1.24.0 (MiKTeX 25.12) (format=lualatex 2026.4.10)  23 APR 2026 07:08
+This is LuaHBTeX, Version 1.24.0 (MiKTeX 26.2) (format=lualatex 2026.4.26)  19 MAY 2026 18:19
  restricted system commands enabled.
  file:line:error style messages enabled.
-**"c:/Users/HERIBERTO/OneDrive - Fundacion Universidad de las Americas Puebla/c
-mat/proyecto visitas/reportes/global/reporte.tex"
+**"c:/Users/herie/OneDrive - Fundacion Universidad de las Americas Puebla/cmat/
+proyecto visitas/reportes/global/reporte"
 
-("c:/Users/HERIBERTO/OneDrive - Fundacion Universidad de las Americas Puebla/cm
-at/proyecto visitas/reportes/global/reporte.tex"
+("c:/Users/herie/OneDrive - Fundacion Universidad de las Americas Puebla/cmat/p
+royecto visitas/reportes/global/reporte.tex"
 LaTeX2e <2025-11-01>
-L3 programming layer <2026-01-19>
+L3 programming layer <2026-03-20>
 Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
 Lua module: lualibs 2023-07-13 v2.76 ConTeXt Lua standard libraries.
 Lua module: lualibs-extended 2023-07-13 v2.76 ConTeXt Lua libraries -- extended 
 collection.
-luaotfload | conf : Root cache directory is "C:/Users/HERIBERTO/AppData/Local/Mi
-KTeX/luatex-cache/generic/names".
+luaotfload | conf : Root cache directory is "C:/Users/herie/AppData/Local/MiKTeX
+/luatex-cache/generic/names".
 luaotfload | init : Loading fontloader "fontloader-2023-12-28.lua" from kpse-res
-olved path "C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/luatex/luaotflo
-ad/fontloader-2023-12-28.lua".
+olved path "C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/f
+ontloader-2023-12-28.lua".
 Lua-only attribute luaotfload@noligature = 1
 luaotfload | init : Context OpenType loader version 3.134
 Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
@@ -24,8 +24,8 @@ Inserting `luaotfload.node_processor' in `hpack_filter'.
 Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
 Inserting `luaotfload.define_font' in `define_font'.
 Lua-only attribute luaotfload_color_attribute = 2
-luaotfload | conf : Root cache directory is "C:/Users/HERIBERTO/AppData/Local/Mi
-KTeX/luatex-cache/generic/names".
+luaotfload | conf : Root cache directory is "C:/Users/herie/AppData/Local/MiKTeX
+/luatex-cache/generic/names".
 Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
 Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
 Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
@@ -43,13 +43,13 @@ Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
 Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
 Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
 Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
-Inserting `tracingstacklevels' in `input_level_string'. (C:/Users/HERIBERTO/App
-Data/Local/Programs/MiKTeX/tex/latex/base/article.cls
+Inserting `tracingstacklevels' in `input_level_string'. (C:/Users/herie/AppData
+/Local/Programs/MiKTeX/tex/latex/base/article.cls
 Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/base/size10.clo
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/base/size10.clo
 File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
-luaotfload | db : Font names database loaded from C:/Users/HERIBERTO/AppData/Loc
-al/MiKTeX/luatex-cache/generic/names/luaotfload-names.luc.gz)
+luaotfload | db : Font names database loaded from C:/Users/herie/AppData/Local/M
+iKTeX/luatex-cache/generic/names/luaotfload-names.luc.gz)
 \c@part=\count273
 \c@section=\count274
 \c@subsection=\count275
@@ -60,14 +60,13 @@ al/MiKTeX/luatex-cache/generic/names/luaotfload-names.luc.gz)
 \c@table=\count280
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
-\bibindent=\dimen147
+\bibindent=\dimen149
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/babel/babel.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/babel/babel.sty
 Package: babel 2026/03/24 v26.5 The multilingual framework for LuaLaTeX, pdfLaT
 eX and XeLaTeX
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/babel/luababel.de
-f
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/babel/luababel.def
 \bbl@readstream=\read2
 \l@afrikaans=\language2
 Package babel Info: Non-standard hyphenation setup on input line 118.
@@ -165,11 +164,10 @@ LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?)
 on input line 2086.
 LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) 
 on input line 2111.
-\U@D=\dimen148
+\U@D=\dimen150
 \l@unhyphenated=\language79
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/babel/luababel.de
-f
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/babel/luababel.def
 \bbl@attr@locale=\attribute4
 )
 Package babel Info: Configuration files are deprecated, as
@@ -179,17 +177,17 @@ Package babel Info: Configuration files are deprecated, as
 *************************************
 * Local config file bblopts.cfg used
 *
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/arabi/bblopts.cfg
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/arabi/bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/babel/locale/es/b
-abel-spanish.tex)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/babel/locale/es/babel
+-spanish.tex)
 Package babel Info: Importing font and identification data for spanish
 (babel)             from babel-es.ini. Reported on input line 4330.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/babel-spanish/spani
-sh.ldf
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/babel-spanish/spanish.l
+df
 Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
 \es@quottoks=\toks17
 \es@quotdepth=\count282
@@ -198,71 +196,65 @@ Package babel Info: Making . an active character on input line 675.
 Package babel Info: Making < an active character on input line 722.
 Package babel Info: Making > an active character on input line 722.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/hyph-utf8/loadhyp
-h/loadhyph-es.tex UTF-8 Spanish hyphenation patterns
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/hyph-utf8/pattern
-s/tex/hyph-es.tex))))
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/hyph-utf8/loadhyph/lo
+adhyph-es.tex UTF-8 Spanish hyphenation patterns
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/hyph-utf8/patterns/te
+x/hyph-es.tex))))
 LaTeX Encoding Info:    Redeclaring text command \guillemotleft (encoding OT1) 
 on input line 7.
 LaTeX Encoding Info:    Redeclaring text command \guillemotright (encoding OT1)
  on input line 7.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.sty
 Package: geometry 2026/03/07 v6.0 Page Geometry
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks18
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifvtex.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
 \Gm@cnth=\count283
 \Gm@cntv=\count284
 \c@Gm@tempcnt=\count285
-\Gm@bindingoffset=\dimen149
-\Gm@wd@mp=\dimen150
-\Gm@odd@mp=\dimen151
-\Gm@even@mp=\dimen152
-\Gm@layoutwidth=\dimen153
-\Gm@layoutheight=\dimen154
-\Gm@layouthoffset=\dimen155
-\Gm@layoutvoffset=\dimen156
+\Gm@bindingoffset=\dimen151
+\Gm@wd@mp=\dimen152
+\Gm@odd@mp=\dimen153
+\Gm@even@mp=\dimen154
+\Gm@layoutwidth=\dimen155
+\Gm@layoutheight=\dimen156
+\Gm@layouthoffset=\dimen157
+\Gm@layoutvoffset=\dimen158
 \Gm@dimlist=\toks19
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.c
-fg))
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/hyperref.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.cfg)) (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/kvsetkeys/kvsetkeys
-.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/kvdefinekeys/kvde
-finekeys.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/kvdefinekeys/kvdefine
+keys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/pdfescape/pdfesca
-pe.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/pdfescape/pdfescape.s
+ty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/ltxcmds/ltxcmds.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/pdftexcmds/pdftex
-cmds.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/pdftexcmds/pdftexcmds
+.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/infwarerr/infware
-rr.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/infwarerr/infwarerr.s
+ty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
@@ -270,51 +262,43 @@ Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 \pdftexcmds@toks=\toks20
 ))
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/hycolor/hycolor.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/nameref.st
-y
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/nameref.sty
 Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/gettitlestring/ge
-ttitlestring.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/gettitlestring/gettit
+lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/kvoptions/kvoptions
-.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count286
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/etoolbox/etoolbox.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count287
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/stringenc/stringe
-nc.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/stringenc/stringenc.s
+ty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen157
+\@linkdim=\dimen159
 \Hy@linkcounter=\count288
 \Hy@pagecounter=\count289
-
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/pd1enc.def
+ (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
-)
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/intcalc/intcalc.s
-ty
+) (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count290
-
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/puenc.def
+ (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 )
 Package hyperref Info: Hyper figures OFF on input line 4201.
@@ -325,24 +309,25 @@ Package hyperref Info: Backreferencing OFF on input line 4221.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4468.
 \c@Hy@tempcnt=\count291
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty
+
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4807.
-\XeTeXLinkMargin=\dimen158
+\XeTeXLinkMargin=\dimen160
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/bitset/bitset.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/bigintcalc/bigint
-calc.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/bigintcalc/bigintcalc
+.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
 \Fld@menulength=\count292
-\Field@Width=\dimen159
-\Fld@charsize=\dimen160
+\Field@Width=\dimen161
+\Fld@charsize=\dimen162
 Package hyperref Info: Hyper figures OFF on input line 6084.
 Package hyperref Info: Link nesting OFF on input line 6089.
 Package hyperref Info: Hyper index ON on input line 6092.
@@ -356,18 +341,17 @@ Package hyperref Info: PDF/A mode OFF on input line 6114.
 )
 Package hyperref Info: Driver (autodetected): hluatex.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/hluatex.de
-f
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/hyperref/hluatex.def
 File: hluatex.def 2026-01-29 v7.01p Hyperref driver for luaTeX
 \Fld@listcount=\count296
 \c@bookmark@seq@number=\count297
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/reru
-nfilecheck.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfil
+echeck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/uniquecounter/uni
-quecounter.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/uniquecounter/uniquec
+ounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
@@ -375,35 +359,35 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip51
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/hypcap/hypcap.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/hypcap/hypcap.sty
 Package: hypcap 2024-07-26 v1.13 Adjusting the anchors of captions (HO)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/letltxmacro/letltxm
-acro.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/letltxmacro/letltxmacro
+.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 ))
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/newtxmath.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/newtxmath.sty
 Package: newtxmath 2024/09/22 v1.754
 
 `newtxmath' v1.754, 2024/09/22 Math macros based originally on txfonts (msharpe
-)
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsmath.sty
+) (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip52
-For additional information on amsmath, use the `?' option.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amstext.sty
+For additional information on amsmath, use the `?' option.
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsgen.sty
+
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks21
-\ex@=\dimen161
+\ex@=\dimen163
 ))
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsbsy.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen162
-) (C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsopn.st
-y
+\pmbraise@=\dimen164
+)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count298
@@ -423,7 +407,7 @@ LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen163
+\big@size=\dimen165
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
 \macc@depth=\count303
@@ -441,42 +425,38 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \column@=\count308
 \maxfields@=\count309
 \andhelp@=\toks23
-\eqnshift@=\dimen164
-\alignsep@=\dimen165
-\tagshift@=\dimen166
-\tagwidth@=\dimen167
-\totwidth@=\dimen168
-\lineht@=\dimen169
+\eqnshift@=\dimen166
+\alignsep@=\dimen167
+\tagshift@=\dimen168
+\tagwidth@=\dimen169
+\totwidth@=\dimen170
+\lineht@=\dimen171
 \@envbody=\toks24
 \multlinegap=\skip53
 \multlinetaggap=\skip54
 \mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-) (C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/base/ifthen.sty
+)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/base/ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/xkeyval/xkeyval.t
-ex
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/xkeyval/xkvutils.
-tex
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/xkeyval/xkeyval.tex
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks26
 \XKV@tempa@toks=\toks27
 )
 \XKV@depth=\count310
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/oberdiek/centernot.
-sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/oberdiek/centernot.sty
 Package: centernot 2016/05/16 v1.4 Centers the not symbol horizontally (HO)
 )
 \tx@cntz=\count311
-
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/generic/binhex/binhex.tex
-)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/generic/binhex/binhex.tex)
 \tx@Isdigit=\count312
 \tx@IsAlNum=\count313
 \tx@tA=\toks28
@@ -578,25 +558,24 @@ LaTeX Font Info:    Redeclaring math accent \ddot on input line 992.
 LaTeX Font Info:    Redeclaring math accent \vec on input line 2057.
 LaTeX Info: Redefining \Bbbk on input line 2847.
 LaTeX Info: Redefining \not on input line 2995.
-)
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.s
-ty
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/xparse/x
-parse.sty
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty
-Package: expl3 2026-01-19 L3 programming layer (loader) 
+) (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.sty
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend
--luatex.def
-File: l3backend-luatex.def 2025-10-09 L3 backend support: PDF output (LuaTeX)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/xparse/xpars
+e.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty
+Package: expl3 2026-03-20 L3 programming layer (loader) 
+
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-lua
+tex.def
+File: l3backend-luatex.def 2026-02-18 L3 backend support: PDF output (LuaTeX)
 \l__color_backend_stack_int=\count314
 Inserting `l3color' in `luaotfload.parse_color'.))
 Package: xparse 2025-10-09 L3 Experimental document command parser
 )
 Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
 Lua module: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec-l
-uatex.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec-luate
+x.sty
 Package: fontspec-luatex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaT
 eX
 \l__fontspec_script_int=\count315
@@ -610,17 +589,15 @@ eX
 \l__fontspec_emdef_int=\count323
 \l__fontspec_strong_int=\count324
 \l__fontspec_strongdef_int=\count325
-\l__fontspec_tmpa_dim=\dimen170
-\l__fontspec_tmpb_dim=\dimen171
-\l__fontspec_tmpc_dim=\dimen172
-
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/base/fontenc.sty
+\l__fontspec_tmpa_dim=\dimen172
+\l__fontspec_tmpb_dim=\dimen173
+\l__fontspec_tmpc_dim=\dimen174
+ (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/base/fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-)
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.c
-fg)))
-luaotfload | cache : Lookup cache loaded from C:/Users/HERIBERTO/AppData/Local/M
-iKTeX/luatex-cache/generic/names/luaotfload-lookup-cache.luc.
+) (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.cfg
+)))
+luaotfload | cache : Lookup cache loaded from C:/Users/herie/AppData/Local/MiKTe
+X/luatex-cache/generic/names/luaotfload-lookup-cache.luc.
 
 Package fontspec Info: 
 (fontspec)             Font family 'EBGaramond(0)' created for font 'EB
@@ -658,18 +635,17 @@ Package fontspec Info:
 
 
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box55
 \beforetitleunit=\skip55
 \aftertitleunit=\skip56
-\ttl@plus=\dimen173
-\ttl@minus=\dimen174
+\ttl@plus=\dimen175
+\ttl@minus=\dimen176
 \ttl@toksa=\toks31
-\titlewidth=\dimen175
-\titlewidthlast=\dimen176
-\titlewidthfirst=\dimen177
+\titlewidth=\dimen177
+\titlewidthlast=\dimen178
+\titlewidthfirst=\dimen179
 )
 
 Package fontspec Info: 
@@ -696,8 +672,7 @@ Package fontspec Info:
 (fontspec)             SemiBold Italic:mode=node;script=latn;language=dflt;"
 
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/fancyhdr/fancyhdr.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 
 \f@nch@headwidth=\skip57
@@ -716,11 +691,10 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthR=\skip70
 \@temptokenb=\toks32
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/setspace/setspace.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/tocloft/tocloft.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
 Package tocloft Info: The document has section divisions on input line 51.
 \cftparskip=\skip71
@@ -756,21 +730,19 @@ Package tocloft Info: The document has section divisions on input line 51.
 \cftbeforetabskip=\skip99
 \cfttabindent=\skip100
 \cfttabnumwidth=\skip101
-) (C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty
+)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.
-cfg
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: luatex.def on input line 274.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/luatex
-.def
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/luatex.def
 File: luatex.def 2025/09/29 v1.2f Graphics/color driver for luatex
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics/mathcolor.
-ltx)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -780,129 +752,144 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
-)
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty
+) (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen178
+\col@sep=\dimen180
 \ar@mcellbox=\box56
-\extrarowheight=\dimen179
+\extrarowheight=\dimen181
 \NC@list=\toks33
 \extratabsurround=\skip102
 \backup@length=\skip103
 \ar@cellbox=\box57
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/booktabs/booktabs.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen180
-\lightrulewidth=\dimen181
-\cmidrulewidth=\dimen182
-\belowrulesep=\dimen183
-\belowbottomsep=\dimen184
-\aboverulesep=\dimen185
-\abovetopsep=\dimen186
-\cmidrulesep=\dimen187
-\cmidrulekern=\dimen188
-\defaultaddspace=\dimen189
+\heavyrulewidth=\dimen182
+\lightrulewidth=\dimen183
+\cmidrulewidth=\dimen184
+\belowrulesep=\dimen185
+\belowbottomsep=\dimen186
+\aboverulesep=\dimen187
+\abovetopsep=\dimen188
+\cmidrulesep=\dimen189
+\cmidrulekern=\dimen190
+\defaultaddspace=\dimen191
 \@cmidla=\count328
 \@cmidlb=\count329
-\@aboverulesep=\dimen190
-\@belowrulesep=\dimen191
+\@aboverulesep=\dimen192
+\@belowrulesep=\dimen193
 \@thisruleclass=\count330
 \@lastruleclass=\count331
-\@thisrulewidth=\dimen192
+\@thisrulewidth=\dimen194
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphicx.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphics.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics/trig.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics/trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphi
-cs.cfg
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.c
+fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: luatex.def on input line 106.
 )
-\Gin@req@height=\dimen193
-\Gin@req@width=\dimen194
+\Gin@req@height=\dimen195
+\Gin@req@width=\dimen196
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
-\TX@col@width=\dimen195
-\TX@old@table=\dimen196
-\TX@old@col=\dimen197
-\TX@target=\dimen198
-\TX@delta=\dimen199
+\TX@col@width=\dimen197
+\TX@old@table=\dimen198
+\TX@old@col=\dimen199
+\TX@target=\dimen256
+\TX@delta=\dimen257
 \TX@cols=\count332
 \TX@ftn=\toks34
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/placeins/placeins.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen258
+\captionmargin=\dimen259
+\caption@leftmargin=\dimen260
+\caption@rightmargin=\dimen261
+\caption@width=\dimen262
+\caption@indent=\dimen263
+\caption@parindent=\dimen264
+\caption@hangindent=\dimen265
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count333
+\c@continuedfloat=\count334
+Package caption Info: hyperref package is loaded.
+Package caption Info: hypcap package is loaded.
+)
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/placeins/placeins.sty
 Package: placeins 2005/04/18  v 2.2
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/listings/listings.s
-ty
-\lst@mode=\count333
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/listings/listings.sty
+\lst@mode=\count335
 \lst@gtempboxa=\box58
 \lst@token=\toks35
-\lst@length=\count334
-\lst@currlwidth=\dimen256
-\lst@column=\count335
-\lst@pos=\count336
-\lst@lostspace=\dimen257
-\lst@width=\dimen258
-\lst@newlines=\count337
-\lst@lineno=\count338
-\lst@maxwidth=\dimen259
+\lst@length=\count336
+\lst@currlwidth=\dimen266
+\lst@column=\count337
+\lst@pos=\count338
+\lst@lostspace=\dimen267
+\lst@width=\dimen268
+\lst@newlines=\count339
+\lst@lineno=\count340
+\lst@maxwidth=\dimen269
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstpatch.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstpatch.sty
 File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstmisc.st
-y
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count339
-\lst@skipnumbers=\count340
+\c@lstnumber=\count341
+\lst@skipnumbers=\count342
 \lst@framebox=\box59
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/listings/listings.c
-fg
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/listings/listings.cfg
 File: listings.cfg 2025/11/14 1.11b listings configuration
 ))
 Package: listings 2025/11/14 1.11b (Carsten Heinz)
-
 ==> First Aid for listings.sty no longer applied!
     Expected:
         2024/09/23 1.10c (Carsten Heinz)
     but found:
         2025/11/14 1.11b (Carsten Heinz)
     so I'm assuming it got fixed.
-
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/chngcntr/chngcntr.s
-ty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/chngcntr/chngcntr.sty
 Package: chngcntr 2018/04/09 v1.1a change counter resetting
 Package chngcntr Info: \counterwithout already defined.
 (chngcntr)             Quitting chngcntr on input line 21.
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/lipsum/lipsum.sty
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/l3keys2e
-/l3keys2e.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/lipsum/lipsum.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/l3keys2e/l3k
+eys2e.sty
 Package: l3keys2e 2025-10-09 LaTeX2e option processing using LaTeX3 keys
 )
 Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
-\g__lipsum_par_int=\count341
-\l__lipsum_a_int=\count342
-\l__lipsum_b_int=\count343
+\g__lipsum_par_int=\count343
+\l__lipsum_a_int=\count344
+\l__lipsum_b_int=\count345
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/lipsum/lipsum.ltd.t
-ex)) (./reporte.aux
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/lipsum/lipsum.ltd.tex)) (C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count346
+\float@exts=\toks36
+\float@box=\box60
+\@float@everytoks=\toks37
+\@floatcapt=\box61
+)
+(./reporte.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
@@ -910,56 +897,57 @@ Package babel Info: 'spanish' activates 'spanish' shorthands.
 )
 \openout1 = reporte.aux
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 70.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 88.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line
- 70.
+ 88.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/omlntxmi.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 88.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-70.
+88.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxexa.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 88.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 70.
+ 88.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/lmsntxsy.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 88.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 70.
+e 88.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/lmxntxexx.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Info: Redefining \. on input line 70.
-LaTeX Info: Redefining \% on input line 70.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Info: Redefining \. on input line 88.
+LaTeX Info: Redefining \% on input line 88.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: luatex
 *geometry* verbose mode - [ preamble ] result:
@@ -967,16 +955,16 @@ LaTeX Info: Redefining \% on input line 70.
 * paper: letterpaper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(108.405pt, 397.485pt, 108.405pt)
-* v-part:(T,H,B)=(108.405pt, 578.15999pt, 108.405pt)
+* modes: includehead 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=397.485pt
-* \textheight=578.15999pt
-* \oddsidemargin=36.13501pt
-* \evensidemargin=36.13501pt
-* \topmargin=-0.86499pt
+* \textwidth=469.75502pt
+* \textheight=613.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=0.0pt
 * \headheight=22.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -994,51 +982,57 @@ LaTeX Info: Redefining \% on input line 70.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 70.
+Package hyperref Info: Link coloring OFF on input line 88.
 (./reporte.out) (./reporte.out)
 \@outlinefile=\write3
 
 \openout3 = reporte.out
-LaTeX Info: Command `\dddot' is already robust on input line 70.
-LaTeX Info: Command `\ddddot' is already robust on input line 70.
+LaTeX Info: Command `\dddot' is already robust on input line 88.
+LaTeX Info: Command `\ddddot' is already robust on input line 88.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pd
-f.mkii
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mk
+ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count344
-\scratchdimen=\dimen260
-\scratchbox=\box60
-\nofMPsegments=\count345
-\nofMParguments=\count346
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count347
-\MPscratchDim=\dimen261
-\MPnumerator=\count348
-\makeMPintoPDFobject=\count349
-\everyMPtoPDFconversion=\toks37
+\scratchcounter=\count347
+\scratchdimen=\dimen270
+\scratchbox=\box62
+\nofMPsegments=\count348
+\nofMParguments=\count349
+\everyMPshowfont=\toks38
+\MPscratchCnt=\count350
+\MPscratchDim=\dimen271
+\MPnumerator=\count351
+\makeMPintoPDFobject=\count352
+\everyMPtoPDFconversion=\toks39
 )
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstop
-df-base.sty
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstopdf-b
+ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/00miktex/epstopdf-s
-ys.cfg
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/00miktex/epstopdf-sys.c
+fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@lstlisting=\count350
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\c@lstlisting=\count353
+Package hyperref Info: Option `pageanchor' set `false' on input line 90.
  [1
 
-{C:/Users/HERIBERTO/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
+{C:/Users/herie/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+Package hyperref Info: Option `pageanchor' set `true' on input line 102.
+
 [1] (./reporte.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 2
 .
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/lm/ot1lmr.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
@@ -1062,7 +1056,7 @@ LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
 LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 
 2.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxmia.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2024/04/09 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
@@ -1074,7 +1068,7 @@ LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
 LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 
 2.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxsym.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2023/08/16 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
@@ -1086,7 +1080,7 @@ LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
 LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 
 2.
 
-(C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxsyc.fd
+(C:/Users/herie/AppData/Local/Programs/MiKTeX/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
@@ -1107,471 +1101,491 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 
 \openout4 = reporte.toc
  [3]
-LaTeX Info: Redefining \. on input line 116.
-LaTeX Info: Redefining \% on input line 116.
+LaTeX Info: Redefining \. on input line 144.
+LaTeX Info: Redefining \% on input line 144.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
-(babel)             Reported on input line 116.
- [4]
-Overfull \hbox (34.21162pt too wide) in paragraph at lines 143--144
-\TU/EBGaramond(0)/m/n/10 de los ar-chi-vos \TU/lmtt/m/n/10 Materias estudiantes-
-profesores 2019-2025 P y O.xlsx \TU/EBGaramond(0)/m/n/10 y \TU/lmtt/m/n/10 Aseso
-rias2024.xlsx\TU/EBGaramond(0)/m/n/10 .
- []
+(babel)             Reported on input line 144.
+ [1
 
-(../../output_visitas/report_assets/tex/descriptive_summary.tex
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [5])
+]
+LaTeX Info: Redefining \. on input line 155.
+LaTeX Info: Redefining \% on input line 155.
+ [2]
+LaTeX Info: Redefining \. on input line 164.
+LaTeX Info: Redefining \% on input line 164.
+ [3
+
+]
+(../../output_visitas/report_assets/tex/descriptive_summary.tex)
 (../../output_visitas/report_assets/tex/core_counts_table.tex)
 (../../output_visitas/report_assets/tex/cleaning_summary_table.tex)
-Overfull \hbox (80.79823pt too wide) in paragraph at lines 1--163
- [][] 
- []
+LaTeX Info: Redefining \. on input line 196.
+LaTeX Info: Redefining \% on input line 196.
+ [4
 
-LaTeX Info: Redefining \. on input line 169.
-LaTeX Info: Redefining \% on input line 169.
-[6] (../../output_visitas/report_assets/tex/visits_distribution_table.tex)
-<../../output_visitas/report_assets/figures/visits_histogram.pdf, id=320, page=
+]
+(../../output_visitas/report_assets/tex/visits_distribution_table.tex)
+<../../output_visitas/report_assets/figures/visits_histogram.pdf, id=347, page=
 1, 611.45pt x 348.49573pt>
 File: ../../output_visitas/report_assets/figures/visits_histogram.pdf Graphic f
 ile (type pdf)
 <use ../../output_visitas/report_assets/figures/visits_histogram.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/report_assets/figures/visits_hist
-ogram.pdf , page1 used on input line 184.
-(luatex.def)             Requested size: 194.76982pt x 111.0104pt.
+ogram.pdf , page1 used on input line 211.
+(luatex.def)             Requested size: 230.18253pt x 131.19075pt.
 <../../output_visitas/report_assets/figures/visits_histogram_low_counts.pdf, id
-=321, page=1, 555.44075pt x 348.49573pt>
+=348, page=1, 555.44075pt x 348.49573pt>
 File: ../../output_visitas/report_assets/figures/visits_histogram_low_counts.pd
 f Graphic file (type pdf)
 <use ../../output_visitas/report_assets/figures/visits_histogram_low_counts.pdf
 , page 1>
 Package luatex.def Info: ../../output_visitas/report_assets/figures/visits_hist
-ogram_low_counts.pdf , page1 used on input line 189.
-(luatex.def)             Requested size: 194.76982pt x 122.19867pt.
-<../../output_visitas/report_assets/figures/visits_ecdf.pdf, id=322, page=1, 55
+ogram_low_counts.pdf , page1 used on input line 216.
+(luatex.def)             Requested size: 230.18253pt x 144.42096pt.
+<../../output_visitas/report_assets/figures/visits_ecdf.pdf, id=349, page=1, 55
 5.4721pt x 348.49573pt>
 File: ../../output_visitas/report_assets/figures/visits_ecdf.pdf Graphic file (
 type pdf)
 <use ../../output_visitas/report_assets/figures/visits_ecdf.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/report_assets/figures/visits_ecdf
-.pdf , page1 used on input line 196.
-(luatex.def)             Requested size: 194.76982pt x 122.19334pt.
-<../../output_visitas/report_assets/figures/visits_tail_curve.pdf, id=323, page
+.pdf , page1 used on input line 223.
+(luatex.def)             Requested size: 230.18253pt x 144.41032pt.
+<../../output_visitas/report_assets/figures/visits_tail_curve.pdf, id=350, page
 =1, 555.4721pt x 348.49573pt>
 File: ../../output_visitas/report_assets/figures/visits_tail_curve.pdf Graphic 
 file (type pdf)
 <use ../../output_visitas/report_assets/figures/visits_tail_curve.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/report_assets/figures/visits_tail
-_curve.pdf , page1 used on input line 201.
-(luatex.def)             Requested size: 194.76982pt x 122.19334pt.
-LaTeX Info: Redefining \. on input line 208.
-LaTeX Info: Redefining \% on input line 208.
-
-[7<../../output_visitas/report_assets/figures/visits_histogram.pdf><../../output
-_visitas/report_assets/figures/visits_histogram_low_counts.pdf><../../output_vis
-itas/report_assets/figures/visits_ecdf.pdf><../../output_visitas/report_assets/f
-igures/visits_tail_curve.pdf>]
+_curve.pdf , page1 used on input line 228.
+(luatex.def)             Requested size: 230.18253pt x 144.41032pt.
+LaTeX Info: Redefining \. on input line 235.
+LaTeX Info: Redefining \% on input line 235.
+ [5<../../output_visitas/report_assets/figures/visits_histogram.pdf><../../outpu
+t_visitas/report_assets/figures/visits_histogram_low_counts.pdf><../../output_vi
+sitas/report_assets/figures/visits_ecdf.pdf><../../output_visitas/report_assets/
+figures/visits_tail_curve.pdf>]
 <../../output_visitas/report_assets/figures/visits_continuation_curve.pdf, id=5
-03, page=1, 556.47586pt x 348.49573pt>
+30, page=1, 556.47586pt x 348.49573pt>
 File: ../../output_visitas/report_assets/figures/visits_continuation_curve.pdf 
 Graphic file (type pdf)
 <use ../../output_visitas/report_assets/figures/visits_continuation_curve.pdf, 
 page 1>
 Package luatex.def Info: ../../output_visitas/report_assets/figures/visits_cont
-inuation_curve.pdf , page1 used on input line 215.
-(luatex.def)             Requested size: 194.76982pt x 121.97533pt.
-<../../output_visitas/report_assets/figures/visits_lorenz_curve.pdf, id=504, pa
+inuation_curve.pdf , page1 used on input line 242.
+(luatex.def)             Requested size: 230.18253pt x 144.14977pt.
+<../../output_visitas/report_assets/figures/visits_lorenz_curve.pdf, id=531, pa
 ge=1, 414.33545pt x 431.96758pt>
 File: ../../output_visitas/report_assets/figures/visits_lorenz_curve.pdf Graphi
 c file (type pdf)
 <use ../../output_visitas/report_assets/figures/visits_lorenz_curve.pdf, page 1
 >
 Package luatex.def Info: ../../output_visitas/report_assets/figures/visits_lore
-nz_curve.pdf , page1 used on input line 220.
-(luatex.def)             Requested size: 194.76982pt x 203.05774pt.
-LaTeX Info: Redefining \. on input line 229.
-LaTeX Info: Redefining \% on input line 229.
- [8<../../output_visitas/report_assets/figures/visits_continuation_curve.pdf><..
-/../output_visitas/report_assets/figures/visits_lorenz_curve.pdf>]
-(../../output_visitas/report_assets/tex/concentration_table.tex)
-(../../output_visitas/report_assets/tex/year_summary_table.tex)
-Overfull \hbox (47.39497pt too wide) in paragraph at lines 1--250
- [][] 
- []
+nz_curve.pdf , page1 used on input line 247.
+(luatex.def)             Requested size: 230.18253pt x 239.97552pt.
 
-<../../output_visitas/report_assets/figures/visits_by_year.pdf, id=601, page=1,
+(../../output_visitas/report_assets/tex/concentration_table.tex)
+LaTeX Info: Redefining \. on input line 264.
+LaTeX Info: Redefining \% on input line 264.
+ [6<../../output_visitas/report_assets/figures/visits_continuation_curve.pdf><..
+/../output_visitas/report_assets/figures/visits_lorenz_curve.pdf>]
+(../../output_visitas/report_assets/tex/year_summary_table.tex)
+<../../output_visitas/report_assets/figures/visits_by_year.pdf, id=629, page=1,
  599.8755pt x 348.49573pt>
 File: ../../output_visitas/report_assets/figures/visits_by_year.pdf Graphic fil
 e (type pdf)
 <use ../../output_visitas/report_assets/figures/visits_by_year.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/report_assets/figures/visits_by_y
-ear.pdf , page1 used on input line 256.
-(luatex.def)             Requested size: 194.76982pt x 113.15341pt.
+ear.pdf , page1 used on input line 284.
+(luatex.def)             Requested size: 230.18253pt x 133.72192pt.
 <../../output_visitas/report_assets/figures/classroom_size_distribution.pdf, id
-=602, page=1, 609.52092pt x 348.49573pt>
+=630, page=1, 609.52092pt x 348.49573pt>
 File: ../../output_visitas/report_assets/figures/classroom_size_distribution.pd
 f Graphic file (type pdf)
 <use ../../output_visitas/report_assets/figures/classroom_size_distribution.pdf
 , page 1>
 Package luatex.def Info: ../../output_visitas/report_assets/figures/classroom_s
-ize_distribution.pdf , page1 used on input line 261.
-(luatex.def)             Requested size: 194.76982pt x 111.35606pt.
-LaTeX Info: Redefining \. on input line 268.
-LaTeX Info: Redefining \% on input line 268.
-[9] (../../output_visitas/report_assets/tex/grade_overview_table.tex)
+ize_distribution.pdf , page1 used on input line 289.
+(luatex.def)             Requested size: 230.18253pt x 131.60551pt.
+LaTeX Info: Redefining \. on input line 299.
+LaTeX Info: Redefining \% on input line 299.
+ [7]
+(../../output_visitas/report_assets/tex/grade_overview_table.tex)
 (../../output_visitas/report_assets/tex/grade_tokens_table.tex)
-LaTeX Info: Redefining \. on input line 291.
-LaTeX Info: Redefining \% on input line 291.
- [10<../../output_visitas/report_assets/figures/visits_by_year.pdf><../../output
-_visitas/report_assets/figures/classroom_size_distribution.pdf>]
-<../../output_visitas/raw_report_figures/03_01.pdf, id=705, page=1, 617.23724pt
+LaTeX Info: Redefining \. on input line 321.
+LaTeX Info: Redefining \% on input line 321.
+ [8<../../output_visitas/report_assets/figures/visits_by_year.pdf><../../output_
+visitas/report_assets/figures/classroom_size_distribution.pdf>]
+LaTeX Info: Redefining \. on input line 323.
+LaTeX Info: Redefining \% on input line 323.
+ [9]
+<../../output_visitas/raw_report_figures/03_01.pdf, id=740, page=1, 617.23724pt
  x 404.14363pt>
 File: ../../output_visitas/raw_report_figures/03_01.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/03_01.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/03_01.pdf , pa
-ge1 used on input line 305.
-(luatex.def)             Requested size: 278.23828pt x 182.18361pt.
-LaTeX Info: Redefining \. on input line 311.
-LaTeX Info: Redefining \% on input line 311.
- [11]
-<../../output_visitas/raw_report_figures/03_02.pdf, id=717, page=1, 613.37907pt
+ge1 used on input line 334.
+(luatex.def)             Requested size: 328.82707pt x 215.30511pt.
+<../../output_visitas/raw_report_figures/03_02.pdf, id=743, page=1, 613.37907pt
  x 404.14363pt>
 File: ../../output_visitas/raw_report_figures/03_02.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/03_02.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/03_02.pdf , pa
-ge1 used on input line 316.
-(luatex.def)             Requested size: 278.23828pt x 183.32446pt.
-LaTeX Info: Redefining \. on input line 322.
-LaTeX Info: Redefining \% on input line 322.
- [12<../../output_visitas/raw_report_figures/03_01.pdf><../../output_visitas/raw
-_report_figures/03_02.pdf>]
-LaTeX Info: Redefining \. on input line 350.
-LaTeX Info: Redefining \% on input line 350.
- [13]
-<../../output_visitas/raw_report_figures/05_01.pdf, id=818, page=1, 501.28217pt
+ge1 used on input line 345.
+(luatex.def)             Requested size: 328.82707pt x 216.65562pt.
+LaTeX Info: Redefining \. on input line 351.
+LaTeX Info: Redefining \% on input line 351.
+ [10
+
+<../../output_visitas/raw_report_figures/03_01.pdf>]
+LaTeX Info: Redefining \. on input line 356.
+LaTeX Info: Redefining \% on input line 356.
+ [11<../../output_visitas/raw_report_figures/03_02.pdf>]
+LaTeX Info: Redefining \. on input line 375.
+LaTeX Info: Redefining \% on input line 375.
+ [12
+
+]
+<../../output_visitas/raw_report_figures/05_01.pdf, id=852, page=1, 501.28217pt
  x 320.68745pt>
 File: ../../output_visitas/raw_report_figures/05_01.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_01.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_01.pdf , pa
-ge1 used on input line 370.
-(luatex.def)             Requested size: 278.23828pt x 178.0081pt.
-LaTeX Info: Redefining \. on input line 376.
-LaTeX Info: Redefining \% on input line 376.
- [14]
-<../../output_visitas/raw_report_figures/05_03.pdf, id=833, page=1, 500.27841pt
+ge1 used on input line 399.
+(luatex.def)             Requested size: 234.8775pt x 150.26314pt.
+LaTeX Info: Redefining \. on input line 404.
+LaTeX Info: Redefining \% on input line 404.
+ [13
+
+]
+<../../output_visitas/raw_report_figures/05_03.pdf, id=866, page=1, 500.27841pt
  x 320.68745pt>
 File: ../../output_visitas/raw_report_figures/05_03.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_03.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_03.pdf , pa
-ge1 used on input line 384.
-(luatex.def)             Requested size: 198.7425pt x 127.3968pt.
-LaTeX Info: Redefining \. on input line 392.
-LaTeX Info: Redefining \% on input line 392.
- [15<../../output_visitas/raw_report_figures/05_01.pdf>]
-<../../output_visitas/raw_report_figures/05_04.pdf, id=884, page=1, 497.424pt x
+ge1 used on input line 414.
+(luatex.def)             Requested size: 234.8775pt x 150.56163pt.
+LaTeX Info: Redefining \. on input line 419.
+LaTeX Info: Redefining \% on input line 419.
+ [14<../../output_visitas/raw_report_figures/05_01.pdf><../../output_visitas/raw
+_report_figures/05_03.pdf>]
+<../../output_visitas/raw_report_figures/05_04.pdf, id=956, page=1, 497.424pt x
  320.68745pt>
 File: ../../output_visitas/raw_report_figures/05_04.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_04.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_04.pdf , pa
-ge1 used on input line 395.
-(luatex.def)             Requested size: 198.7425pt x 128.1259pt.
-LaTeX Info: Redefining \. on input line 406.
-LaTeX Info: Redefining \% on input line 406.
- [16<../../output_visitas/raw_report_figures/05_03.pdf><../../output_visitas/raw
-_report_figures/05_04.pdf>]
-<../../output_visitas/raw_report_figures/05_05.pdf, id=970, page=1, 497.424pt x
+ge1 used on input line 424.
+(luatex.def)             Requested size: 234.8775pt x 151.42285pt.
+<../../output_visitas/raw_report_figures/05_05.pdf, id=959, page=1, 497.424pt x
  320.68745pt>
 File: ../../output_visitas/raw_report_figures/05_05.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_05.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_05.pdf , pa
-ge1 used on input line 409.
-(luatex.def)             Requested size: 278.23828pt x 179.38312pt.
-LaTeX Info: Redefining \. on input line 420.
-LaTeX Info: Redefining \% on input line 420.
- [17<../../output_visitas/raw_report_figures/05_05.pdf>]
-<../../output_visitas/raw_report_figures/05_06.pdf, id=1025, page=1, 777.93523p
+ge1 used on input line 437.
+(luatex.def)             Requested size: 234.8775pt x 151.42285pt.
+LaTeX Info: Redefining \. on input line 444.
+LaTeX Info: Redefining \% on input line 444.
+ [15<../../output_visitas/raw_report_figures/05_04.pdf><../../output_visitas/raw
+_report_figures/05_05.pdf>]
+<../../output_visitas/raw_report_figures/05_06.pdf, id=1051, page=1, 777.93523p
 t x 553.02924pt>
 File: ../../output_visitas/raw_report_figures/05_06.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_06.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_06.pdf , pa
-ge1 used on input line 423.
-(luatex.def)             Requested size: 278.23828pt x 197.79927pt.
-<../../output_visitas/raw_report_figures/05_07.pdf, id=1028, page=1, 777.93523p
+ge1 used on input line 451.
+(luatex.def)             Requested size: 328.82707pt x 233.76431pt.
+<../../output_visitas/raw_report_figures/05_07.pdf, id=1054, page=1, 777.93523p
 t x 553.02924pt>
 File: ../../output_visitas/raw_report_figures/05_07.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_07.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_07.pdf , pa
-ge1 used on input line 432.
-(luatex.def)             Requested size: 278.23828pt x 197.79927pt.
-LaTeX Info: Redefining \. on input line 441.
-LaTeX Info: Redefining \% on input line 441.
+ge1 used on input line 460.
+(luatex.def)             Requested size: 328.82707pt x 233.76431pt.
+LaTeX Info: Redefining \. on input line 466.
+LaTeX Info: Redefining \% on input line 466.
 
-[18<../../output_visitas/raw_report_figures/05_06.pdf>]
-<../../output_visitas/raw_report_figures/05_08.pdf, id=1085, page=1, 1420.44615
+[16<../../output_visitas/raw_report_figures/05_06.pdf>]
+<../../output_visitas/raw_report_figures/05_08.pdf, id=1114, page=1, 1420.44615
 pt x 1133.39284pt>
 File: ../../output_visitas/raw_report_figures/05_08.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_08.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_08.pdf , pa
-ge1 used on input line 446.
-(luatex.def)             Requested size: 278.23828pt x 222.00513pt.
-<../../output_visitas/raw_report_figures/05_09.pdf, id=1086, page=1, 842.2071pt
+ge1 used on input line 474.
+(luatex.def)             Requested size: 328.82707pt x 262.36969pt.
+LaTeX Info: Redefining \. on input line 479.
+LaTeX Info: Redefining \% on input line 479.
+ [17<../../output_visitas/raw_report_figures/05_07.pdf>]
+<../../output_visitas/raw_report_figures/05_09.pdf, id=1170, page=1, 842.2071pt
  x 335.9777pt>
 File: ../../output_visitas/raw_report_figures/05_09.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_09.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_09.pdf , pa
-ge1 used on input line 455.
-(luatex.def)             Requested size: 278.23828pt x 110.99602pt.
-LaTeX Info: Redefining \. on input line 464.
-LaTeX Info: Redefining \% on input line 464.
- [19<../../output_visitas/raw_report_figures/05_07.pdf>]
-LaTeX Info: Redefining \. on input line 464.
-LaTeX Info: Redefining \% on input line 464.
- [20<../../output_visitas/raw_report_figures/05_08.pdf><../../output_visitas/raw
+ge1 used on input line 484.
+(luatex.def)             Requested size: 328.82707pt x 131.17944pt.
+LaTeX Info: Redefining \. on input line 493.
+LaTeX Info: Redefining \% on input line 493.
+ [18<../../output_visitas/raw_report_figures/05_08.pdf><../../output_visitas/raw
 _report_figures/05_09.pdf>]
-<../../output_visitas/raw_report_figures/05_10.pdf, id=1254, page=1, 1525.51901
+<../../output_visitas/raw_report_figures/05_10.pdf, id=1289, page=1, 1525.51901
 pt x 442.05103pt>
 File: ../../output_visitas/raw_report_figures/05_10.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_10.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_10.pdf , pa
-ge1 used on input line 467.
-(luatex.def)             Requested size: 397.485pt x 115.18011pt.
-<../../output_visitas/raw_report_figures/05_11.pdf, id=1255, page=1, 1525.51901
+ge1 used on input line 496.
+(luatex.def)             Requested size: 469.75502pt x 136.11705pt.
+LaTeX Info: Redefining \. on input line 506.
+LaTeX Info: Redefining \% on input line 506.
+ [19<../../output_visitas/raw_report_figures/05_10.pdf>]
+<../../output_visitas/raw_report_figures/05_11.pdf, id=1346, page=1, 1525.51901
 pt x 442.05103pt>
 File: ../../output_visitas/raw_report_figures/05_11.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/05_11.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/05_11.pdf , pa
-ge1 used on input line 476.
-(luatex.def)             Requested size: 397.485pt x 115.18011pt.
-LaTeX Info: Redefining \. on input line 482.
-LaTeX Info: Redefining \% on input line 482.
- [21<../../output_visitas/raw_report_figures/05_10.pdf><../../output_visitas/raw
-_report_figures/05_11.pdf>]
-<../../output_visitas/raw_report_figures/06_00.pdf, id=1365, page=1, 553.235pt 
+ge1 used on input line 509.
+(luatex.def)             Requested size: 469.75502pt x 136.11705pt.
+LaTeX Info: Redefining \. on input line 522.
+LaTeX Info: Redefining \% on input line 522.
+ [20<../../output_visitas/raw_report_figures/05_11.pdf>]
+<../../output_visitas/raw_report_figures/06_00.pdf, id=1405, page=1, 553.235pt 
 x 300.08424pt>
 File: ../../output_visitas/raw_report_figures/06_00.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/06_00.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/06_00.pdf , pa
-ge1 used on input line 496.
-(luatex.def)             Requested size: 278.23828pt x 150.9209pt.
-LaTeX Info: Redefining \. on input line 507.
-LaTeX Info: Redefining \% on input line 507.
- [22]
-<../../output_visitas/raw_report_figures/07_00.pdf, id=1374, page=1, 610.47762p
+ge1 used on input line 527.
+(luatex.def)             Requested size: 328.82707pt x 178.36232pt.
+LaTeX Info: Redefining \. on input line 540.
+LaTeX Info: Redefining \% on input line 540.
+ [21
+
+<../../output_visitas/raw_report_figures/06_00.pdf>]
+<../../output_visitas/raw_report_figures/07_00.pdf, id=1454, page=1, 610.47762p
 t x 404.15932pt>
 File: ../../output_visitas/raw_report_figures/07_00.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/07_00.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/07_00.pdf , pa
-ge1 used on input line 518.
-(luatex.def)             Requested size: 278.23828pt x 184.20111pt.
-<../../output_visitas/raw_report_figures/07_00_ecdf.pdf, id=1375, page=1, 607.5
+ge1 used on input line 549.
+(luatex.def)             Requested size: 328.82707pt x 217.69391pt.
+LaTeX Info: Redefining \. on input line 558.
+LaTeX Info: Redefining \% on input line 558.
+ [22
+
+<../../output_visitas/raw_report_figures/07_00.pdf>]
+<../../output_visitas/raw_report_figures/07_00_ecdf.pdf, id=1515, page=1, 607.5
 1341pt x 404.15932pt>
 File: ../../output_visitas/raw_report_figures/07_00_ecdf.pdf Graphic file (type
  pdf)
 <use ../../output_visitas/raw_report_figures/07_00_ecdf.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/07_00_ecdf.pdf
- , page1 used on input line 529.
-(luatex.def)             Requested size: 278.23828pt x 185.10149pt.
-LaTeX Info: Redefining \. on input line 535.
-LaTeX Info: Redefining \% on input line 535.
- [23<../../output_visitas/raw_report_figures/06_00.pdf>]
-LaTeX Info: Redefining \. on input line 535.
-LaTeX Info: Redefining \% on input line 535.
- [24<../../output_visitas/raw_report_figures/07_00.pdf><../../output_visitas/raw
-_report_figures/07_00_ecdf.pdf>]
+ , page1 used on input line 561.
+(luatex.def)             Requested size: 328.82707pt x 218.76079pt.
+LaTeX Info: Redefining \. on input line 568.
+LaTeX Info: Redefining \% on input line 568.
+ [23<../../output_visitas/raw_report_figures/07_00_ecdf.pdf>]
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 14.4pt on input line 536.
+(Font)              scaled to size 14.4pt on input line 569.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 10.5pt on input line 536.
+(Font)              scaled to size 10.5pt on input line 569.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 7.9pt on input line 536.
+(Font)              scaled to size 7.9pt on input line 569.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 14.4pt on input line 536.
+(Font)              scaled to size 14.4pt on input line 569.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 10.5pt on input line 536.
+(Font)              scaled to size 10.5pt on input line 569.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 7.9pt on input line 536.
+(Font)              scaled to size 7.9pt on input line 569.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 14.4pt on input line 536.
+(Font)              scaled to size 14.4pt on input line 569.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 10.5pt on input line 536.
+(Font)              scaled to size 10.5pt on input line 569.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 7.9pt on input line 536.
+(Font)              scaled to size 7.9pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 14.4pt on input line 536.
+(Font)              scaled to size 14.4pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 10.5pt on input line 536.
+(Font)              scaled to size 10.5pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 7.9pt on input line 536.
+(Font)              scaled to size 7.9pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 14.4pt on input line 536.
+(Font)              scaled to size 14.4pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 10.5pt on input line 536.
+(Font)              scaled to size 10.5pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 7.9pt on input line 536.
+(Font)              scaled to size 7.9pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 14.4pt on input line 536.
+(Font)              scaled to size 14.4pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 10.5pt on input line 536.
+(Font)              scaled to size 10.5pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 7.9pt on input line 536.
+(Font)              scaled to size 7.9pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 14.4pt on input line 536.
+(Font)              scaled to size 14.4pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 10.5pt on input line 536.
+(Font)              scaled to size 10.5pt on input line 569.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 7.9pt on input line 536.
-<../../output_visitas/raw_report_figures/07_01.pdf, id=1532, page=1, 607.51341p
+(Font)              scaled to size 7.9pt on input line 569.
+<../../output_visitas/raw_report_figures/07_01.pdf, id=1575, page=1, 607.51341p
 t x 404.15932pt>
 File: ../../output_visitas/raw_report_figures/07_01.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/07_01.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/07_01.pdf , pa
-ge1 used on input line 541.
-(luatex.def)             Requested size: 278.23828pt x 185.10149pt.
-LaTeX Info: Redefining \. on input line 552.
-LaTeX Info: Redefining \% on input line 552.
- [25<../../output_visitas/raw_report_figures/07_01.pdf>]
-<../../output_visitas/raw_report_figures/07_02.pdf, id=1596, page=1, 607.51341p
+ge1 used on input line 574.
+(luatex.def)             Requested size: 328.82707pt x 218.76079pt.
+LaTeX Info: Redefining \. on input line 583.
+LaTeX Info: Redefining \% on input line 583.
+ [24<../../output_visitas/raw_report_figures/07_01.pdf>]
+<../../output_visitas/raw_report_figures/07_02.pdf, id=1640, page=1, 607.51341p
 t x 404.15932pt>
 File: ../../output_visitas/raw_report_figures/07_02.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/07_02.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/07_02.pdf , pa
-ge1 used on input line 555.
-(luatex.def)             Requested size: 278.23828pt x 185.10149pt.
-LaTeX Info: Redefining \. on input line 571.
-LaTeX Info: Redefining \% on input line 571.
- [26<../../output_visitas/raw_report_figures/07_02.pdf>]
-<../../output_visitas/raw_report_figures/08_00.pdf, id=1671, page=1, 610.47762p
+ge1 used on input line 589.
+(luatex.def)             Requested size: 328.82707pt x 218.76079pt.
+LaTeX Info: Redefining \. on input line 602.
+LaTeX Info: Redefining \% on input line 602.
+ [25<../../output_visitas/raw_report_figures/07_02.pdf>]
+<../../output_visitas/raw_report_figures/08_00.pdf, id=1720, page=1, 610.47762p
 t x 404.15932pt>
 File: ../../output_visitas/raw_report_figures/08_00.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/08_00.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/08_00.pdf , pa
-ge1 used on input line 577.
-(luatex.def)             Requested size: 278.23828pt x 184.20111pt.
-<../../output_visitas/raw_report_figures/08_00_ecdf.pdf, id=1674, page=1, 607.5
+ge1 used on input line 611.
+(luatex.def)             Requested size: 328.82707pt x 217.69391pt.
+LaTeX Info: Redefining \. on input line 620.
+LaTeX Info: Redefining \% on input line 620.
+ [26
+
+<../../output_visitas/raw_report_figures/08_00.pdf>]
+<../../output_visitas/raw_report_figures/08_00_ecdf.pdf, id=1783, page=1, 607.5
 1341pt x 404.17499pt>
 File: ../../output_visitas/raw_report_figures/08_00_ecdf.pdf Graphic file (type
  pdf)
 <use ../../output_visitas/raw_report_figures/08_00_ecdf.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/08_00_ecdf.pdf
- , page1 used on input line 588.
-(luatex.def)             Requested size: 278.23828pt x 185.10867pt.
-LaTeX Info: Redefining \. on input line 594.
-LaTeX Info: Redefining \% on input line 594.
- [27<../../output_visitas/raw_report_figures/08_00.pdf>]
-<../../output_visitas/raw_report_figures/08_01.pdf, id=1738, page=1, 657.57858p
+ , page1 used on input line 623.
+(luatex.def)             Requested size: 328.82707pt x 218.76929pt.
+LaTeX Info: Redefining \. on input line 630.
+LaTeX Info: Redefining \% on input line 630.
+ [27<../../output_visitas/raw_report_figures/08_00_ecdf.pdf>]
+<../../output_visitas/raw_report_figures/08_01.pdf, id=1844, page=1, 657.57858p
 t x 404.15932pt>
 File: ../../output_visitas/raw_report_figures/08_01.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/08_01.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/08_01.pdf , pa
-ge1 used on input line 600.
-(luatex.def)             Requested size: 278.23828pt x 171.00996pt.
-LaTeX Info: Redefining \. on input line 611.
-LaTeX Info: Redefining \% on input line 611.
- [28<../../output_visitas/raw_report_figures/08_00_ecdf.pdf>]
-<../../output_visitas/raw_report_figures/08_02.pdf, id=1800, page=1, 607.51341p
+ge1 used on input line 636.
+(luatex.def)             Requested size: 328.82707pt x 202.10382pt.
+LaTeX Info: Redefining \. on input line 645.
+LaTeX Info: Redefining \% on input line 645.
+ [28<../../output_visitas/raw_report_figures/08_01.pdf>]
+<../../output_visitas/raw_report_figures/08_02.pdf, id=1914, page=1, 607.51341p
 t x 404.14363pt>
 File: ../../output_visitas/raw_report_figures/08_02.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/08_02.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/08_02.pdf , pa
-ge1 used on input line 614.
-(luatex.def)             Requested size: 278.23828pt x 185.09431pt.
-LaTeX Info: Redefining \. on input line 621.
-LaTeX Info: Redefining \% on input line 621.
- [29<../../output_visitas/raw_report_figures/08_01.pdf><../../output_visitas/raw
-_report_figures/08_02.pdf>]
-<../../output_visitas/raw_report_figures/09_01.pdf, id=1934, page=1, 691.98274p
+ge1 used on input line 651.
+(luatex.def)             Requested size: 328.82707pt x 218.7523pt.
+LaTeX Info: Redefining \. on input line 664.
+LaTeX Info: Redefining \% on input line 664.
+
+[29<../../output_visitas/raw_report_figures/08_02.pdf>]
+<../../output_visitas/raw_report_figures/09_01.pdf, id=1992, page=1, 691.98274p
 t x 408.47356pt>
 File: ../../output_visitas/raw_report_figures/09_01.pdf Graphic file (type pdf)
 
 <use ../../output_visitas/raw_report_figures/09_01.pdf, page 1>
 Package luatex.def Info: ../../output_visitas/raw_report_figures/09_01.pdf , pa
-ge1 used on input line 636.
-(luatex.def)             Requested size: 278.23828pt x 164.24042pt.
-LaTeX Info: Redefining \. on input line 644.
-LaTeX Info: Redefining \% on input line 644.
- [30<../../output_visitas/raw_report_figures/09_01.pdf>]
-LaTeX Info: Redefining \. on input line 648.
-LaTeX Info: Redefining \% on input line 648.
- [31]
-LaTeX Info: Redefining \. on input line 662.
-LaTeX Info: Redefining \% on input line 662.
- [32]
-LaTeX Info: Redefining \. on input line 688.
-LaTeX Info: Redefining \% on input line 688.
+ge1 used on input line 673.
+(luatex.def)             Requested size: 328.82707pt x 194.10797pt.
+LaTeX Info: Redefining \. on input line 685.
+LaTeX Info: Redefining \% on input line 685.
+ [30
+
+<../../output_visitas/raw_report_figures/09_01.pdf>]
+LaTeX Info: Redefining \. on input line 698.
+LaTeX Info: Redefining \% on input line 698.
+ [31
+
+]
+LaTeX Info: Redefining \. on input line 730.
+LaTeX Info: Redefining \% on input line 730.
+ [32
+
+]
+LaTeX Info: Redefining \. on input line 770.
+LaTeX Info: Redefining \% on input line 770.
  [33]
-LaTeX Info: Redefining \. on input line 727.
-LaTeX Info: Redefining \% on input line 727.
+LaTeX Info: Redefining \. on input line 802.
+LaTeX Info: Redefining \% on input line 802.
  [34]
-LaTeX Info: Redefining \. on input line 762.
-LaTeX Info: Redefining \% on input line 762.
+LaTeX Info: Redefining \. on input line 840.
+LaTeX Info: Redefining \% on input line 840.
  [35]
-LaTeX Info: Redefining \. on input line 790.
-LaTeX Info: Redefining \% on input line 790.
- [36]
-LaTeX Info: Redefining \. on input line 796.
-LaTeX Info: Redefining \% on input line 796.
- [37] (./reporte.aux
+LaTeX Info: Redefining \. on input line 865.
+LaTeX Info: Redefining \% on input line 865.
+ [36] (./reporte.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
  ***********
 LaTeX2e <2025-11-01>
-L3 programming layer <2026-01-19>
+L3 programming layer <2026-03-20>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `reporte.out' has not changed.
-(rerunfilecheck)             Checksum: 20E5144B1F8B29A3F61F1D5AFA49A09C;14814.
+(rerunfilecheck)             Checksum: 156C5CCCBD9184643AA5A64AB756BC7F;15069.
 )
 
 Here is how much of LuaTeX's memory you used:
- 20843 strings out of 476076
- 125007,953878 words of node,token memory allocated
- 857 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 4 glue, 4 kern, 1 glyph, 59 attribute, 90 glue_spec
-, 30 attribute_list, 1 write, 1 pdf_action nodes
-   avail lists: 1:2,2:1652,3:410,4:41,5:762,6:121,7:11442,8:43,9:670,10:23,11:16
-35
- 42535 multiletter control sequences out of 65536+600000
- 146 fonts using 20138015 bytes
- 73i,13n,92p,1341b,689s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}<
-C:/Users/HERIBERTO/AppData/Local/Microsoft/Windows/Fonts/ebgaramond-italic-varia
-blefont_wght.ttf><c:/users/heriberto/appdata/local/programs/miktex/fonts/opentyp
-e/public/lm/lmmono10-regular.otf><C:/Users/HERIBERTO/AppData/Local/Microsoft/Win
-dows/Fonts/ebgaramond-variablefont_wght.ttf><C:/Users/HERIBERTO/AppData/Local/Mi
-crosoft/Windows/Fonts/ebgaramond-semibold.ttf><C:/Users/HERIBERTO/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/newtx/NewTXMI.pfb><C:/Users/HERIBERTO/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewTXMI5.pfb><C:/Users/HERIBERTO
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewTXMI7.pfb><C:/Users/H
-ERIBERTO/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users
-/HERIBERTO/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Use
-rs/HERIBERTO/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Us
-ers/HERIBERTO/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/U
-sers/HERIBERTO/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txexs.pfb>
-<C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txmia
-X.pfb><C:/Users/HERIBERTO/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx
-/txsys.pfb>
-Output written on reporte.pdf (38 pages, 2283088 bytes).
+ 22252 strings out of 475900
+ 125005,1144653 words of node,token memory allocated
+ 851 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 4 glue, 4 kern, 1 glyph, 57 attribute, 90 glue_spec
+, 29 attribute_list, 1 write, 1 pdf_action nodes
+   avail lists: 1:1,2:1739,3:430,4:41,5:697,6:127,7:10022,8:43,9:704,10:31,11:14
+76
+ 44100 multiletter control sequences out of 65536+600000
+ 153 fonts using 21991591 bytes
+ 73i,13n,115p,1310b,687s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{C:/Users/herie/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}<c:/u
+sers/herie/appdata/local/programs/miktex/fonts/opentype/public/lm/lmmono8-regula
+r.otf><c:/users/herie/appdata/local/programs/miktex/fonts/opentype/public/lm/lmm
+ono10-regular.otf><C:/Users/herie/AppData/Local/Microsoft/Windows/Fonts/ebgaramo
+nd-italic-variablefont_wght.ttf><C:/Users/herie/AppData/Local/Microsoft/Windows/
+Fonts/ebgaramond-variablefont_wght.ttf><C:/Users/herie/AppData/Local/Microsoft/W
+indows/Fonts/ebgaramond-semibold.ttf><C:/Users/herie/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/newtx/NewTXMI.pfb><C:/Users/herie/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/newtx/NewTXMI5.pfb><C:/Users/herie/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/newtx/NewTXMI7.pfb><C:/Users/herie/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/herie/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/herie/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/herie/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/herie/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/newtx/txexs.pfb><C:/Users/herie/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/newtx/txmiaX.pfb><C:/Users/herie/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/newtx/txsys.pfb>
+Output written on reporte.pdf (40 pages, 2292157 bytes).
 
-PDF statistics: 2093 PDF objects out of 2487 (max. 8388607)
- 125 named destinations out of 1000 (max. 1048576)
- 441 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 2156 PDF objects out of 2487 (max. 8388607)
+ 131 named destinations out of 1000 (max. 1048576)
+ 473 words of extra memory for PDF output out of 10000 (max. 100000000)
 

@@ -121,7 +121,7 @@ def display_missing_scores(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame
     out = df.copy()
     for col in columns:
         if col in out.columns:
-            out[col] = pd.to_numeric(out[col], errors="coerce").fillna(MISSING_DISPLAY_VALUE)
+            out[col] = pd.to_numeric(out[col], errors="coerce")
     return out
 
 

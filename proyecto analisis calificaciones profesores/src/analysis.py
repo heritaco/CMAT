@@ -53,6 +53,9 @@ def apply_thresholds(
     ga_raw = pd.to_numeric(out["Total GA-120"], errors="coerce")
     gb_raw = pd.to_numeric(out["Total GB-160"], errors="coerce")
     dmu_raw = pd.to_numeric(out["Total DMU-150"], errors="coerce")
+    out["Total GA-120 faltante"] = ga_raw.isna()
+    out["Total GB-160 faltante"] = gb_raw.isna()
+    out["Total DMU-150 faltante"] = dmu_raw.isna()
     ga = _missing_policy(out["Total GA-120"], include_missing_scores_in_condition)
     gb = _missing_policy(out["Total GB-160"], include_missing_scores_in_condition)
     dmu = _missing_policy(out["Total DMU-150"], include_missing_scores_in_condition)
@@ -195,7 +198,52 @@ def professor_summary(df: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def student_table(df: pd.DataFrame, status: str = "cumple") -> pd.DataFrame:
+def clean_display_text(series: pd.Series) -> pd.Series:
+    text = series.astype("string").str.strip()
+    return text.mask(text.str.lower().isin(["", "none", "nan", "null", "<na>"]))
+
+
+def add_subject_detail_columns(
+    table: pd.DataFrame,
+    reference: pd.DataFrame,
+    materias: list[str] | None,
+    anchor_materia: str | None,
+) -> pd.DataFrame:
+    if not materias or len(materias) <= 1 or not anchor_materia or table.empty:
+        return table
+    required = {"ID", "Año", "Clave materia", "Nombre de profesor", "Calificación de materia original"}
+    if not required.issubset(reference.columns) or not {"ID", "Año"}.issubset(table.columns):
+        return table
+
+    merged = table.copy()
+    dynamic_columns = []
+    for materia in materias:
+        if materia == anchor_materia:
+            continue
+        professor_col = f"Nombre del profesor en {materia}"
+        grade_col = f"Calificación de materia en {materia}"
+        lookup = reference[reference["Clave materia"].eq(materia)].copy()
+        if lookup.empty:
+            continue
+        lookup[professor_col] = clean_display_text(lookup["Nombre de profesor"])
+        lookup[grade_col] = clean_display_text(lookup["Calificación de materia original"])
+        lookup = lookup[["ID", "Año", professor_col, grade_col]].drop_duplicates()
+        merged = merged.merge(lookup, on=["ID", "Año"], how="left")
+        dynamic_columns.extend([professor_col, grade_col])
+
+    if "Nombre de profesor" not in merged.columns:
+        return merged
+    leading_columns = list(merged.columns[: merged.columns.get_loc("Nombre de profesor") + 1])
+    trailing_columns = [col for col in merged.columns if col not in leading_columns + dynamic_columns]
+    return merged[leading_columns + dynamic_columns + trailing_columns]
+
+
+def student_table(
+    df: pd.DataFrame,
+    status: str = "cumple",
+    materias: list[str] | None = None,
+    anchor_materia: str | None = None,
+) -> pd.DataFrame:
     cols = [
         "ID",
         "Año",
@@ -205,6 +253,9 @@ def student_table(df: pd.DataFrame, status: str = "cumple") -> pd.DataFrame:
         "Total GA-120",
         "Total GB-160",
         "Total DMU-150",
+        "Total GA-120 faltante",
+        "Total GB-160 faltante",
+        "Total DMU-150 faltante",
         "Calificación de materia original",
         "asesorias_count",
         "razones_cumplimiento",
@@ -215,9 +266,12 @@ def student_table(df: pd.DataFrame, status: str = "cumple") -> pd.DataFrame:
         out = df[~df["indicador_cumple"]].copy()
     else:
         out = df.copy()
-    return out[[col for col in cols if col in out.columns]].sort_values(
-        ["Nombre de profesor", "ID", "Clave materia"]
-    )
+    if anchor_materia and "Clave materia" in out.columns:
+        out = out[out["Clave materia"].eq(anchor_materia)].copy()
+    out = out[[col for col in cols if col in out.columns]]
+    out = add_subject_detail_columns(out, df, materias, anchor_materia)
+    sort_cols = [col for col in ["Nombre de profesor", "ID", "Clave materia"] if col in out.columns]
+    return out.sort_values(sort_cols)
 
 
 def heatmap_table(df: pd.DataFrame, value: str) -> pd.DataFrame:

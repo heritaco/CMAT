@@ -32,17 +32,19 @@ El cargador acepta formatos tabulares comunes como `.csv`, `.xlsx`, `.xls`, `.xl
 - `Calificación de materia original`: valor original antes de convertir a numero, util para casos como `BA`.
 - `calificacion_no_numerica`: indica si la calificacion original no se pudo convertir a numero.
 
-## Crear entorno Conda
+## Crear entorno Conda local
 
 ```bash
-conda env create -f environment.yml
+conda create -n cmat python=3.10
 conda activate cmat
+pip install -r requirements.txt
 ```
 
 Si el entorno `cmat` ya existe:
 
 ```bash
 conda activate cmat
+pip install -r requirements.txt
 ```
 
 ## Alternativa con pip
@@ -56,16 +58,54 @@ pip install -r requirements.txt
 Desde esta carpeta:
 
 ```bash
-streamlit run app.py
+conda run -n cmat python -m streamlit run app.py
 ```
 
-Flujo completo esperado:
+Si `conda activate cmat` funciona correctamente en tu terminal:
 
 ```bash
 cd "proyecto analisis calificaciones profesores"
 conda activate cmat
-streamlit run app.py
+python -m streamlit run app.py
 ```
+
+## Acceso con password
+
+El dashboard esta protegido con una password leida desde los secretos de Streamlit.
+
+Para correrlo localmente, crea un archivo `.streamlit/secrets.toml` basado en
+`.streamlit/secrets.toml.example`:
+
+```toml
+APP_PASSWORD = "tu-password-segura"
+```
+
+El archivo real `.streamlit/secrets.toml` esta ignorado por Git y no debe subirse
+al repositorio.
+
+En Streamlit Community Cloud, configura la misma variable en:
+
+```toml
+APP_PASSWORD = "tu-password-segura"
+```
+
+desde `App settings > Secrets`.
+
+## Notas para despliegue web
+
+Los datos del proyecto son confidenciales. La carpeta `data/` esta ignorada por
+Git para evitar subir archivos sensibles por accidente.
+
+Antes de desplegar, decide donde viviran los datos:
+
+- Si el repositorio es privado y la politica de datos lo permite, puedes subirlos
+  ahi con cuidado.
+- Si los datos no deben estar en GitHub, usa un servidor privado o almacenamiento
+  privado y ajusta el cargador para leer desde ahi.
+
+La password de la app es una capa basica de acceso. Para informacion sensible,
+lo ideal es combinarla con un repositorio privado, permisos de usuario o un
+servidor privado/VPN.
 
 ## Filtros
 
@@ -78,8 +118,9 @@ streamlit run app.py
 - `Rango numero de asistencias a asesorias`: define el intervalo aceptado de asistencias; incluye `0` para alumnos sin registros de asesorias en ese año.
 - `Permitir que alumnos con GA/GB/DMU faltante cumplan la condicion`: si esta apagado, los faltantes excluyen al registro del cumplimiento; si esta encendido, un faltante no impide que cumpla.
 - `Permitir calificaciones no numericas en la condicion`: si esta encendido, valores como `BA` pueden cumplir la parte de calificacion aunque no tengan numero.
-- `Mostrar filas con -1 en tablas`: controla si las tablas muestran registros con GA/GB/DMU faltante.
+- `Mostrar filas con puntajes faltantes en tablas`: controla si las tablas muestran registros con GA/GB/DMU faltante.
 - `Mostrar calificaciones no numericas en tablas`: controla si las tablas muestran registros cuyo valor original no se pudo convertir a numero.
+- `Ocultar filas con valores faltantes en columnas`: permite exigir datos presentes en columnas especificas de las tablas de alumnos, por ejemplo `Total GA-120`.
 - `Filtro por profesor`: limita el analisis a profesores seleccionados.
 - `Filtro por año`: limita el analisis a uno o varios años.
 
@@ -89,9 +130,9 @@ streamlit run app.py
 - `Alumnos que cumplen las condiciones`: registros individuales que satisfacen todos los rangos activos. Incluye el `Año` en que el estudiante curso con ese profesor.
 - `Alumnos que NO cumplen las condiciones`: registros filtrados que no satisfacen simultaneamente las condiciones activas.
 
-## Valores -1
+## Valores faltantes
 
-Para visualizacion, los faltantes en `Total GA-120`, `Total GB-160` y `Total DMU-150` se muestran como `-1`. Esto permite distinguir claramente registros sin puntaje. El toggle de faltantes controla si esos registros pueden cumplir la condicion, y otro toggle controla si aparecen en las tablas.
+Para visualizacion, los faltantes en `Total GA-120`, `Total GB-160` y `Total DMU-150` se muestran como celdas vacias en las tablas. El dashboard conserva internamente banderas de faltante para distinguirlos de valores registrados, controlar si pueden cumplir la condicion y excluirlos de las graficas numericas.
 
 ## Validaciones incluidas
 

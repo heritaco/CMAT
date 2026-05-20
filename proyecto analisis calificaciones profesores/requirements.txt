@@ -3,6 +3,5 @@ numpy
 openpyxl
 plotly
 streamlit
-pathlib
 pyxlsb
 pyarrow
